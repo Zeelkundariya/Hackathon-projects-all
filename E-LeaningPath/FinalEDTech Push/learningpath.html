@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header for the page */
+        .page-header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header h1 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-header p {
+            color: var(--gray);
+            max-width: 800px;
+            font-size: 1.1rem;
+        }
+
+        /* Stats section */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .stat-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .stat-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Templates grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-header {
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .template-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .template-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-level {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* Workflow Button Styles */
+        .workflow-button {
+            position: relative;
+            padding: 16px 32px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1rem;
+            text-decoration: none;
+            overflow: hidden;
+            width: 100%;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+        }
+
+        .workflow-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .workflow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .workflow-button:hover::before {
+            left: 100%;
+        }
+
+        .workflow-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .workflow-button:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Subject-specific colors for workflow buttons */
+        .c-language .workflow-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        .html .workflow-button {
+            background: linear-gradient(135deg, #ff8a00, #e57c00);
+            box-shadow: 0 4px 15px rgba(255, 138, 0, 0.2);
+        }
+
+        .css .workflow-button {
+            background: linear-gradient(135deg, #2965f1, #254bdc);
+            box-shadow: 0 4px 15px rgba(41, 101, 241, 0.2);
+        }
+
+        .javascript .workflow-button {
+            background: linear-gradient(135deg, #f7df1e, #dcc919);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(247, 223, 30, 0.2);
+        }
+
+        .python .workflow-button {
+            background: linear-gradient(135deg, #3776ab, #2e6395);
+            box-shadow: 0 4px 15px rgba(55, 118, 171, 0.2);
+        }
+
+        .datastructure .workflow-button {
+            background: linear-gradient(135deg, #8a2be2, #7a26cc);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .algorithm .workflow-button {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.2);
+        }
+
+        .react .workflow-button {
+            background: linear-gradient(135deg, #61dafb, #4cc9f0);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.2);
+        }
+
+        /* Subject-specific colors for template headers */
+        .c-language .template-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .html .template-header {
+            background: linear-gradient(135deg, #ff8a00, #e57c00);
+        }
+
+        .css .template-header {
+            background: linear-gradient(135deg, #2965f1, #254bdc);
+        }
+
+        .javascript .template-header {
+            background: linear-gradient(135deg, #f7df1e, #dcc919);
+        }
+
+        .javascript .template-header h3,
+        .javascript .template-level {
+            color: #333;
+        }
+
+        .python .template-header {
+            background: linear-gradient(135deg, #3776ab, #2e6395);
+        }
+
+        .datastructure .template-header {
+            background: linear-gradient(135deg, #8a2be2, #7a26cc);
+        }
+
+        .algorithm .template-header {
+            background: linear-gradient(135deg, #00b894, #00a085);
+        }
+
+        .react .template-header {
+            background: linear-gradient(135deg, #61dafb, #4cc9f0);
+        }
+
+        .react .template-header h3,
+        .react .template-level {
+            color: #333;
+        }
+
+        /* Back to Dashboard button */
+        .back-to-dashboard {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-header {
+                padding: 20px;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-button {
+                padding: 14px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-graduation-cap"></i> Learning Path Templates</h1>
+            <p>Choose from our expertly designed learning paths. Each template is tailored to help you master specific
+                skills with structured content, hands-on projects, and adaptive assessments.</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <i class="fas fa-book-open"></i>
+                <h3>8</h3>
+                <p>Learning Paths</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <h3>240+</h3>
+                <p>Hours of Content</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>50+</h3>
+                <p>Hands-on Projects</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>100%</h3>
+                <p>Completion Rate</p>
+            </div>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="templates-grid">
+            <!-- C Language Template -->
+            <div class="template-card c-language">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fas fa-c"></i>
+                    </div>
+                    <h3>C Programming Mastery</h3>
+                    <span class="template-level">Beginner to Advanced</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Master the fundamentals of C programming, from basic syntax to advanced concepts like pointers,
+                        memory management, and data structures.
+                    </p>
+                     <a href="CLangWorkflow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i>View C Lang Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- HTML Template -->
+            <div class="template-card html">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML5 & Modern Web</h3>
+                    <span class="template-level">Beginner Friendly</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Learn to create responsive, accessible websites using HTML5, semantic markup, and modern web
+                        standards.
+                    </p>
+                    <a href="HTMLWorkFlow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View HTML Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CSS Template -->
+            <div class="template-card css">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS & Styling Mastery</h3>
+                    <span class="template-level">Intermediate</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Master CSS3, Flexbox, Grid, animations, and responsive design principles to create beautiful,
+                        modern websites.
+                    </p>
+                    <a href="CSSWorkFlow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View CSS Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- JavaScript Template -->
+            <div class="template-card javascript">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <h3>JavaScript Fundamentals</h3>
+                    <span class="template-level">Beginner to Advanced</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        From basic syntax to advanced concepts like closures, prototypes, and asynchronous programming
+                        with ES6+ features.
+                    </p>
+                    <a href="JavaScriptWorkflow.html" style="text-decoration: none; color: black;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View JS Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Python Template -->
+            <div class="template-card python">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python Programming</h3>
+                    <span class="template-level">All Levels</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Learn Python for web development, data science, automation, and AI. Includes Django, Flask, and
+                        data analysis libraries.
+                    </p>
+                    <a href="PythonWorkflow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View Python Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Data Structures Template -->
+            <div class="template-card datastructure">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Data Structures</h3>
+                    <span class="template-level">Intermediate</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Master essential data structures: arrays, linked lists, trees, graphs, hash tables, and their
+                        real-world applications.
+                    </p>
+                    <a href="DataStructureWorkFlow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View Data Workflow
+                    </button>
+                </a>
+                </div>
+            </div>
+
+            <!-- Algorithms Template -->
+            <div class="template-card algorithm">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Algorithms & Problem Solving</h3>
+                    <span class="template-level">Advanced</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Learn sorting, searching, dynamic programming, and graph algorithms with practical
+                        problem-solving approaches.
+                    </p>
+                    <a href="AlgorithmWorkFlow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View Algo Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- React.js Template -->
+            <div class="template-card react">
+                <div class="template-header">
+                    <div class="template-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3>React.js Development</h3>
+                    <span class="template-level">Intermediate to Advanced</span>
+                </div>
+                <div class="template-body">
+                    <p class="template-description">
+                        Build modern web applications with React.js, hooks, context API, Redux, and Next.js for
+                        full-stack development.
+                    </p>
+                    <a href="ReactWorkFLow.html" style="text-decoration: none; color: white;">
+                    <button class="workflow-button">
+                        <i class="fas fa-project-diagram"></i> View React.js Workflow
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Dashboard button -->
+         <a href="index.html" style="text-decoration: none; color: black;">
+        <div class="back-to-dashboard">
+            <button class="btn btn-outline" id="backToDashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+        </div>
+          </a>
+    </div>
+
+    <script>
+        // JavaScript for workflow button interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click event to all workflow buttons
+            document.querySelectorAll('.workflow-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    // const courseName = this.closest('.template-card').querySelector('h3').textContent;
+                    // alert(`Opening workflow for: ${courseName}\n\nThis would show the complete learning workflow including:\n1. Foundation concepts\n2. Intermediate topics\n3. Advanced modules\n4. Projects & assessments\n5. Certification path`);
+                    
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+            
+            // Add hover effect enhancement
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const button = this.querySelector('.workflow-button');
+                    if (button) {
+                        button.style.transform = 'translateY(-2px)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const button = this.querySelector('.workflow-button');
+                    if (button) {
+                        button.style.transform = '';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

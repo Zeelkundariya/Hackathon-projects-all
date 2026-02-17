@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Sahayata - Fertilizer Calculator for Indian Farmers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
+            --accent: #FF9800;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #F5F5F5;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-icons i {
+            font-size: 20px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .crop-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .nutrient-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrient-item {
+            text-align: center;
+            padding: 15px 10px;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nutrient-item:hover {
+            background-color: #b8e0b9;
+            transform: scale(1.03);
+        }
+
+        .nutrient-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 5px 0;
+        }
+
+        .nutrient-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .result-item {
+            padding: 15px;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .result-item:hover {
+            background-color: #b8e0b9;
+            transform: scale(1.03);
+        }
+
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 5px 0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .pesticide-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+
+        .pesticide-item:hover {
+            background-color: #f9f9f9;
+            padding-left: 10px;
+            border-radius: 8px;
+        }
+
+        .pesticide-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pesticide-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .pesticide-name {
+            font-weight: 500;
+        }
+
+        .pesticide-purpose {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .pesticide-cost {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .recommendation-box {
+            background-color: #E8F5E9;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .history-crop {
+            font-weight: 500;
+        }
+
+        .history-date {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .history-cost {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .crop-description {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .rupee-symbol {
+            font-family: Arial, sans-serif;
+        }
+
+        .pesticide-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .pesticide-link:hover {
+            text-decoration: underline;
+        }
+
+        .crop-details {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .crop-detail-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .currency {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-tractor"></i>
+                <h1>Krishi Sahayata</h1>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-history" title="History"></i>
+                <i class="fas fa-question-circle" title="Help"></i>
+                <i class="fas fa-user" title="Profile"></i>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="calculator">Fertilizer Calculator</div>
+            <div class="tab" data-tab="history">Calculation History</div>
+        </div>
+
+        <div class="tab-content active" id="calculator">
+            <div class="main-content">
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Crop Information</div>
+                            <div class="card-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Select Crop</label>
+                            <select class="form-select" id="crop-type">
+                                <option value="">-- Choose a crop --</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="corn">Corn</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="potato">Potato</option>
+                                <option value="apple">Apple</option>
+                                <option value="mango">Mango</option>
+                                <option value="banana">Banana</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cultivation Area (in acres)</label>
+                            <input type="number" class="form-input" id="area" min="0.1" step="0.1" placeholder="Enter area in acres">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Soil Type</label>
+                            <select class="form-select" id="soil-type">
+                                <option value="loamy">Loamy Soil</option>
+                                <option value="clay">Clay Soil</option>
+                                <option value="sandy">Sandy Soil</option>
+                                <option value="silt">Silt Soil</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Growth Stage</label>
+                            <select class="form-select" id="growth-stage">
+                                <option value="initial">Initial Stage</option>
+                                <option value="vegetative">Vegetative Stage</option>
+                                <option value="flowering">Flowering Stage</option>
+                                <option value="fruiting">Fruiting Stage</option>
+                            </select>
+                        </div>
+
+                        <button class="btn" id="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate Requirements
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Crop Details</div>
+                            <div class="card-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                        </div>
+                        <img id="crop-image" class="crop-image" src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Crop Image">
+                        <div id="crop-description" class="crop-description">
+                            Please select a crop to see detailed information.
+                        </div>
+                        <div class="crop-details">
+                            <div class="crop-detail-item">
+                                <div class="detail-value" id="season-value">-</div>
+                                <div class="detail-label">Suitable Season</div>
+                            </div>
+                            <div class="crop-detail-item">
+                                <div class="detail-value" id="duration-value">-</div>
+                                <div class="detail-label">Crop Duration</div>
+                            </div>
+                            <div class="crop-detail-item">
+                                <div class="detail-value" id="yield-value">-</div>
+                                <div class="detail-label">Average Yield</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Nutrient Requirements (per acre)</div>
+                            <div class="card-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                        </div>
+
+                        <div class="nutrient-grid">
+                            <div class="nutrient-item">
+                                <div class="nutrient-label">Nitrogen (N)</div>
+                                <div class="nutrient-value" id="nitrogen-value">-</div>
+                                <div class="nutrient-label">kg/acre</div>
+                            </div>
+                            <div class="nutrient-item">
+                                <div class="nutrient-label">Phosphorus (P)</div>
+                                <div class="nutrient-value" id="phosphorus-value">-</div>
+                                <div class="nutrient-label">kg/acre</div>
+                            </div>
+                            <div class="nutrient-item">
+                                <div class="nutrient-label">Potassium (K)</div>
+                                <div class="nutrient-value" id="potassium-value">-</div>
+                                <div class="nutrient-label">kg/acre</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Fertilizer & Cost Summary</div>
+                            <div class="card-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-label">Total Fertilizer</div>
+                                <div class="result-value" id="total-fertilizer">-</div>
+                                <div class="result-label">kg needed</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Fertilizer Cost</div>
+                                <div class="result-value" id="fertilizer-cost">-</div>
+                                <div class="result-label">total</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Pesticide Cost</div>
+                                <div class="result-value" id="pesticide-cost">-</div>
+                                <div class="result-label">total</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Total Cost</div>
+                                <div class="result-value" id="total-cost">-</div>
+                                <div class="result-label">estimated</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Recommended Pesticides</div>
+                            <div class="card-icon">
+                                <i class="fas fa-spray-can"></i>
+                            </div>
+                        </div>
+
+                        <div id="pesticides-list">
+                            <div class="empty-state">
+                                <i class="fas fa-spray-can"></i>
+                                <p>Select a crop to see pesticide recommendations</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-box">
+                        <div class="recommendation-title">Expert Recommendation</div>
+                        <p id="recommendation-text">Please select a crop and area to get personalized recommendations for your cultivation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="history">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Calculation History</div>
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                </div>
+                <div id="history-list">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No calculation history yet</p>
+                        <p>Your previous calculations will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Krishi Sahayata Fertilizer Calculator &copy; 2023 | Designed for Indian Farmers</p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced crop data with Indian context
+        const cropData = {
+            wheat: {
+                name: "Wheat",
+                image: "https://imgs.search.brave.com/Nbvql9Y1oGU_5e9Q8yhFYuvBanpuPjcRkitN3V9G-40/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMw/NzU2MzY0MC9waG90/by9ncmVlbi13aGVh/dC1maWVsZHMuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPTN1/bnlqaTl0NFdnT21W/aEZ6dk0wNlNZeUx0/cFdLUWZ0bUptN0hS/OGZ2Qmc9",
+                description: "Wheat is a staple food crop in India, primarily grown in the northern states. It requires well-drained loamy soil with a pH between 6.0-7.5. Wheat cultivation is mainly done during the Rabi season (November to April).",
+                season: "Rabi (Nov-Apr)",
+                duration: "120-140 days",
+                yield: "2.5-3.5 tons/acre",
+                fertilizer: { nitrogen: 120, phosphorus: 60, potassium: 40 },
+                commonPesticides: [
+                    { 
+                        name: "Carbendazim", 
+                        for: "Fungal diseases", 
+                        costPerAcre: 450,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/TK/SA/TC/160660008/carbendazim-12-mancozeb-63-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Mancozeb", 
+                        for: "Rust and smut", 
+                        costPerAcre: 360,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/mancozeb-75-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Chlorpyrifos", 
+                        for: "Aphids and termites", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/chlorpyrifos-20-ec-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 36,
+                recommendation: "Apply nitrogen in split doses. First dose at sowing, second during tillering. Test soil pH and adjust if necessary. Use certified seeds for better yield."
+            },
+            rice: {
+                name: "Rice",
+                image: "https://imgs.search.brave.com/ixo3xeM1Gxo6cqhuMTBw4l2_MzX7VabuKLjq-rwaXac/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2NmLzYw/LzFkL2NmNjAxZDBm/ZTEyY2E0ZTcxOTA0/OTZmMTIyZDg5ZDc2/LmpwZw",
+                description: "Rice is the primary food crop of India, grown extensively in coastal and northeastern regions. It requires standing water during most of its growth period and thrives in clayey soil with high water retention capacity.",
+                season: "Kharif (Jun-Nov)",
+                duration: "90-150 days",
+                yield: "2-3 tons/acre",
+                fertilizer: { nitrogen: 100, phosphorus: 50, potassium: 50 },
+                commonPesticides: [
+                    { 
+                        name: "Tricyclazole", 
+                        for: "Blast disease", 
+                        costPerAcre: 600,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/tricyclazole-75-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Carbofuran", 
+                        for: "Stem borer", 
+                        costPerAcre: 750,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/carbofuran-3-g-500x500.jpg"
+                    },
+                    { 
+                        name: "Bensulfuron", 
+                        for: "Weed control", 
+                        costPerAcre: 450,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/bensulfuron-methyl-0-6-g-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 33,
+                recommendation: "Maintain proper water level in fields. Apply phosphorus at transplanting. Use green manure to improve soil health. Practice crop rotation to prevent soil degradation."
+            },
+            corn: {
+                name: "Corn",
+                image: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Corn (Maize) is an important cereal crop grown throughout India. It's versatile and used for human consumption, animal feed, and industrial purposes. It grows well in well-drained sandy loam to clay loam soils.",
+                season: "Kharif (Jun-Oct)",
+                duration: "80-100 days",
+                yield: "2-3 tons/acre",
+                fertilizer: { nitrogen: 150, phosphorus: 70, potassium: 60 },
+                commonPesticides: [
+                    { 
+                        name: "Atrazine", 
+                        for: "Weed control", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/atrazine-50-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Lambda-cyhalothrin", 
+                        for: "Corn earworm", 
+                        costPerAcre: 660,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/lambda-cyhalothrin-5-ec-500x500.jpg"
+                    },
+                    { 
+                        name: "Chlorantraniliprole", 
+                        for: "Fall armyworm", 
+                        costPerAcre: 840,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/chlorantraniliprole-18-5-sc-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 39,
+                recommendation: "Apply nitrogen in split applications. Side-dress when plants are knee-high. Ensure proper spacing for optimal growth. Use hybrid seeds for better productivity."
+            },
+            sugarcane: {
+                name: "Sugarcane",
+                image: "https://imgs.search.brave.com/cBUs24fIO5dGqxOPaJa58wE4Ua3bdFD5G7cRGXH5MT4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNzU5/MDQyNDgvcGhvdG8v/Y2hpbmEtZ3VpbGlu/LXN1Z2FyY2FuZS1m/aWVsZC13aXRoLW1v/dW50YWlucy1pbi1i/YWNrZ3JvdW5kLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz01/bk93VHVReVhNRGxt/clczX0ptUHl0czc0/cmQzVTZRUV9PaWda/bHNaTTZJPQ",
+                description: "Sugarcane is a major cash crop in India, primarily grown in Uttar Pradesh, Maharashtra, and Karnataka. It requires deep, well-drained loamy soil with good water retention capacity.",
+                season: "Year-round",
+                duration: "10-12 months",
+                yield: "35-40 tons/acre",
+                fertilizer: { nitrogen: 200, phosphorus: 80, potassium: 100 },
+                commonPesticides: [
+                    { 
+                        name: "Monocrotophos", 
+                        for: "Borer insects", 
+                        costPerAcre: 720,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/monocrotophos-36-sl-500x500.jpg"
+                    },
+                    { 
+                        name: "Metribuzin", 
+                        for: "Weed control", 
+                        costPerAcre: 600,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/metribuzin-70-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Carbaryl", 
+                        for: "Leaf hopper", 
+                        costPerAcre: 480,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/carbaryl-50-wp-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 42,
+                recommendation: "Apply fertilizers in split doses. Ensure adequate irrigation during dry periods. Use tissue-cultured planting material for better yield. Practice crop rotation to maintain soil health."
+            },
+            cotton: {
+                name: "Cotton",
+                image: "https://imgs.search.brave.com/QF786Ug1cDgkvjyES0eJL7YRTNIK0zruWpCixdCFLkc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9j/b3R0b24tcGxhbnRz/LXN0aWxsLWxpZmVf/MjMtMjE1MTE1ODg0/My5qcGc_c2VtdD1h/aXNfaHlicmlkJnc9/NzQwJnE9ODA",
+                description: "Cotton is a major fiber crop in India, primarily grown in Gujarat, Maharashtra, and Telangana. It grows well in deep, well-drained black cotton soil with good moisture retention.",
+                season: "Kharif (Jun-Dec)",
+                duration: "150-180 days",
+                yield: "8-12 quintals/acre",
+                fertilizer: { nitrogen: 100, phosphorus: 50, potassium: 50 },
+                commonPesticides: [
+                    { 
+                        name: "Acephate", 
+                        for: "Bollworms", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/acephate-75-sp-500x500.jpg"
+                    },
+                    { 
+                        name: "Pyrethroids", 
+                        for: "Sucking pests", 
+                        costPerAcre: 660,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/cypermethrin-10-ec-500x500.jpg"
+                    },
+                    { 
+                        name: "Neem oil", 
+                        for: "General pest control", 
+                        costPerAcre: 300,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/neem-oil-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 38,
+                recommendation: "Use Bt cotton seeds for bollworm resistance. Apply fertilizers in split doses. Practice intercropping with legumes to improve soil fertility. Monitor for pests regularly."
+            },
+            tomato: {
+                name: "Tomato",
+                image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Tomato is one of the most important vegetable crops in India, grown in almost all states. It requires well-drained sandy loam soil rich in organic matter with pH ranging from 6.0 to 7.0 for optimal growth.",
+                season: "Year-round",
+                duration: "90-120 days",
+                yield: "15-25 tons/acre",
+                fertilizer: { nitrogen: 80, phosphorus: 40, potassium: 60 },
+                commonPesticides: [
+                    { 
+                        name: "Copper fungicide", 
+                        for: "Blight and leaf spot", 
+                        costPerAcre: 480,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/copper-oxychloride-50-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Spinosad", 
+                        for: "Hornworms and fruit worms", 
+                        costPerAcre: 600,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/spinosad-45-sc-500x500.jpg"
+                    },
+                    { 
+                        name: "Imidacloprid", 
+                        for: "Aphids and whiteflies", 
+                        costPerAcre: 420,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/imidacloprid-17-8-sl-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 45,
+                recommendation: "Use calcium supplements to prevent blossom end rot. Mulch to conserve moisture. Stake plants for better air circulation. Practice crop rotation to reduce disease incidence."
+            },
+            potato: {
+                name: "Potato",
+                image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Potato is a major vegetable crop in India, grown extensively in Uttar Pradesh, West Bengal, and Bihar. It requires well-drained sandy loam soil with good organic matter content.",
+                season: "Rabi (Oct-Mar)",
+                duration: "90-120 days",
+                yield: "15-20 tons/acre",
+                fertilizer: { nitrogen: 120, phosphorus: 60, potassium: 80 },
+                commonPesticides: [
+                    { 
+                        name: "Mancozeb", 
+                        for: "Early and late blight", 
+                        costPerAcre: 360,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/mancozeb-75-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Chlorpyriphos", 
+                        for: "Cutworms and tuber moths", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/chlorpyrifos-20-ec-500x500.jpg"
+                    },
+                    { 
+                        name: "Metalaxyl", 
+                        for: "Soil-borne diseases", 
+                        costPerAcre: 720,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/metalaxyl-35-ws-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 40,
+                recommendation: "Use certified disease-free seeds. Practice crop rotation with cereals. Ensure proper soil moisture during tuber formation. Harvest when vines dry up completely."
+            },
+            apple: {
+                name: "Apple",
+                image: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Apple is a major fruit crop in India, primarily grown in Jammu & Kashmir, Himachal Pradesh, and Uttarakhand. It requires well-drained loamy soil with pH between 5.5-6.5 and cold climate conditions.",
+                season: "Temperate (Mar-Oct)",
+                duration: "Perennial",
+                yield: "8-12 tons/acre",
+                fertilizer: { nitrogen: 60, phosphorus: 30, potassium: 40 },
+                commonPesticides: [
+                    { 
+                        name: "Captan", 
+                        for: "Scab disease", 
+                        costPerAcre: 600,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/captan-50-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Diazinon", 
+                        for: "Codling moth", 
+                        costPerAcre: 720,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/diazinon-60-ec-500x500.jpg"
+                    },
+                    { 
+                        name: "Horticultural oil", 
+                        for: "Mites and scales", 
+                        costPerAcre: 480,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/horticultural-oil-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 50,
+                recommendation: "Prune trees annually for better light penetration. Use drip irrigation for water efficiency. Practice thinning for better fruit size. Protect from frost during flowering."
+            },
+            mango: {
+                name: "Mango",
+                image: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Mango is the national fruit of India and grown extensively across the country. It grows well in well-drained sandy loam to clay loam soils with pH between 5.5-7.5.",
+                season: "Summer (Mar-Jul)",
+                duration: "Perennial",
+                yield: "8-10 tons/acre",
+                fertilizer: { nitrogen: 70, phosphorus: 35, potassium: 65 },
+                commonPesticides: [
+                    { 
+                        name: "Carbendazim", 
+                        for: "Anthracnose", 
+                        costPerAcre: 450,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/TK/SA/TC/160660008/carbendazim-12-mancozeb-63-wp-500x500.jpg"
+                    },
+                    { 
+                        name: "Monocrotophos", 
+                        for: "Fruit fly", 
+                        costPerAcre: 720,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/monocrotophos-36-sl-500x500.jpg"
+                    },
+                    { 
+                        name: "Copper oxychloride", 
+                        for: "Bacterial diseases", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/copper-oxychloride-50-wp-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 48,
+                recommendation: "Prune trees after harvest. Use organic mulch to conserve moisture. Practice bagging for quality fruits. Ensure proper spacing between trees."
+            },
+            banana: {
+                name: "Banana",
+                image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Banana is an important fruit crop in India, grown in tropical and subtropical regions. It requires deep, well-drained loamy soil rich in organic matter with good water retention capacity.",
+                season: "Year-round",
+                duration: "12-15 months",
+                yield: "30-40 tons/acre",
+                fertilizer: { nitrogen: 100, phosphorus: 40, potassium: 150 },
+                commonPesticides: [
+                    { 
+                        name: "Pseudomonas fluorescens", 
+                        for: "Panama wilt", 
+                        costPerAcre: 600,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/pseudomonas-fluorescens-500x500.jpg"
+                    },
+                    { 
+                        name: "Carbofuran", 
+                        for: "Nematodes", 
+                        costPerAcre: 750,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/carbofuran-3-g-500x500.jpg"
+                    },
+                    { 
+                        name: "Chlorpyrifos", 
+                        for: "Aphids and weevils", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/chlorpyrifos-20-ec-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 44,
+                recommendation: "Use tissue-cultured planting material. Provide adequate support during fruiting. Practice desuckering to maintain plant population. Ensure proper drainage to prevent waterlogging."
+            },
+            // Default values for other crops
+            default: {
+                name: "Crop",
+                image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                description: "Select a crop to view detailed information about its cultivation requirements, suitable seasons, and expected yields.",
+                season: "Varies",
+                duration: "Varies",
+                yield: "Varies",
+                fertilizer: { nitrogen: 100, phosphorus: 50, potassium: 50 },
+                commonPesticides: [
+                    { 
+                        name: "General fungicide", 
+                        for: "Fungal diseases", 
+                        costPerAcre: 450,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/general-fungicide-500x500.jpg"
+                    },
+                    { 
+                        name: "General insecticide", 
+                        for: "Common pests", 
+                        costPerAcre: 540,
+                        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/KA/YS/CM/160660008/general-insecticide-500x500.jpg"
+                    }
+                ],
+                fertilizerCostPerKg: 36,
+                recommendation: "Follow standard agricultural practices for this crop type. Test soil regularly and adjust fertilizer based on results. Consult local agricultural experts for region-specific advice."
+            }
+        };
+
+        // DOM elements
+        const calculateBtn = document.getElementById('calculate-btn');
+        const cropTypeSelect = document.getElementById('crop-type');
+        const areaInput = document.getElementById('area');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Result elements
+        const cropImage = document.getElementById('crop-image');
+        const cropDescription = document.getElementById('crop-description');
+        const seasonValue = document.getElementById('season-value');
+        const durationValue = document.getElementById('duration-value');
+        const yieldValue = document.getElementById('yield-value');
+        const nitrogenValue = document.getElementById('nitrogen-value');
+        const phosphorusValue = document.getElementById('phosphorus-value');
+        const potassiumValue = document.getElementById('potassium-value');
+        const totalFertilizer = document.getElementById('total-fertilizer');
+        const fertilizerCost = document.getElementById('fertilizer-cost');
+        const pesticideCost = document.getElementById('pesticide-cost');
+        const totalCost = document.getElementById('total-cost');
+        const pesticidesList = document.getElementById('pesticides-list');
+        const recommendationText = document.getElementById('recommendation-text');
+        const historyList = document.getElementById('history-list');
+
+        // Tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Update crop details when selection changes
+        cropTypeSelect.addEventListener('change', updateCropDetails);
+
+        function updateCropDetails() {
+            const cropType = cropTypeSelect.value;
+            
+            if (!cropType) {
+                // Reset to default view
+                cropImage.src = "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80";
+                cropDescription.textContent = "Please select a crop to see detailed information about its cultivation requirements, suitable seasons, and expected yields.";
+                seasonValue.textContent = "-";
+                durationValue.textContent = "-";
+                yieldValue.textContent = "-";
+                return;
+            }
+            
+            // Get crop data (use default if crop not found)
+            const crop = cropData[cropType] || cropData.default;
+            
+            // Update crop details
+            cropImage.src = crop.image;
+            cropDescription.textContent = crop.description;
+            seasonValue.textContent = crop.season;
+            durationValue.textContent = crop.duration;
+            yieldValue.textContent = crop.yield;
+        }
+
+        // Calculate button event listener
+        calculateBtn.addEventListener('click', calculateRequirements);
+
+        function calculateRequirements() {
+            const cropType = cropTypeSelect.value;
+            const area = parseFloat(areaInput.value);
+            
+            // Validate inputs
+            if (!cropType || !area || area <= 0) {
+                alert('Please select a crop and enter a valid area.');
+                return;
+            }
+            
+            // Get crop data (use default if crop not found)
+            const crop = cropData[cropType] || cropData.default;
+            
+            // Calculate fertilizer requirements
+            const nitrogen = crop.fertilizer.nitrogen;
+            const phosphorus = crop.fertilizer.phosphorus;
+            const potassium = crop.fertilizer.potassium;
+            const totalFertilizerNeeded = (nitrogen + phosphorus + potassium) * area;
+            
+            // Calculate costs in Indian Rupees
+            const fertilizerCostValue = totalFertilizerNeeded * crop.fertilizerCostPerKg;
+            const pesticideCostValue = crop.commonPesticides.reduce((total, pesticide) => {
+                return total + (pesticide.costPerAcre * area);
+            }, 0);
+            const totalCostValue = fertilizerCostValue + pesticideCostValue;
+            
+            // Update UI with results
+            nitrogenValue.textContent = nitrogen;
+            phosphorusValue.textContent = phosphorus;
+            potassiumValue.textContent = potassium;
+            totalFertilizer.textContent = totalFertilizerNeeded.toFixed(1);
+            fertilizerCost.textContent = '₹' + fertilizerCostValue.toFixed(0);
+            pesticideCost.textContent = '₹' + pesticideCostValue.toFixed(0);
+            totalCost.textContent = '₹' + totalCostValue.toFixed(0);
+            
+            // Update pesticide list
+            pesticidesList.innerHTML = '';
+            crop.commonPesticides.forEach(pesticide => {
+                const pesticideItem = document.createElement('div');
+                pesticideItem.className = 'pesticide-item';
+                pesticideItem.innerHTML = `
+                    <div class="pesticide-info">
+                        
+                        <div>
+                            <div class="pesticide-name">${pesticide.name}</div>
+                            <div class="pesticide-purpose">${pesticide.for}</div>
+                        </div>
+                    </div>
+                    <div class="pesticide-cost">₹${(pesticide.costPerAcre * area).toFixed(0)}</div>
+                `;
+                pesticidesList.appendChild(pesticideItem);
+            });
+            
+            // Update recommendations
+            recommendationText.textContent = crop.recommendation;
+            
+            // Add to history
+            addToHistory(crop.name, area, totalCostValue);
+        }
+
+        function addToHistory(cropName, area, totalCost) {
+            // In a real app, this would be saved to local storage or a database
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            historyItem.innerHTML = `
+                <div>
+                    <div class="history-crop">${cropName}</div>
+                    <div class="history-date">${dateStr} • ${area} acres</div>
+                </div>
+                <div class="history-cost">₹${totalCost.toFixed(0)}</div>
+            `;
+            
+            // Remove empty state if it exists
+            const emptyState = historyList.querySelector('.empty-state');
+            if (emptyState) {
+                historyList.removeChild(emptyState);
+            }
+            
+            historyList.prepend(historyItem);
+        }
+
+        // Initialize with some sample history for demo
+        window.onload = function() {
+            // Add a sample history item for demo purposes
+            const sampleItem = document.createElement('div');
+            sampleItem.className = 'history-item';
+            sampleItem.innerHTML = `
+                <div>
+                    <div class="history-crop">Tomato</div>
+                    <div class="history-date">2023-10-15 09:30 • 2.5 acres</div>
+                </div>
+                <div class="history-cost">₹7360</div>
+            `;
+            
+            const emptyState = historyList.querySelector('.empty-state');
+            if (emptyState) {
+                historyList.removeChild(emptyState);
+                historyList.appendChild(sampleItem);
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupiya Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar with Animations */
+        nav {
+            background-color: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links li {
+            animation: fadeInDown 0.8s ease-out backwards;
+        }
+
+        .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #4a7c3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4a7c3c;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .login-btn {
+            background-color: #4a7c3c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInRight 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .login-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .login-btn:hover {
+            background-color: #3d6631;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 124, 60, 0.4);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #4a7c3c;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a7c3c, #7ab55c);
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out 0.5s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100px;
+            }
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 124, 60, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+        .product-card:nth-child(9) { animation-delay: 0.9s; }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(74, 124, 60, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .product-name {
+            color: #4a7c3c;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-name {
+            color: #3d6631;
+        }
+
+        .view-product-btn {
+            background-color: #4a7c3c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-product-btn::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .view-product-btn:hover::after {
+            right: 15px;
+            opacity: 1;
+        }
+
+        .view-product-btn:hover {
+            background-color: #3d6631;
+            padding-right: 45px;
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(74, 124, 60, 0.4);
+        }
+
+        .view-product-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .pagination a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .pagination a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #4a7c3c;
+            transition: width 0.3s ease;
+        }
+
+        .pagination a:hover::before {
+            width: 80%;
+        }
+
+        .pagination a:hover {
+            color: #4a7c3c;
+            transform: translateY(-3px);
+        }
+
+        .pagination .active {
+            color: white;
+            background-color: #4a7c3c;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(74, 124, 60, 0.3);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #7ab55c 0%, #5a9640 100%);
+            padding: 80px 50px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .farmer-illustration {
+            width: 200px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .cta-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .cta-text p {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .download-btn {
+            background-color: #3d6631;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(61, 102, 49, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 20px rgba(61, 102, 49, 0);
+            }
+        }
+
+        .download-btn:hover {
+            background-color: #2d4d24;
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 60px 50px 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .footer-section:nth-child(1) { animation-delay: 0.2s; }
+        .footer-section:nth-child(2) { animation-delay: 0.4s; }
+        .footer-section:nth-child(3) { animation-delay: 0.6s; }
+        .footer-section:nth-child(4) { animation-delay: 0.8s; }
+
+        .footer-section h3 {
+            color: #4a7c3c;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #4a7c3c;
+            transition: width 0.3s ease;
+        }
+
+        .footer-section:hover h3::after {
+            width: 100%;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #666;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #4a7c3c;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #4a7c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #3d6631;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-icon:hover::before {
+            transform: scale(1.2);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 5px 15px rgba(74, 124, 60, 0.4);
+        }
+
+        .app-badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .app-badges img {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .app-badges img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #4a7c3c;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-links a:hover {
+            color: #4a7c3c;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #4a7c3c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #farmer-photo{
+            padding-right: 22vw;
+        }
+
+        .scroll-top:hover {
+            background-color: #3d6631;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(74, 124, 60, 0.4);
+        }
+
+               .nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* NEW: Hover lift animation */
+}
+
+.nav-menu li.dropdown {
+    position: relative; /* Establishes positioning context */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to its parent li */
+    /* top: 100%; Appears directly below the parent link */
+    /* left: 500px; */
+    background-color: #ffffff;
+    min-width: 160px; /* Ensures links aren't cramped */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow */
+    border-radius: 8px; /* Slightly rounded edges */
+    padding: 8px 0; /* Padding top/bottom */
+    z-index: 1001; /* Sits on top of other content */
+}
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    /* left: 0; */
+    transform: none; /* Disable lift for dropdown items */
+}
+.dropdown-content a {
+    color: #333; /* Black text */
+    padding: 12px 16px; /* Padding for each link */
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    white-space: nowrap; /* Prevents text wrap */
+}
+.dropdown-content a:hover {
+    color: #3d8c40; 
+    background-color: #d4e8d8; /* Light green background */
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    /* left: 0; */
+}
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 15px 30px;
+            }
+
+            .products-section {
+                padding: 40px 30px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .products-section {
+                padding: 30px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .cta-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .cta-text h2 {
+                font-size: 2rem;
+            }
+
+            .cta-text p {
+                font-size: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cta-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-text p {
+                font-size: 1.2rem;
+            }
+
+            .app-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+            <div class="logo">
+       <a href="index.html">   <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" height="40px" id="logo" alt=""></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="farmer.html">Farming</a></li>
+            <li><a href="buyer.html">Buyer</a></li>
+            <li><a href="carbon.html">Carbon Credit</a></li>
+            <li><a href="product.html">Products</a></li>
+             <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </li>
+    
+        </ul>
+        <button class="login-btn">Login</button>
+    </nav>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <h1 class="section-title">Rupiya Products</h1>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/kuber-1536x1536.png" class="product-image" alt="Rupiya Humic">
+                <h3 class="product-name">Rupiya Humic</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/GROW-1536x1024.png" class="product-image" alt="Grow Shakti">
+                <h3 class="product-name">Grow Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/NPK-575x1536.png" class="product-image" alt="All In Shakti">
+                <h3 class="product-name">All In Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/008.png" class="product-image" alt="Rupiya ORGO">
+                <h3 class="product-name">Rupiya ORGO</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/Cereal-Shakti-1536x1024.png" class="product-image" alt="Cereal Shakti">
+                <h3 class="product-name">Cereal Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/Nitro-Shakti-1536x1024.png" class="product-image" alt="Nitro Shakti">
+                <h3 class="product-name">Nitro Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/Verti-Shakti-1536x1024.png" class="product-image" alt="Verti Shakti">
+                <h3 class="product-name">Verti Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/Meta-Shakti-1536x1024.png" class="product-image" alt="Meta Shakti">
+                <h3 class="product-name">Meta Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/04/Fungi-Shakti-1536x1024.png" class="product-image" alt="Fungi Shakti">
+                <h3 class="product-name">Fungi Shakti</h3>
+                <button class="view-product-btn">View Product</button>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#">Previous</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">Next</a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+       <img src="https://rupiya.app/wp-content/uploads/2025/03/28791df4e7a601a71a980a2686c54d3d-1.png" height="200px" id="farmer-photo" alt="">
+            <div class="cta-text">
+                
+                <h2>Only One App</h2>
+                <p>That's All A Farmer Need</p>
+                <button class="download-btn">Download Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- About Section -->
+      
+
+            <!-- Services Section -->
+            <div class="footer-section">
+                <h3>Services</h3>
+                <div class="wrapped" style="display: flex; gap: 1vw;">
+                <a href="#">Smart Farming</a>
+                <a href="#">Carbon Credit</a>
+                <a href="#">Bookings</a>
+                <a href="#">Loan advice</a>
+                <a href="#">Gold solutions</a>
+                <a href="#">Insurance</a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+       </div>
+       </footer>
+</body>
+</html>

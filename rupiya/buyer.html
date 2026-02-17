@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Marketplace - Quality You Can Trust</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #52a832;
+        }
+
+        .btn-primary {
+            background: #52a832;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #3d7c24;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(82, 168, 50, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fffef0 0%, #f0f8e8 100%);
+            padding: 80px 0;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            color: #ffc107;
+            margin-bottom: 20px;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-text h2 {
+            font-size: 36px;
+            color: #2d5016;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 0.8s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 50%;
+            transition: transform 0.5s;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Value Section */
+        .value-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .value-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .value-image img {
+            width: 100%;
+            transition: transform 0.5s;
+        }
+
+        .value-image:hover img {
+            transform: translateY(-10px);
+        }
+
+        .value-cards {
+            display: grid;
+            gap: 30px;
+        }
+
+        .value-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            background: #e8f5e9;
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: #52a832;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover .value-icon {
+            transform: rotate(360deg);
+        }
+
+        /* Get Started Section */
+        .get-started {
+            background: linear-gradient(135deg, #f0f8e8 0%, #fffef0 100%);
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            color: #2d5016;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .info-card h3 {
+            color: #2d5016;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        /* Storage Section */
+        .storage-section {
+            background: #fffef0;
+            padding: 80px 0;
+        }
+
+        .storage-title {
+            text-align: center;
+            font-size: 36px;
+            color: #ffc107;
+            margin-bottom: 50px;
+        }
+
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .storage-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .storage-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .storage-item h3 {
+            color: #2d5016;
+            margin-bottom: 15px;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .products-title {
+            text-align: center;
+            font-size: 42px;
+            color: #2d5016;
+            margin-bottom: 50px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.2);
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .btn-small {
+            background: #52a832;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-small:hover {
+            background: #3d7c24;
+            transform: scale(1.05);
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 80px 0;
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .solution-image img {
+            width: 100%;
+            border-radius: 15px;
+            transition: transform 0.5s;
+        }
+
+        .solution-section:hover .solution-image img {
+            transform: scale(1.05);
+        }
+
+        /* Partners Section */
+        .partners-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .partners-title {
+            text-align: center;
+            font-size: 42px;
+            color: #2d5016;
+            margin-bottom: 50px;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .partner-logo {
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #a5d6a7 0%, #81c784 100%);
+            padding: 80px 0;
+        }
+
+        .contact-title {
+            text-align: center;
+            font-size: 42px;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #52a832;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d5016;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #52a832;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #52a832;
+            transform: translateY(-5px);
+        }
+
+               .nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* NEW: Hover lift animation */
+}
+
+.nav-menu li.dropdown {
+    position: relative; /* Establishes positioning context */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to its parent li */
+    /* top: 100%; Appears directly below the parent link */
+    /* left: 500px; */
+    background-color: #ffffff;
+    min-width: 160px; /* Ensures links aren't cramped */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow */
+    border-radius: 8px; /* Slightly rounded edges */
+    padding: 8px 0; /* Padding top/bottom */
+    z-index: 1001; /* Sits on top of other content */
+}
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    /* left: 0; */
+    transform: none; /* Disable lift for dropdown items */
+}
+.dropdown-content a {
+    color: #333; /* Black text */
+    padding: 12px 16px; /* Padding for each link */
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    white-space: nowrap; /* Prevents text wrap */
+}
+.dropdown-content a:hover {
+    color: #3d8c40; 
+    background-color: #d4e8d8; /* Light green background */
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    /* left: 0; */
+}
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content,
+            .value-content,
+            .solution-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .storage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-text h2 {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                  <div class="logo">
+       <a href="index.html">   <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" height="40px" id="logo" alt=""></a>
+        </div>
+                   <ul class="nav-links" id="navLinks">
+            <li><a href="farmer.html">Farming</a></li>
+            <li><a href="buyer.html">Buyer</a></li>
+            <li><a href="carbon.html">Carbon Credit</a></li>
+            <li><a href="product.html">Products</a></li>
+             <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </li>
+  
+        </ul>
+                <button class="btn-primary">Login In</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>कृषक किसान से खरीदें</h1>
+                    <h1>उच्च गुणवत्ता</h1>
+                    <h2>Excellence in Every Harvest, Quality You Can Trust.</h2>
+                    <p>Connect directly with farmers and get the freshest produce at the best prices. We ensure quality, transparency, and fair deals for everyone.</p>
+                    <button class="btn-primary">Get Started</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/faf8438ca9ddd1312720055fbad84104-e1742921562758.png" alt="Farmers">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value-section">
+        <div class="container">
+            <h2 class="section-title">See What You Pay – Farmers & Buyers</h2>
+            <div class="value-content">
+                <div class="value-image">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/04/ChatGPT-Image-Apr-18-2025-07_22_12-PM.png" alt="Grains">
+                </div>
+                <div class="value-cards">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <img src="https://rupiya.app/wp-content/uploads/2025/04/farmer-icon-e1744981044651.png" height="30px" alt="">
+                        </div>
+                        <h3>For Farmers</h3>
+                        <p>List your products, set your price, and reach thousands of buyers directly. No middlemen, better profits for you.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <img src="https://rupiya.app/wp-content/uploads/2025/04/Buyer-group.png" height="30px" alt="">
+                        </div>
+                        <h3>For Buyers</h3>
+                        <p>Access quality produce directly from farmers. Compare prices, check quality ratings, and make informed purchasing decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="get-started">
+        <div class="container">
+            <h2 class="section-title">GET STARTED</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">Join our platform and experience the future of agricultural trading. Whether you're a farmer or buyer, we have solutions for you.</p>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h3>POST OFFER AS A SELLER</h3>
+                    <p>List your agricultural products with detailed descriptions, pricing, and availability. Reach verified buyers across the region and grow your business.</p>
+                </div>
+                <div class="info-card">
+                    <h3>POST BID AS A BUYER</h3>
+                    <p>Submit your requirements and let farmers compete for your business. Get the best deals on quality produce with transparent pricing and delivery options.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Storage Section -->
+    <section class="storage-section">
+        <div class="container">
+            <h2 class="storage-title">हम में सीधा आपके STORAGE तक</h2>
+            <div class="storage-grid">
+                <div class="storage-item">
+                    <h3>Cost Savings</h3>
+                    <p>Eliminate middlemen and reduce transaction costs significantly</p>
+                </div>
+                <div class="storage-item">
+                    <h3>Freshness and Quality</h3>
+                    <p>Direct from farm ensures maximum freshness and quality</p>
+                </div>
+                <div class="storage-item">
+                    <h3>Transparency</h3>
+                    <p>Complete visibility into pricing, sourcing, and delivery</p>
+                </div>
+                <div class="storage-item">
+                    <h3>Support for Farmers</h3>
+                    <p>Empower local farmers with fair prices and direct market access</p>
+                </div>
+                <div class="storage-item">
+                    <h3>Faster Delivery</h3>
+                    <p>Streamlined logistics for quicker delivery to your doorstep</p>
+                </div>
+                <div class="storage-item">
+                    <h3>Sustainability</h3>
+                    <p>Support sustainable farming practices and reduce carbon footprint</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="products-title">Contract Farming Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__14337.jpeg"  alt="Banana">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Banana</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__14339.jpeg" alt="Turmeric">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Turmeric</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__14338.jpeg" alt="Chilli">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Chilli</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__53169.jpeg" alt="Ginger">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Ginger</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__53170.jpeg" alt="Corn">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Corn</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/05/freepik__the-style-is-candid-image-photography-with-natural__53171.jpeg" alt="Pigeon Pea">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Pigeon Pea</span>
+                        <a href="#" class="btn-small">Interested</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">OUR SOLUTION</h2>
+            <div class="solution-content">
+                <div class="solution-text">
+                    <h3>Digital-First Agriculture Marketplace</h3>
+                    <p>We're building a multi-sided marketplace that connects farmers, traders, buyers, and logistics partners on a single platform.</p>
+                    <ul style="margin: 20px 0; line-height: 2;">
+                        <li>✓ Real-time market prices</li>
+                        <li>✓ Integrated quality assurance</li>
+                        <li>✓ Transparent pricing system</li>
+                        <li>✓ Secure payment gateway</li>
+                        <li>✓ Direct communication channels</li>
+                        <li>✓ Logistics coordination</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/04/freepik__enhance__58841-01-1536x1024.jpg" alt="Solution">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <h2 class="partners-title">Trusted Partners</h2>
+            <div class="partners-grid">
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png" height="30px" alt="" class="partner_logo">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/goibibo-logo.png" height="30px" alt="" class="partner_logo">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/ITC_Limited-Logo.wine_.png" height="60px" alt="" class="partner_logo">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/ICICI_Bank_Logo.svg_.png" height="30px" alt="" class="partner_logo">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/probus-logo-new-3.png" height="50px" alt="" class="partner_logo">
+                </div>
+                <div class="partner-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/nsdl.png" height="100px" alt="" class="partner_logo">
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="contact-title">Contact Us</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Phone">
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Connecting farmers and buyers for a sustainable agricultural future.</p>
+                    <div class="social-links">
+                        <div class="social-icon">f</div>
+                        <div class="social-icon">in</div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: info@agromarket.com</p>
+                    <p>Phone: +91 1234567890</p>
+                    <p>Address: Kadi, Gujarat, India</p>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid #4a6b2f;">
+                <p>&copy; 2025 AgroMarket. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

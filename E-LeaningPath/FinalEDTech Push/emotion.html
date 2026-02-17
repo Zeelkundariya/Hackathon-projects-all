@@ -1,0 +1,3777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Emotion Detection with Face++ API</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* API Configuration */
+        .api-config {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #10b981;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .api-config h2 {
+            color: #10b981;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+        }
+
+        .api-instructions {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #10b981;
+        }
+
+        .api-instructions h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .api-steps {
+            padding-left: 20px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .api-steps li {
+            margin-bottom: 10px;
+        }
+
+        .api-steps a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .api-steps a:hover {
+            text-decoration: underline;
+        }
+
+        .api-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .api-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .api-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .api-input-group label {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .api-input-group input {
+            padding: 14px 16px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .api-input-group input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+        }
+
+        .api-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .api-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .api-btn.primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .api-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .api-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 4px solid #ef4444;
+        }
+
+        .api-status.active {
+            border-left-color: #10b981;
+        }
+
+        .status-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ef4444;
+        }
+
+        .status-indicator.active {
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .status-text {
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .api-note {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* API Toggle Container */
+        .api-toggle-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .api-toggle-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .api-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Base */
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            color: #3b82f6;
+        }
+
+        /* Enhanced Camera Section Layout */
+        .face-detection-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .face-detection-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Improved Webcam Controls Layout */
+        .webcam-container {
+            position: relative;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 320px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Enhanced Webcam Controls */
+        .webcam-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .webcam-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .stop-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .capture-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            grid-column: span 1;
+        }
+
+        .webcam-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .webcam-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Improved Control Buttons Layout */
+        .camera-controls-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .webcam-controls,
+            .control-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .control-btn {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .restore-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Status Indicator */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 8px;
+            margin-top: 15px;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ef4444;
+            transition: all 0.3s ease;
+        }
+
+        .status-dot.active {
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        /* Enhanced Session Stats */
+        .session-stats {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .session-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .session-stat {
+            padding: 10px;
+        }
+
+        .session-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+
+        .session-stat-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* ENHANCED REAL-TIME FEEDBACK SYSTEM */
+        .feedback-container {
+            margin-top: 20px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .feedback-header h3 {
+            color: #f59e0b;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .feedback-stat {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .feedback-messages {
+            min-height: 150px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+        }
+
+        .feedback-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-10px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .feedback-item.success {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .feedback-item.warning {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .feedback-item.danger {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .feedback-item.info {
+            border-left-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .feedback-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .feedback-content {
+            flex: 1;
+        }
+
+        .feedback-time {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .feedback-tip {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-left: 3px solid #8b5cf6;
+        }
+
+        /* IMPROVED EMOTION TRENDS CHARTS */
+        .emotion-charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .emotion-charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            height: 350px;
+            position: relative;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chart-header h3 {
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .chart-stat {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: calc(100% - 50px);
+            position: relative;
+        }
+
+        /* GAMIFICATION SYSTEM */
+        .gamification-container {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .gamification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .gamification-header h3 {
+            color: #8b5cf6;
+            font-size: 1.3rem;
+        }
+
+        .gamification-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .gamification-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .points-display {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .points-value {
+            color: #fbbf24;
+            font-size: 1.4rem;
+        }
+
+        /* Level System */
+        .level-system {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #10b981;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .level-header h4 {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .level-display {
+            text-align: center;
+        }
+
+        .level-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        .level-name {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .level-progress {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .level-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #3b82f6);
+            transition: width 0.5s ease;
+        }
+
+        .level-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* ENHANCED ACHIEVEMENTS SECTION - Fixed 2 per row */
+        .achievements-section {
+            margin-bottom: 25px;
+        }
+
+        .achievements-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .achievements-header h4 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px !important;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .achievements-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .achievements-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .achievement-badge {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .achievement-badge.unlocked {
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            animation: glow 2s infinite alternate;
+        }
+
+        .achievement-badge.unlocked::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(251, 191, 36, 0.1) 50%, 
+                transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .achievement-badge.locked {
+            opacity: 0.6;
+            filter: grayscale(60%);
+        }
+
+        .achievement-badge.unlocked:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .achievement-badge.rare {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, 
+                rgba(30, 41, 59, 0.9), 
+                rgba(139, 92, 246, 0.1));
+        }
+
+        .achievement-badge.epic {
+            border-color: #10b981;
+            background: linear-gradient(135deg, 
+                rgba(30, 41, 59, 0.9), 
+                rgba(16, 185, 129, 0.1));
+        }
+
+        .achievement-badge.legendary {
+            border-color: #f59e0b;
+            background: linear-gradient(135deg, 
+                rgba(30, 41, 59, 0.9), 
+                rgba(245, 158, 11, 0.15));
+            animation: legendaryGlow 2s infinite alternate;
+        }
+
+        @keyframes legendaryGlow {
+            from { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+            to { box-shadow: 0 0 30px rgba(245, 158, 11, 0.7); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+            to { box-shadow: 0 0 20px rgba(251, 191, 36, 0.6); }
+        }
+
+        .badge-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .badge-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .badge-desc {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .badge-points {
+            font-size: 0.8rem;
+            color: #fbbf24;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .badge-progress {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #3b82f6);
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* Real-time Emotion Display */
+        .emotion-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .face-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .face-container::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.2), transparent 70%);
+        }
+
+        .detected-face {
+            font-size: 5.5rem;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        .emotion-info {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .emotion-label {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f8fafc;
+            transition: color 0.3s ease;
+        }
+
+        .emotion-description {
+            font-size: 1rem;
+            color: #cbd5e1;
+            max-width: 500px;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+
+        /* Emotion Meters */
+        .emotion-meters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .emotion-meters {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .emotion-meter {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .meter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .meter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meter-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .engagement-value {
+            color: #10b981;
+        }
+
+        .frustration-value {
+            color: #ef4444;
+        }
+
+        .meter-bar-container {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .meter-bar {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .engagement-bar {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        .frustration-bar {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Stats Container */
+        .stats-container {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .engagement-stat {
+            color: #10b981;
+        }
+
+        .frustration-stat {
+            color: #ef4444;
+        }
+
+        .balance-stat {
+            color: #3b82f6;
+        }
+
+        .duration-stat {
+            color: #8b5cf6;
+        }
+
+        /* Data Log */
+        .data-log {
+            margin-top: 30px;
+        }
+
+        .log-container {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .log-item {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #3b82f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .log-time {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 0.8rem;
+            min-width: 60px;
+        }
+
+        .log-emotion {
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .log-values {
+            display: flex;
+            gap: 12px;
+        }
+
+        .log-engagement {
+            color: #10b981;
+        }
+
+        .log-frustration {
+            color: #ef4444;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0;
+            font-size: 1.3rem;
+        }
+
+        .tech-icons i {
+            color: #3b82f6;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 3px;
+        }
+
+        /* Achievement Notification */
+        .achievement-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            width: 350px;
+            z-index: 1000;
+            border-left: 6px solid #fbbf24;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: achievementUnlock 0.5s ease;
+            display: none;
+        }
+
+        @keyframes achievementUnlock {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .notification-icon {
+            font-size: 2.5rem;
+            color: #fbbf24;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .notification-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .notification-message {
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .notification-points {
+            text-align: center;
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Face Detection Error Modal */
+        .face-error-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .face-error-content {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #ef4444;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .face-error-icon {
+            font-size: 4rem;
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+
+        .face-error-title {
+            font-size: 1.8rem;
+            color: #f8fafc;
+            margin-bottom: 15px;
+        }
+
+        .face-error-message {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .face-error-tips {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .face-error-tips h4 {
+            color: #f59e0b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .face-error-tips ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+        .face-error-tips li {
+            margin-bottom: 8px;
+            color: #94a3b8;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .face-error-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        /* Expression Guide */
+        .expression-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .expression-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .expression-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #e2e8f0;
+        }
+
+        .expression-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: rgba(30, 41, 59, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #3b82f6;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .loading-icon {
+            font-size: 4rem;
+            color: #3b82f6;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        /* Links */
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .emotion-charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .api-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .webcam-container {
+                height: 280px;
+            }
+            
+            .face-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .detected-face {
+                font-size: 4.5rem;
+            }
+            
+            .emotion-label {
+                font-size: 1.5rem;
+            }
+            
+            .api-buttons, .gamification-controls {
+                flex-direction: column;
+            }
+            
+            .api-btn, .gamification-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .face-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .detected-face {
+                font-size: 3.5rem;
+            }
+            
+            .emotion-meters {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-brain"></i> Real Emotion Detection System</h1>
+            <p>Powered by Face++ API - Professional Face Analysis</p>
+        </div>
+
+        <!-- Face++ API Configuration (Hidden by default) -->
+        <div class="api-config hidden" id="apiConfigSection">
+            <h2><i class="fas fa-key"></i> Face++ API Configuration</h2>
+            
+            <div class="api-instructions">
+                <h3><i class="fas fa-info-circle"></i> How to get FREE API Keys:</h3>
+                <ol class="api-steps">
+                    <li>Go to <a href="https://www.faceplusplus.com/" target="_blank">faceplusplus.com</a></li>
+                    <li>Click "Sign Up" (top right corner)</li>
+                    <li>Create free account with your email</li>
+                    <li>Verify your email address</li>
+                    <li>Login and go to "Console" → "API Key"</li>
+                    <li>Copy your <strong>API Key</strong> and <strong>API Secret</strong></li>
+                    <li>Paste them below (FREE: 30,000 calls/month)</li>
+                </ol>
+            </div>
+
+            <div class="api-inputs">
+                <div class="api-input-group">
+                    <label><i class="fas fa-key"></i> Face++ API Key</label>
+                    <input type="text" id="faceppKey" placeholder="Enter your Face++ API Key">
+                </div>
+                
+                <div class="api-input-group">
+                    <label><i class="fas fa-lock"></i> Face++ API Secret</label>
+                    <input type="text" id="faceppSecret" placeholder="Enter your Face++ API Secret">
+                </div>
+            </div>
+
+            <div class="api-buttons">
+                <button class="api-btn primary" id="setupApiBtn">
+                    <i class="fas fa-check"></i> Save & Activate API
+                </button>
+                <button class="api-btn secondary" id="getApiKeysBtn">
+                    <i class="fas fa-external-link-alt"></i> Get API Keys
+                </button>
+            </div>
+
+            <div class="api-status" id="apiStatus">
+                <div class="status-indicator" id="apiStatusIndicator"></div>
+                <div class="status-text" id="apiStatusText">Enter your Face++ API keys above</div>
+            </div>
+
+            <div class="api-note">
+                <i class="fas fa-lightbulb"></i> Need help? Visit <a href="https://www.faceplusplus.com/" target="_blank">Face++ Documentation</a>
+            </div>
+        </div>
+
+        <!-- API Toggle Button (Visible) -->
+        <div class="api-toggle-container">
+            <button class="api-toggle-btn" id="toggleApiConfigBtn">
+                <i class="fas fa-key"></i> Show/Hide API Configuration
+            </button>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-icon">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <h3 id="loadingTitle">Initializing System</h3>
+                <p class="loading-text" id="loadingMessage">Please wait while we set up the emotion detection system...</p>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left Column - Main Content -->
+            <div>
+                <!-- Face Detection Section -->
+                <div class="face-detection-section">
+                    <!-- Camera Section -->
+                    <div class="card">
+                        <h2><i class="fas fa-video"></i> Face Capture</h2>
+                        <div class="webcam-container">
+                            <video id="video" autoplay playsinline></video>
+                            <div class="canvas-container">
+                                <canvas id="canvas"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="webcam-controls">
+                            <button class="webcam-btn start-btn" id="startBtn">
+                                <i class="fas fa-play"></i> Start Camera
+                            </button>
+                            <button class="webcam-btn stop-btn" id="stopBtn" disabled>
+                                <i class="fas fa-stop"></i> Stop Camera
+                            </button>
+                            <button class="webcam-btn capture-btn" id="captureBtn" disabled>
+                                <i class="fas fa-camera"></i> Capture & Analyze
+                            </button>
+                        </div>
+                        
+                        <!-- Status Indicator -->
+                        <!-- <div class="status-indicator">
+                            <div class="status-dot" id="statusDot"></div> -->
+                            <!-- <span id="statusText">Camera Inactive</span> -->
+                        <!-- </div> -->
+                        
+                        <!-- Camera Control Buttons -->
+                        <div class="camera-controls-section">
+                            <div class="control-buttons">
+                                <button class="control-btn restore-btn" id="restoreBtn">
+                                    <i class="fas fa-redo"></i> Restore
+                                </button>
+                                <button class="control-btn export-btn" id="exportBtn">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                                <button class="control-btn clear-btn" id="clearBtn">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Session Stats -->
+                        <div class="session-stats">
+                            <div class="session-stat">
+                                <div class="session-stat-value" id="sessionCaptures">0</div>
+                                <div class="session-stat-label">Captures</div>
+                            </div>
+                            <div class="session-stat">
+                                <div class="session-stat-value" id="sessionTime">0m</div>
+                                <div class="session-stat-label">Session Time</div>
+                            </div>
+                            <div class="session-stat">
+                                <div class="session-stat-value" id="sessionPoints">0</div>
+                                <div class="session-stat-label">Points</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detected Emotional State -->
+                    <div class="card">
+                        <h2><i class="fas fa-user-circle"></i> Detected Emotional State</h2>
+                        <div class="emotion-display">
+                            <div class="face-container">
+                                <div class="detected-face" id="detectedFace">📷</div>
+                            </div>
+                            <div class="emotion-info">
+                                <div class="emotion-label" id="emotionLabel">Waiting for API Setup</div>
+                                <div class="emotion-description" id="emotionDescription">
+                                    Click "Start Camera" to begin emotion detection
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="emotion-meters">
+                            <div class="emotion-meter">
+                                <div class="meter-header">
+                                    <div class="meter-title">
+                                        <i class="fas fa-brain"></i> Engagement
+                                    </div>
+                                    <div class="meter-value engagement-value" id="engagementValue">0%</div>
+                                </div>
+                                <div class="meter-bar-container">
+                                    <div class="meter-bar engagement-bar" id="engagementBar" style="width: 0%"></div>
+                                </div>
+                                <div class="meter-labels">
+                                    <span>0%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="emotion-meter">
+                                <div class="meter-header">
+                                    <div class="meter-title">
+                                        <i class="fas fa-exclamation-triangle"></i> Frustration
+                                    </div>
+                                    <div class="meter-value frustration-value" id="frustrationValue">0%</div>
+                                </div>
+                                <div class="meter-bar-container">
+                                    <div class="meter-bar frustration-bar" id="frustrationBar" style="width: 0%"></div>
+                                </div>
+                                <div class="meter-labels">
+                                    <span>0%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Statistics -->
+                        <div class="stats-container">
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-value engagement-stat" id="avgEngagement">0%</div>
+                                    <div class="stat-label">Avg Engagement</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value frustration-stat" id="avgFrustration">0%</div>
+                                    <div class="stat-label">Avg Frustration</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-value balance-stat" id="balanceScore">0%</div>
+                                    <div class="stat-label">Balance Score</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value duration-stat" id="detectionTime">00:00</div>
+                                    <div class="stat-label">Detection Time</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emotion Trends Charts -->
+                <div class="emotion-charts-section">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line" style="color: #10b981;"></i> Engagement Trends</h3>
+                            <div class="chart-stats">
+                                <div class="chart-stat">
+                                    <i class="fas fa-arrow-up" style="color: #10b981;"></i>
+                                    <span id="engagementHigh">Peak: 0%</span>
+                                </div>
+                                <div class="chart-stat">
+                                    <i class="fas fa-bolt" style="color: #fbbf24;"></i>
+                                    <span id="engagementAvg">Avg: 0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="engagementChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line" style="color: #ef4444;"></i> Frustration Trends</h3>
+                            <div class="chart-stats">
+                                <div class="chart-stat">
+                                    <i class="fas fa-arrow-up" style="color: #ef4444;"></i>
+                                    <span id="frustrationHigh">Peak: 0%</span>
+                                </div>
+                                <div class="chart-stat">
+                                    <i class="fas fa-bolt" style="color: #fbbf24;"></i>
+                                    <span id="frustrationAvg">Avg: 0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="frustrationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Feedback System -->
+                <div class="card">
+                    <div class="feedback-container">
+                        <div class="feedback-header">
+                            <h3><i class="fas fa-comment-dots"></i> Real-time Feedback & Tips</h3>
+                            <div class="feedback-stats">
+                                <div class="feedback-stat">
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                    <span id="positiveFeedbacks">0</span>
+                                </div>
+                                <div class="feedback-stat">
+                                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                                    <span id="warningFeedbacks">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback-messages" id="feedbackMessages">
+                            <div class="feedback-item info">
+                                <div style="display: flex; align-items: flex-start;">
+                                    <i class="fas fa-info-circle feedback-icon"></i>
+                                    <div class="feedback-content">
+                                        <strong>Welcome to Face++ Emotion Detection!</strong><br>
+                                        Click "Start Camera" to begin analyzing emotions.
+                                        <div class="feedback-time">System Ready</div>
+                                    </div>
+                                </div>
+                                <div class="feedback-tip">
+                                    💡 <strong>Tip:</strong> Ensure good lighting for better face detection accuracy!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emotion Data Log -->
+                <div class="card data-log">
+                    <h2><i class="fas fa-history"></i> Analysis History</h2>
+                    <div style="color: #94a3b8; margin-bottom: 10px; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> History of emotional states from captured photos
+                    </div>
+                    <div class="log-container" id="logContainer">
+                        <div class="log-item">
+                            <div class="log-time">--:--:--</div>
+                            <div class="log-emotion">No captures yet</div>
+                            <div class="log-values">
+                                <span class="log-engagement">Eng: 0%</span>
+                                <span class="log-frustration">Frus: 0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Gamification -->
+            <div>
+                <!-- Gamification System -->
+                <div class="card">
+                    <div class="gamification-container">
+                        <div class="gamification-header">
+                            <h3><i class="fas fa-trophy"></i> Gamification System</h3>
+                            <div class="points-display">
+                                <i class="fas fa-star" style="color: #fbbf24;"></i>
+                                <span class="points-value" id="totalPoints">0</span>
+                                <span>Points</span>
+                            </div>
+                        </div>
+
+                        <div class="gamification-controls">
+                            <button class="gamification-btn" id="gamificationRestoreBtn">
+                                <i class="fas fa-redo"></i> Restore Achievements
+                            </button>
+                        </div>
+
+                        <!-- Level System -->
+                        <div class="level-system">
+                            <div class="level-header">
+                                <h4><i class="fas fa-chart-line"></i> Learning Level</h4>
+                                <span id="nextLevelPoints">0/100 XP</span>
+                            </div>
+                            <div class="level-display">
+                                <div class="level-number" id="currentLevel">1</div>
+                                <div class="level-name" id="levelName">Beginner Learner</div>
+                                <div class="level-progress">
+                                    <div class="level-progress-bar" id="levelProgressBar" style="width: 0%"></div>
+                                </div>
+                                <div class="level-stats">
+                                    <span id="currentXP">0 XP</span>
+                                    <span id="nextLevel">Level 2</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Achievements Section -->
+                        <div class="achievements-section">
+                            <div class="achievements-header">
+                                <h4><i class="fas fa-award"></i> Achievements</h4>
+                                <span style="font-size: 0.9rem; color: #94a3b8;" id="achievementsCount">0/24 Unlocked</span>
+                            </div>
+                            <div class="achievements-grid" id="achievementsGrid">
+                                <!-- Achievements will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievement Notification -->
+        <div class="achievement-notification" id="achievementNotification">
+            <div class="notification-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <div class="notification-title" id="notificationTitle">Achievement Unlocked!</div>
+            <div class="notification-message" id="notificationMessage"></div>
+            <div class="notification-points" id="notificationPoints">+50 Points!</div>
+        </div>
+
+        <!-- Face Detection Error Modal -->
+        <div class="face-error-modal" id="faceErrorModal">
+            <div class="face-error-content">
+                <div class="face-error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="face-error-title">Face Not Detected</div>
+                <div class="face-error-message">
+                    Please ensure your face is clearly visible and well-lit.
+                </div>
+                
+                <div class="face-error-tips">
+                    <h4><i class="fas fa-lightbulb"></i> Tips for better detection:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Face the camera directly</li>
+                        <li><i class="fas fa-check"></i> Ensure good lighting</li>
+                        <li><i class="fas fa-check"></i> Remove glasses if reflective</li>
+                        <li><i class="fas fa-check"></i> Maintain neutral expression</li>
+                    </ul>
+                </div>
+                
+                <button class="face-error-btn" id="closeFaceErrorBtn">
+                    <i class="fas fa-check"></i> Try Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="tech-icons">
+                <i class="fas fa-camera" title="Live Photo Capture"></i>
+                <i class="fas fa-smile" title="Face++ Emotion Detection"></i>
+                <i class="fas fa-chart-line" title="Advanced Analytics"></i>
+                <i class="fas fa-trophy" title="Gamification System"></i>
+            </div>
+            <p>Real Emotion Detection System v2.0 | Powered by Face++ API</p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #64748b;">30,000 free API calls per month</p>
+        </div>
+    </div>
+
+    <script>
+        // ===================== FACE++ API CONFIGURATION =====================
+        const API_CONFIG = {
+            faceplusplus: {
+                key: '',
+                secret: '',
+                endpoint: 'https://api-us.faceplusplus.com/facepp/v3/detect'
+            },
+            isConfigured: false
+        };
+
+        // ===================== DOM ELEMENTS =====================
+        const apiConfigSection = document.getElementById('apiConfigSection');
+        const toggleApiConfigBtn = document.getElementById('toggleApiConfigBtn');
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const captureBtn = document.getElementById('captureBtn');
+        const restoreBtn = document.getElementById('restoreBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const gamificationRestoreBtn = document.getElementById('gamificationRestoreBtn');
+        const setupApiBtn = document.getElementById('setupApiBtn');
+        const getApiKeysBtn = document.getElementById('getApiKeysBtn');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const detectedFace = document.getElementById('detectedFace');
+        const emotionLabel = document.getElementById('emotionLabel');
+        const emotionDescription = document.getElementById('emotionDescription');
+        const engagementValue = document.getElementById('engagementValue');
+        const frustrationValue = document.getElementById('frustrationValue');
+        const engagementBar = document.getElementById('engagementBar');
+        const frustrationBar = document.getElementById('frustrationBar');
+        const avgEngagement = document.getElementById('avgEngagement');
+        const avgFrustration = document.getElementById('avgFrustration');
+        const balanceScore = document.getElementById('balanceScore');
+        const detectionTime = document.getElementById('detectionTime');
+        const logContainer = document.getElementById('logContainer');
+        const feedbackMessages = document.getElementById('feedbackMessages');
+        const achievementsGrid = document.getElementById('achievementsGrid');
+        const totalPoints = document.getElementById('totalPoints');
+        const currentLevel = document.getElementById('currentLevel');
+        const levelName = document.getElementById('levelName');
+        const levelProgressBar = document.getElementById('levelProgressBar');
+        const currentXP = document.getElementById('currentXP');
+        const nextLevel = document.getElementById('nextLevel');
+        const nextLevelPoints = document.getElementById('nextLevelPoints');
+        const achievementNotification = document.getElementById('achievementNotification');
+        const notificationTitle = document.getElementById('notificationTitle');
+        const notificationMessage = document.getElementById('notificationMessage');
+        const notificationPoints = document.getElementById('notificationPoints');
+        const positiveFeedbacks = document.getElementById('positiveFeedbacks');
+        const warningFeedbacks = document.getElementById('warningFeedbacks');
+        const sessionCaptures = document.getElementById('sessionCaptures');
+        const sessionTime = document.getElementById('sessionTime');
+        const sessionPoints = document.getElementById('sessionPoints');
+        const achievementsCount = document.getElementById('achievementsCount');
+        const engagementHigh = document.getElementById('engagementHigh');
+        const engagementAvg = document.getElementById('engagementAvg');
+        const frustrationHigh = document.getElementById('frustrationHigh');
+        const frustrationAvg = document.getElementById('frustrationAvg');
+        const faceErrorModal = document.getElementById('faceErrorModal');
+        const closeFaceErrorBtn = document.getElementById('closeFaceErrorBtn');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loadingTitle = document.getElementById('loadingTitle');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const apiStatus = document.getElementById('apiStatus');
+        const apiStatusIndicator = document.getElementById('apiStatusIndicator');
+        const apiStatusText = document.getElementById('apiStatusText');
+        const faceppKeyInput = document.getElementById('faceppKey');
+        const faceppSecretInput = document.getElementById('faceppSecret');
+
+        // ===================== APPLICATION STATE =====================
+        let isCameraActive = false;
+        let stream = null;
+        let detectionStartTime = null;
+        let sessionStartTime = null;
+        let analysisCount = 0;
+        let totalEngagementSum = 0;
+        let totalFrustrationSum = 0;
+        let feedbackStats = { positive: 0, warning: 0 };
+        let sessionPointsEarned = 0;
+        let faceDetectionErrors = 0;
+
+        // Chart variables
+        let engagementChart = null;
+        let frustrationChart = null;
+        let engagementData = [];
+        let frustrationData = [];
+        let chartLabels = [];
+
+        // Game State
+        let gameState = {
+            points: 0,
+            level: 1,
+            xp: 0,
+            xpToNextLevel: 100,
+            captures: 0,
+            highEngagementCount: 0,
+            perfectEngagementCount: 0,
+            balancedCount: 0,
+            lowFrustrationCount: 0,
+            frustrationControlCount: 0,
+            precisionCount: 0,
+            consistentCount: 0,
+            uniqueEmotionsCount: 0,
+            detectedEmotions: new Set(),
+            allEmotionsDetected: false,
+            consecutiveDays: 0,
+            lastActivityDate: null,
+            sessionCaptures: 0,
+            achievements: {},
+            lastEngagement: 50,
+            lastFrustration: 50,
+            positiveFeedbacks: 0,
+            rapidAnalysisCount: 0,
+            lastAnalysisTime: null,
+            moodSwingCount: 0,
+            streakCount: 0,
+            emotionMasterCount: 0,
+            quickLearnerCount: 0,
+            calmMasterCount: 0,
+            expertAnalystCount: 0,
+            focusProCount: 0,
+            emotionalIntelligenceCount: 0,
+            sessionMarathonCount: 0,
+            dataScientistCount: 0,
+            emotionalAlchemistCount: 0,
+            zenGuruCount: 0
+        };
+
+        // ===================== ENHANCED ACHIEVEMENTS SYSTEM =====================
+        const achievements = [
+            {
+                id: 'first_capture',
+                name: 'First Capture',
+                description: 'Capture your first photo for analysis',
+                icon: 'fas fa-camera',
+                points: 50,
+                rarity: 'common',
+                condition: (state) => state.captures >= 1,
+                progress: (state) => Math.min(state.captures || 0, 1),
+                maxProgress: 1
+            },
+            {
+                id: 'engagement_master',
+                name: 'Focus Master',
+                description: 'Achieve 80%+ engagement 5 times',
+                icon: 'fas fa-brain',
+                points: 150,
+                rarity: 'rare',
+                condition: (state) => (state.highEngagementCount || 0) >= 5,
+                progress: (state) => Math.min(state.highEngagementCount || 0, 5),
+                maxProgress: 5
+            },
+            {
+                id: 'zen_master',
+                name: 'Zen Master',
+                description: 'Keep frustration below 15% for 5 captures',
+                icon: 'fas fa-spa',
+                points: 200,
+                rarity: 'rare',
+                condition: (state) => (state.lowFrustrationCount || 0) >= 5,
+                progress: (state) => Math.min(state.lowFrustrationCount || 0, 5),
+                maxProgress: 5
+            },
+            {
+                id: 'emotional_balance',
+                name: 'Emotional Balance',
+                description: 'Maintain balanced state (45-55%) 10 times',
+                icon: 'fas fa-balance-scale',
+                points: 180,
+                rarity: 'epic',
+                condition: (state) => (state.balancedCount || 0) >= 10,
+                progress: (state) => Math.min(state.balancedCount || 0, 10),
+                maxProgress: 10
+            },
+            {
+                id: 'consistency_champion',
+                name: 'Consistency Champion',
+                description: 'Analyze 10 consecutive photos',
+                icon: 'fas fa-redo',
+                points: 250,
+                rarity: 'epic',
+                condition: (state) => (state.consistentCount || 0) >= 10,
+                progress: (state) => Math.min(state.consistentCount || 0, 10),
+                maxProgress: 10
+            },
+            {
+                id: 'data_explorer',
+                name: 'Data Explorer',
+                description: 'Collect 25 total captures',
+                icon: 'fas fa-database',
+                points: 300,
+                rarity: 'rare',
+                condition: (state) => (state.captures || 0) >= 25,
+                progress: (state) => Math.min(state.captures || 0, 25),
+                maxProgress: 25
+            },
+            {
+                id: 'level_master',
+                name: 'Level Master',
+                description: 'Reach level 5',
+                icon: 'fas fa-graduation-cap',
+                points: 500,
+                rarity: 'epic',
+                condition: (state) => (state.level || 0) >= 5,
+                progress: (state) => Math.min(state.level || 0, 5),
+                maxProgress: 5
+            },
+            {
+                id: 'perfect_engagement',
+                name: 'Perfect Engagement',
+                description: 'Achieve 90%+ engagement 3 times',
+                icon: 'fas fa-chart-line',
+                points: 300,
+                rarity: 'legendary',
+                condition: (state) => (state.perfectEngagementCount || 0) >= 3,
+                progress: (state) => Math.min(state.perfectEngagementCount || 0, 3),
+                maxProgress: 3
+            },
+            {
+                id: 'frustration_control',
+                name: 'Frustration Control',
+                description: 'Reduce frustration by 40% between captures',
+                icon: 'fas fa-thermometer-empty',
+                points: 220,
+                rarity: 'rare',
+                condition: (state) => (state.frustrationControlCount || 0) >= 3,
+                progress: (state) => Math.min(state.frustrationControlCount || 0, 3),
+                maxProgress: 3
+            },
+            {
+                id: 'emotion_detector',
+                name: 'Emotion Detector',
+                description: 'Detect 5 different dominant emotions',
+                icon: 'fas fa-smile-beam',
+                points: 280,
+                rarity: 'epic',
+                condition: (state) => (state.uniqueEmotionsCount || 0) >= 5,
+                progress: (state) => Math.min(state.uniqueEmotionsCount || 0, 5),
+                maxProgress: 5
+            }
+        ];
+
+        // ===================== FIXED CAMERA FUNCTIONS =====================
+        function checkCameraSupport() {
+            console.log("Checking camera support...");
+            
+            // Check if browser supports getUserMedia
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                console.log("Modern MediaDevices API not available, checking for older APIs...");
+                
+                // Try older API
+                navigator.getUserMedia = navigator.getUserMedia || 
+                                        navigator.webkitGetUserMedia || 
+                                        navigator.mozGetUserMedia || 
+                                        navigator.msGetUserMedia;
+                
+                if (!navigator.getUserMedia) {
+                    console.error("No camera API available in this browser");
+                    showFeedback('danger', 'Browser Not Supported', 
+                        'Your browser does not support camera access. Please use Chrome, Firefox, or Edge.');
+                    return false;
+                }
+            }
+            
+            console.log("Camera API is available");
+            return true;
+        }
+
+        async function startCamera() {
+            console.log("Starting camera...");
+            
+            if (!API_CONFIG.isConfigured) {
+                showFeedback('warning', 'API Not Configured', 'Please configure Face++ API first');
+                return;
+            }
+            
+            // Check camera support
+            if (!checkCameraSupport()) {
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<i class="fas fa-times"></i> Camera Not Supported';
+                return;
+            }
+            
+            try {
+                showLoading('Initializing Camera', 'Requesting camera access...');
+                
+                // Try multiple camera configurations
+                const constraints = {
+                    video: {
+                        width: { ideal: 640, max: 1280 },
+                        height: { ideal: 480, max: 720 },
+                        facingMode: 'user',
+                        frameRate: { ideal: 24 }
+                    },
+                    audio: false
+                };
+                
+                // Use modern API or fallback
+                if (navigator.mediaDevices.getUserMedia) {
+                    console.log("Using modern MediaDevices API");
+                    stream = await navigator.mediaDevices.getUserMedia(constraints);
+                } else if (navigator.getUserMedia) {
+                    console.log("Using legacy getUserMedia API");
+                    stream = await new Promise((resolve, reject) => {
+                        navigator.getUserMedia(constraints, resolve, reject);
+                    });
+                } else {
+                    throw new Error('Camera API not available');
+                }
+                
+                console.log("Camera stream obtained:", stream);
+                video.srcObject = stream;
+                
+                // Wait for video to be ready
+                await new Promise((resolve, reject) => {
+                    const onLoaded = () => {
+                        console.log("Video metadata loaded");
+                        video.removeEventListener('loadedmetadata', onLoaded);
+                        video.removeEventListener('error', onError);
+                        resolve();
+                    };
+                    
+                    const onError = (err) => {
+                        console.error("Video error:", err);
+                        video.removeEventListener('loadedmetadata', onLoaded);
+                        video.removeEventListener('error', onError);
+                        reject(err);
+                    };
+                    
+                    video.addEventListener('loadedmetadata', onLoaded);
+                    video.addEventListener('error', onError);
+                    
+                    // Fallback timeout
+                    setTimeout(() => {
+                        if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                            console.log("Video ready via timeout");
+                            resolve();
+                        } else {
+                            console.warn("Video not ready after timeout");
+                            reject(new Error('Video not ready'));
+                        }
+                    }, 3000);
+                });
+                
+                hideLoading();
+                
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                captureBtn.disabled = false;
+                isCameraActive = true;
+                
+                statusDot.classList.add('active');
+                statusDot.style.background = '#10b981';
+                statusDot.style.boxShadow = '0 0 10px #10b981';
+                statusText.style.color = '#10b981';
+                
+                detectionStartTime = new Date();
+                sessionStartTime = new Date();
+                
+                sessionPointsEarned = 0;
+                sessionPoints.textContent = '0';
+                sessionCaptures.textContent = '0';
+                faceDetectionErrors = 0;
+                
+                const firstLog = logContainer.firstChild;
+                if (firstLog && firstLog.textContent.includes('No captures yet')) {
+                    logContainer.innerHTML = '';
+                }
+                
+                showFeedback('success', 'Camera Active', 
+                    'Face++ API is ready. Make sure your face is well-lit and clearly visible. ' +
+                    'Click "Capture & Analyze" to detect emotions.');
+                
+                console.log("Camera started successfully");
+                
+            } catch (err) {
+                hideLoading();
+                console.error('Error accessing camera:', err.name, err.message);
+                
+                let errorMessage = 'Please allow camera access to use face detection.';
+                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                    errorMessage = 'Camera access denied. Please allow camera permissions in your browser settings.';
+                } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+                    errorMessage = 'No camera found. Please connect a camera and try again.';
+                } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+                    errorMessage = 'Camera is already in use by another application.';
+                } else if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
+                    errorMessage = 'Cannot find camera with required specifications. Trying alternative settings...';
+                    // Try with simpler constraints
+                    setTimeout(() => startCameraWithSimpleConstraints(), 100);
+                    return;
+                } else if (err.name === 'TypeError') {
+                    errorMessage = 'Camera error. Please check if your camera is connected and try again.';
+                } else if (err.message.includes('secure context')) {
+                    errorMessage = 'Camera requires a secure context (HTTPS). Please use HTTPS or localhost.';
+                } else if (err.message.includes('not ready')) {
+                    errorMessage = 'Camera not ready. Please try again.';
+                }
+                
+                statusText.textContent = 'Camera Error';
+                statusText.style.color = '#ef4444';
+                showFeedback('danger', 'Camera Error', errorMessage);
+                
+                // Reset UI
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                captureBtn.disabled = true;
+            }
+        }
+
+        // Alternative function with simpler constraints
+        async function startCameraWithSimpleConstraints() {
+            try {
+                console.log("Trying alternative camera settings...");
+                showLoading('Initializing Camera', 'Trying alternative camera settings...');
+                
+                const simpleConstraints = {
+                    video: {
+                        facingMode: 'user'
+                    },
+                    audio: false
+                };
+                
+                let stream;
+                if (navigator.mediaDevices.getUserMedia) {
+                    stream = await navigator.mediaDevices.getUserMedia(simpleConstraints);
+                } else if (navigator.getUserMedia) {
+                    stream = await new Promise((resolve, reject) => {
+                        navigator.getUserMedia(simpleConstraints, resolve, reject);
+                    });
+                }
+                
+                video.srcObject = stream;
+                
+                await new Promise((resolve) => {
+                    if (video.readyState >= 2) {
+                        resolve();
+                    } else {
+                        video.onloadedmetadata = resolve;
+                        setTimeout(resolve, 2000);
+                    }
+                });
+                
+                hideLoading();
+                
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                captureBtn.disabled = false;
+                isCameraActive = true;
+                
+                statusDot.classList.add('active');
+                statusText.textContent = 'Camera Active - Ready for Analysis';
+                statusText.style.color = '#10b981';
+                
+                showFeedback('success', 'Camera Active', 'Camera started with basic settings. Face detection ready.');
+                console.log("Alternative camera settings worked!");
+                
+            } catch (err) {
+                hideLoading();
+                console.error('Alternative camera error:', err);
+                showFeedback('danger', 'Camera Unavailable', 
+                    'Unable to access camera. Please check camera permissions and try again.');
+            }
+        }
+
+        function stopCamera() {
+            console.log("Stopping camera...");
+            
+            if (stream) {
+                stream.getTracks().forEach(track => {
+                    track.stop();
+                });
+                stream = null;
+            }
+            
+            video.srcObject = null;
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            captureBtn.disabled = true;
+            isCameraActive = false;
+            statusDot.classList.remove('active');
+            statusText.style.color = '#94a3b8';
+            statusDot.style.background = '#ef4444';
+            statusDot.style.boxShadow = 'none';
+            
+            detectedFace.textContent = '📷';
+            emotionLabel.textContent = 'Camera Stopped';
+            emotionDescription.textContent = 'Start camera to capture and analyze photos';
+            
+            showFeedback('info', 'Camera Stopped', 'Camera has been stopped. Start camera to continue.');
+        }
+
+        // ===================== API CONFIGURATION FUNCTIONS =====================
+        function toggleApiConfiguration() {
+            apiConfigSection.classList.toggle('hidden');
+            if (apiConfigSection.classList.contains('hidden')) {
+                toggleApiConfigBtn.innerHTML = '<i class="fas fa-key"></i> Show API Configuration';
+            } else {
+                toggleApiConfigBtn.innerHTML = '<i class="fas fa-key"></i> Hide API Configuration';
+            }
+        }
+
+        function setupFacePlusPlus() {
+            const key = faceppKeyInput.value.trim();
+            const secret = faceppSecretInput.value.trim();
+            
+            if (!key || !secret) {
+                showFeedback('warning', 'Missing Information', 'Please enter both API Key and API Secret');
+                return;
+            }
+            
+            showLoading('Testing Face++ API Connection...', 'Validating your API credentials');
+            
+            testFacePlusPlusAPI(key, secret).then(isValid => {
+                hideLoading();
+                
+                if (isValid) {
+                    API_CONFIG.faceplusplus.key = key;
+                    API_CONFIG.faceplusplus.secret = secret;
+                    API_CONFIG.isConfigured = true;
+                    
+                    localStorage.setItem('faceppConfig', JSON.stringify({ key, secret }));
+                    
+                    updateAPIStatus('Face++ API connected successfully!', true);
+                    showFeedback('success', 'API Connected', 'Face++ API is now ready for emotion detection');
+                    
+                    startBtn.disabled = false;
+                    startBtn.innerHTML = '<i class="fas fa-play"></i> Start Camera';
+                } else {
+                    showFeedback('danger', 'API Error', 'Invalid API credentials. Please check and try again.');
+                    updateAPIStatus('Invalid API credentials', false);
+                }
+            }).catch(error => {
+                hideLoading();
+                showFeedback('danger', 'Connection Error', 'Unable to connect to Face++ API. Please check your internet connection.');
+                updateAPIStatus('Connection failed', false);
+            });
+        }
+
+        async function testFacePlusPlusAPI(key, secret) {
+            const testCanvas = document.createElement('canvas');
+            testCanvas.width = 100;
+            testCanvas.height = 100;
+            const ctx = testCanvas.getContext('2d');
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 100, 100);
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(30, 30, 40, 40);
+            
+            const base64Image = testCanvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+            
+            const formData = new FormData();
+            const byteCharacters = atob(base64Image);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {type: 'image/jpeg'});
+            
+            formData.append('api_key', key);
+            formData.append('api_secret', secret);
+            formData.append('image_file', blob, 'test.jpg');
+            formData.append('return_attributes', 'emotion,facequality');
+            
+            try {
+                const response = await fetch(API_CONFIG.faceplusplus.endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.faces !== undefined) {
+                    return true;
+                } else if (result.error_message) {
+                    console.error('Face++ API Error:', result.error_message);
+                    return false;
+                }
+                return false;
+                
+            } catch (error) {
+                console.error('API Test Error:', error);
+                return false;
+            }
+        }
+
+        function updateAPIStatus(message, isActive) {
+            apiStatusText.textContent = message;
+            apiStatusIndicator.className = 'status-indicator' + (isActive ? ' active' : '');
+            apiStatus.className = 'api-status' + (isActive ? ' active' : '');
+        }
+
+        function showLoading(title, message) {
+            loadingTitle.textContent = title;
+            loadingMessage.textContent = message;
+            loadingScreen.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            loadingScreen.style.display = 'none';
+        }
+
+        // ===================== ENHANCED EMOTION MAPPING =====================
+        function getEnhancedEmotionLabel(engagement, frustration, dominantEmotion) {
+            const diff = engagement - frustration;
+            
+            if (engagement >= 85) {
+                return { label: 'Highly Engaged', icon: '😊', color: '#10b981' };
+            } else if (engagement >= 70) {
+                return { label: 'Focused', icon: '🧠', color: '#3b82f6' };
+            } else if (engagement >= 60) {
+                return { label: 'Attentive', icon: '👁️', color: '#8b5cf6' };
+            } else if (frustration >= 70) {
+                return { label: 'Frustrated', icon: '😠', color: '#ef4444' };
+            } else if (frustration >= 60) {
+                return { label: 'Stressed', icon: '😰', color: '#f97316' };
+            } else if (frustration >= 50) {
+                return { label: 'Tense', icon: '😬', color: '#f59e0b' };
+            } else if (Math.abs(diff) <= 10) {
+                return { label: 'Balanced', icon: '⚖️', color: '#94a3b8' };
+            } else if (engagement > frustration) {
+                return { label: 'Positive', icon: '🙂', color: '#22c55e' };
+            } else {
+                return { label: 'Withdrawn', icon: '😐', color: '#64748b' };
+            }
+        }
+
+        function getEmotionDescription(engagement, frustration, dominantEmotion) {
+            let description = '';
+            
+            if (engagement >= 85 && frustration <= 15) {
+                description = 'Excellent learning state! High focus with low stress.';
+            } else if (engagement >= 70 && frustration <= 30) {
+                description = 'Good concentration level. Effective learning state.';
+            } else if (frustration >= 70) {
+                description = 'High frustration detected. Consider taking a break or changing tasks.';
+            } else if (Math.abs(engagement - frustration) <= 15) {
+                description = 'Balanced emotional state. Good for processing information.';
+            } else if (engagement > frustration + 30) {
+                description = 'Highly positive and engaged. Great for creative work.';
+            } else if (frustration > engagement + 30) {
+                description = 'Challenging emotional state. Try stress-reduction techniques.';
+            } else {
+                description = 'Normal variation in emotional state detected.';
+            }
+            
+            if (dominantEmotion) {
+                const emotionInsights = {
+                    happiness: 'Positive mood detected, enhancing learning ability.',
+                    surprise: 'Alert and receptive state, good for new information.',
+                    neutral: 'Calm baseline state, good for logical tasks.',
+                    anger: 'High arousal state, may affect decision making.',
+                    disgust: 'Negative bias present, may impact social processing.',
+                    fear: 'Anxiety detected, may affect risk assessment.',
+                    sadness: 'Low energy state, may need motivation boost.'
+                };
+                
+                if (emotionInsights[dominantEmotion]) {
+                    description += ` ${emotionInsights[dominantEmotion]}`;
+                }
+            }
+            
+            return description;
+        }
+
+        // ===================== FIXED FACE++ API CALL =====================
+        function canvasToBase64(canvas, quality = 0.8) {
+            return canvas.toDataURL('image/jpeg', quality).split(',')[1];
+        }
+
+        async function detectEmotionsWithFacePlusPlus(canvas) {
+            if (!API_CONFIG.isConfigured) {
+                throw new Error('Face++ API not configured. Please enter your API keys.');
+            }
+            
+            const base64Image = canvasToBase64(canvas, 0.7);
+            
+            // Convert base64 to blob
+            const byteCharacters = atob(base64Image);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {type: 'image/jpeg'});
+            
+            const formData = new FormData();
+            formData.append('api_key', API_CONFIG.faceplusplus.key);
+            formData.append('api_secret', API_CONFIG.faceplusplus.secret);
+            formData.append('image_file', blob, 'face.jpg');
+            formData.append('return_attributes', 'emotion,facequality');
+            
+            try {
+                showLoading('Analyzing Emotions...', 'Face++ API is processing your facial expressions');
+                
+                console.log("Sending request to Face++ API...");
+                const response = await fetch(API_CONFIG.faceplusplus.endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                console.log("Face++ API Raw Response:", result);
+                
+                hideLoading();
+                
+                if (!response.ok) {
+                    throw new Error(`Face++ API Error: ${result.error_message || 'Unknown error'}`);
+                }
+                
+                return processFacePlusPlusResponse(result);
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Face++ API Error:', error);
+                
+                if (error.message.includes('No face detected')) {
+                    throw new Error('No face detected. Please ensure your face is clearly visible and well-lit.');
+                } else if (error.message.includes('AUTHENTICATION_FAILED')) {
+                    throw new Error('Invalid API credentials. Please check your Face++ API Key and Secret.');
+                } else if (error.message.includes('CONCURRENCY_LIMIT_EXCEEDED')) {
+                    throw new Error('API rate limit exceeded. Please try again in a few seconds.');
+                } else {
+                    throw new Error(`Face analysis failed: ${error.message}`);
+                }
+            }
+        }
+
+        // ===================== FIXED EMOTION CALCULATION ALGORITHM =====================
+        function processFacePlusPlusResponse(result) {
+            console.log("Processing Face++ response:", result);
+            
+            if (!result.faces || result.faces.length === 0) {
+                throw new Error('No face detected in the image. Please ensure your face is clearly visible.');
+            }
+            
+            const face = result.faces[0];
+            
+            if (!face.attributes || !face.attributes.emotion) {
+                throw new Error('Could not detect emotions. Please try a different expression.');
+            }
+            
+            // Get emotion values directly from Face++ response
+            const emotions = face.attributes.emotion;
+            
+            // Face++ returns values like: {happiness: 85.5, sadness: 10.2, neutral: 4.3, ...}
+            // These are already percentages
+            const rawEmotions = {
+                happiness: emotions.happiness || 0,
+                surprise: emotions.surprise || 0,
+                neutral: emotions.neutral || 0,
+                anger: emotions.anger || 0,
+                disgust: emotions.disgust || 0,
+                fear: emotions.fear || 0,
+                sadness: emotions.sadness || 0
+            };
+            
+            console.log("Raw Face++ emotions:", rawEmotions);
+            
+            // Find dominant emotion
+            let dominantEmotion = 'neutral';
+            let maxValue = 0;
+            for (const [emotion, value] of Object.entries(rawEmotions)) {
+                if (value > maxValue) {
+                    maxValue = value;
+                    dominantEmotion = emotion;
+                }
+            }
+            
+            // ===== CORRECTED EMOTION CALCULATION =====
+            // Based on psychological research about emotion combinations
+            
+            // Calculate engagement from positive/alert emotions
+            let engagement = 0;
+            
+            // Happiness contributes strongly to engagement
+            engagement += rawEmotions.happiness * 0.9;
+            
+            // Surprise indicates alertness/engagement
+            engagement += rawEmotions.surprise * 0.7;
+            
+            // Neutral indicates baseline engagement
+            engagement += rawEmotions.neutral * 0.4;
+            
+            // Negative emotions reduce engagement
+            engagement -= rawEmotions.anger * 0.6;
+            engagement -= rawEmotions.disgust * 0.5;
+            engagement -= rawEmotions.fear * 0.4;
+            engagement -= rawEmotions.sadness * 0.3;
+            
+            // Scale to 0-100 range
+            engagement = Math.max(0, Math.min(100, 50 + engagement));
+            
+            // Calculate frustration from negative emotions
+            let frustration = 0;
+            
+            // Anger is primary source of frustration
+            frustration += rawEmotions.anger * 1.0;
+            
+            // Disgust contributes to frustration
+            frustration += rawEmotions.disgust * 0.8;
+            
+            // Fear contributes to anxiety/frustration
+            frustration += rawEmotions.fear * 0.7;
+            
+            // Sadness contributes to frustration
+            frustration += rawEmotions.sadness * 0.6;
+            
+            // Positive emotions reduce frustration
+            frustration -= rawEmotions.happiness * 0.5;
+            frustration -= rawEmotions.surprise * 0.3;
+            frustration -= rawEmotions.neutral * 0.2;
+            
+            // Scale to 0-100 range
+            frustration = Math.max(0, Math.min(100, 50 + frustration));
+            
+            // Apply complementary constraint (engagement + frustration ≈ 100)
+            const total = engagement + frustration;
+            if (total !== 100) {
+                const adjustment = (100 - total) / 2;
+                engagement += adjustment;
+                frustration += adjustment;
+            }
+            
+            // Final rounding and bounds
+            engagement = Math.round(Math.max(0, Math.min(100, engagement)));
+            frustration = 100 - engagement; // Ensure they sum to 100
+            
+            console.log("Calculated emotions:", {
+                engagement: engagement + '%',
+                frustration: frustration + '%',
+                dominantEmotion: dominantEmotion,
+                rawBreakdown: rawEmotions
+            });
+            
+            return {
+                engagement: engagement,
+                frustration: frustration,
+                confidence: 0.9,
+                source: 'faceplusplus_corrected',
+                rawEmotions: rawEmotions,
+                faceCount: result.faces.length,
+                dominantEmotion: dominantEmotion,
+                emotionBreakdown: Object.fromEntries(
+                    Object.entries(rawEmotions).map(([k, v]) => [k, Math.round(v)])
+                ),
+                qualityScore: face.attributes.facequality?.value || 75
+            };
+        }
+
+        // ===================== MAIN DETECTION FUNCTION =====================
+        async function detectFaceReal() {
+            console.log("=== STARTING FACE DETECTION ===");
+            
+            if (!video.videoWidth || !video.videoHeight) {
+                console.error("Video not ready");
+                showFaceDetectionError();
+                return null;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            const width = video.videoWidth;
+            const height = video.videoHeight;
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.translate(-width, 0);
+            ctx.drawImage(video, 0, 0, width, height);
+            ctx.restore();
+            
+            try {
+                const analysisResult = await detectEmotionsWithFacePlusPlus(canvas);
+                
+                // Verify calculations
+                const sum = analysisResult.engagement + analysisResult.frustration;
+                console.log("Verification - Engagement + Frustration =", sum);
+                
+                // Update UI with results
+                updateEmotionDisplay(
+                    analysisResult.engagement, 
+                    analysisResult.frustration, 
+                    analysisResult.emotionBreakdown, 
+                    analysisResult.dominantEmotion,
+                    analysisResult.qualityScore
+                );
+                
+                // Update statistics
+                analysisCount++;
+                totalEngagementSum += analysisResult.engagement;
+                totalFrustrationSum += analysisResult.frustration;
+                updateStatistics();
+                
+                // Update session
+                gameState.sessionCaptures++;
+                sessionCaptures.textContent = gameState.sessionCaptures;
+                
+                // Update gamification
+                const pointsEarned = updateGameState(analysisResult.engagement, analysisResult.frustration, {
+                    dominantEmotion: analysisResult.dominantEmotion,
+                    engagement: analysisResult.engagement,
+                    frustration: analysisResult.frustration
+                });
+                sessionPointsEarned += pointsEarned;
+                sessionPoints.textContent = sessionPointsEarned;
+                
+                // Add feedback
+                addEnhancedFeedback(
+                    analysisResult.engagement, 
+                    analysisResult.frustration, 
+                    analysisResult.emotionBreakdown,
+                    analysisResult.dominantEmotion,
+                    analysisResult.qualityScore
+                );
+                
+                // Update charts
+                updateCharts(analysisResult.engagement, analysisResult.frustration);
+                
+                // Log the analysis
+                logAnalysis(
+                    analysisResult.engagement, 
+                    analysisResult.frustration, 
+                    analysisResult.emotionBreakdown,
+                    analysisResult.dominantEmotion
+                );
+                
+                return {
+                    ...analysisResult,
+                    pointsEarned,
+                    timestamp: new Date()
+                };
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showFaceDetectionError();
+                showFeedback('danger', 'Analysis Failed', error.message);
+                return null;
+            }
+        }
+
+        // ===================== UI FUNCTIONS =====================
+        async function captureAndAnalyze() {
+            if (!isCameraActive) {
+                showFeedback('warning', 'Camera Inactive', 'Please start the camera first.');
+                return;
+            }
+            
+            emotionLabel.textContent = 'Analyzing Face...';
+            emotionDescription.textContent = 'Face++ API is detecting emotions...';
+            detectedFace.textContent = '🔍';
+            captureBtn.disabled = true;
+            
+            try {
+                const result = await detectFaceReal();
+                
+                if (result) {
+                    updateDetectionTime();
+                    updateSessionStats();
+                    
+                    const sum = result.engagement + result.frustration;
+                    showNotification(
+                        '✅ Analysis Complete',
+                        `Engagement: ${result.engagement}% | Frustration: ${result.frustration}% (Total: ${sum}%)`,
+                        `+${result.pointsEarned} Points`
+                    );
+                }
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showFeedback('danger', 'Analysis Failed', 'Unable to analyze face. Please try again.');
+            } finally {
+                captureBtn.disabled = false;
+            }
+        }
+
+        function updateEmotionDisplay(engagement, frustration, emotionBreakdown = {}, dominantEmotion = '', qualityScore = 0) {
+            const emotionData = getEnhancedEmotionLabel(engagement, frustration, dominantEmotion);
+            const description = getEmotionDescription(engagement, frustration, dominantEmotion);
+            
+            engagementValue.textContent = Math.round(engagement) + '%';
+            frustrationValue.textContent = Math.round(frustration) + '%';
+            engagementBar.style.width = engagement + '%';
+            frustrationBar.style.width = frustration + '%';
+            
+            detectedFace.textContent = emotionData.icon;
+            emotionLabel.textContent = emotionData.label;
+            emotionLabel.style.color = emotionData.color;
+            
+            let fullDescription = description;
+            
+            if (emotionBreakdown.happiness !== undefined) {
+                const topEmotions = Object.entries(emotionBreakdown)
+                    .sort(([,a], [,b]) => b - a)
+                    .slice(0, 3)
+                    .map(([emotion, value]) => `${emotion}: ${Math.round(value)}%`)
+                    .join(', ');
+                
+                fullDescription += ` | Top emotions: ${topEmotions}`;
+            }
+            
+            if (qualityScore > 0) {
+                fullDescription += ` | Detection quality: ${qualityScore}%`;
+            }
+            
+            emotionDescription.textContent = fullDescription;
+        }
+
+        function showFaceDetectionError() {
+            faceErrorModal.style.display = 'flex';
+            faceDetectionErrors++;
+        }
+
+        function closeFaceErrorModal() {
+            faceErrorModal.style.display = 'none';
+        }
+
+        function showFeedback(type, title, message) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+            
+            const feedbackItem = document.createElement('div');
+            feedbackItem.className = `feedback-item ${type}`;
+            feedbackItem.innerHTML = `
+                <div style="display: flex; align-items: flex-start;">
+                    <i class="fas fa-${getFeedbackIcon(type)} feedback-icon"></i>
+                    <div class="feedback-content">
+                        <strong>${title}</strong><br>
+                        ${message}
+                        <div class="feedback-time">${timeString}</div>
+                    </div>
+                </div>
+            `;
+            
+            feedbackMessages.insertBefore(feedbackItem, feedbackMessages.firstChild);
+            
+            if (type === 'success') {
+                feedbackStats.positive++;
+                positiveFeedbacks.textContent = feedbackStats.positive;
+            } else if (type === 'warning' || type === 'danger') {
+                feedbackStats.warning++;
+                warningFeedbacks.textContent = feedbackStats.warning;
+            }
+            
+            while (feedbackMessages.children.length > 5) {
+                feedbackMessages.removeChild(feedbackMessages.lastChild);
+            }
+        }
+
+        function getFeedbackIcon(type) {
+            switch(type) {
+                case 'success': return 'check-circle';
+                case 'warning': return 'exclamation-triangle';
+                case 'danger': return 'times-circle';
+                default: return 'info-circle';
+            }
+        }
+
+        function addEnhancedFeedback(engagement, frustration, emotionBreakdown = {}, dominantEmotion = '', qualityScore = 0) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+            
+            let feedback = {
+                type: 'info',
+                icon: 'fas fa-info-circle',
+                title: 'Analysis Complete',
+                message: `Engagement: ${engagement}%, Frustration: ${frustration}%`,
+                tip: 'Powered by Face++ AI',
+                time: timeString
+            };
+            
+            if (engagement >= 85) {
+                feedback = {
+                    type: 'success',
+                    icon: 'fas fa-check-circle',
+                    title: 'Excellent Engagement',
+                    message: `High engagement detected (${engagement}%)`,
+                    tip: '💡 <strong>Tip:</strong> This is ideal for learning new concepts.',
+                    time: timeString
+                };
+                feedbackStats.positive++;
+                gameState.positiveFeedbacks = (gameState.positiveFeedbacks || 0) + 1;
+            } else if (frustration >= 70) {
+                feedback = {
+                    type: 'warning',
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Elevated Frustration',
+                    message: `Frustration level is high (${frustration}%)`,
+                    tip: '⚠️ <strong>Tip:</strong> Try breaking tasks into smaller steps.',
+                    time: timeString
+                };
+                feedbackStats.warning++;
+            } else if (engagement >= 65) {
+                feedbackStats.positive++;
+                gameState.positiveFeedbacks = (gameState.positiveFeedbacks || 0) + 1;
+            }
+            
+            if (emotionBreakdown.happiness && dominantEmotion) {
+                const breakdownText = `Dominant: ${dominantEmotion} (${emotionBreakdown[dominantEmotion]}%)`;
+                feedback.message += ` | ${breakdownText}`;
+            }
+            
+            if (qualityScore > 0) {
+                feedback.message += ` | Quality: ${qualityScore}%`;
+            }
+            
+            const feedbackItem = document.createElement('div');
+            feedbackItem.className = `feedback-item ${feedback.type}`;
+            feedbackItem.innerHTML = `
+                <div style="display: flex; align-items: flex-start;">
+                    <i class="${feedback.icon} feedback-icon"></i>
+                    <div class="feedback-content">
+                        <strong>${feedback.title}</strong><br>
+                        ${feedback.message}
+                        <div class="feedback-time">${timeString}</div>
+                    </div>
+                </div>
+                <div class="feedback-tip">
+                    ${feedback.tip}
+                </div>
+            `;
+            
+            feedbackMessages.insertBefore(feedbackItem, feedbackMessages.firstChild);
+            
+            positiveFeedbacks.textContent = feedbackStats.positive;
+            warningFeedbacks.textContent = feedbackStats.warning;
+            
+            if (feedbackMessages.children.length > 5) {
+                feedbackMessages.removeChild(feedbackMessages.lastChild);
+            }
+        }
+
+        // ===================== GAMIFICATION FUNCTIONS =====================
+        function initGameState() {
+            const saved = localStorage.getItem('emotionGameState');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    gameState = {
+                        points: parsed.points || 0,
+                        level: parsed.level || 1,
+                        xp: parsed.xp || 0,
+                        xpToNextLevel: parsed.xpToNextLevel || 100,
+                        captures: parsed.captures || 0,
+                        highEngagementCount: parsed.highEngagementCount || 0,
+                        perfectEngagementCount: parsed.perfectEngagementCount || 0,
+                        balancedCount: parsed.balancedCount || 0,
+                        lowFrustrationCount: parsed.lowFrustrationCount || 0,
+                        frustrationControlCount: parsed.frustrationControlCount || 0,
+                        precisionCount: parsed.precisionCount || 0,
+                        consistentCount: parsed.consistentCount || 0,
+                        uniqueEmotionsCount: parsed.uniqueEmotionsCount || 0,
+                        detectedEmotions: new Set(parsed.detectedEmotions || []),
+                        allEmotionsDetected: parsed.allEmotionsDetected || false,
+                        consecutiveDays: parsed.consecutiveDays || 0,
+                        lastActivityDate: parsed.lastActivityDate || null,
+                        sessionCaptures: 0,
+                        achievements: parsed.achievements || {},
+                        lastEngagement: parsed.lastEngagement || 50,
+                        lastFrustration: parsed.lastFrustration || 50,
+                        positiveFeedbacks: parsed.positiveFeedbacks || 0,
+                        rapidAnalysisCount: parsed.rapidAnalysisCount || 0,
+                        lastAnalysisTime: parsed.lastAnalysisTime || null,
+                        moodSwingCount: 0,
+                        streakCount: 0,
+                        emotionMasterCount: 0,
+                        quickLearnerCount: 0,
+                        calmMasterCount: 0,
+                        expertAnalystCount: 0,
+                        focusProCount: 0,
+                        emotionalIntelligenceCount: 0,
+                        sessionMarathonCount: 0,
+                        dataScientistCount: 0,
+                        emotionalAlchemistCount: 0,
+                        zenGuruCount: 0
+                    };
+                } catch (e) {
+                    console.log('Error loading saved state, using default');
+                }
+            }
+            updateGamificationDisplay();
+            renderAchievements();
+            initCharts();
+        }
+
+        function updateGameState(engagement, frustration, emotionData = {}) {
+            const prevEngagement = gameState.lastEngagement || 50;
+            const prevFrustration = gameState.lastFrustration || 50;
+            
+            gameState.captures = (gameState.captures || 0) + 1;
+            gameState.lastEngagement = engagement;
+            gameState.lastFrustration = frustration;
+            
+            if (engagement >= 80) {
+                gameState.highEngagementCount = (gameState.highEngagementCount || 0) + 1;
+            }
+            
+            if (engagement >= 90) {
+                gameState.perfectEngagementCount = (gameState.perfectEngagementCount || 0) + 1;
+            }
+            
+            if (Math.abs(engagement - 50) <= 5) {
+                gameState.balancedCount = (gameState.balancedCount || 0) + 1;
+            }
+            
+            if (frustration <= 15) {
+                gameState.lowFrustrationCount = (gameState.lowFrustrationCount || 0) + 1;
+            }
+            
+            if (frustration <= prevFrustration * 0.6) {
+                gameState.frustrationControlCount = (gameState.frustrationControlCount || 0) + 1;
+            }
+            
+            if (Math.abs(engagement - frustration) <= 10) {
+                gameState.precisionCount = (gameState.precisionCount || 0) + 1;
+            }
+            
+            gameState.consistentCount = (gameState.consistentCount || 0) + 1;
+            
+            if (emotionData.dominantEmotion) {
+                gameState.detectedEmotions = gameState.detectedEmotions || new Set();
+                gameState.detectedEmotions.add(emotionData.dominantEmotion);
+                gameState.uniqueEmotionsCount = gameState.detectedEmotions.size;
+            }
+            
+            let pointsEarned = 15;
+            
+            if (engagement >= 90) {
+                pointsEarned += 40;
+            } else if (engagement >= 80) {
+                pointsEarned += 30;
+            } else if (engagement >= 70) {
+                pointsEarned += 20;
+            } else if (engagement >= 60) {
+                pointsEarned += 10;
+            }
+            
+            if (frustration <= 10) {
+                pointsEarned += 25;
+            } else if (frustration <= 20) {
+                pointsEarned += 15;
+            }
+            
+            if (Math.abs(engagement - 50) <= 5) {
+                pointsEarned += 20;
+            } else if (Math.abs(engagement - 50) <= 10) {
+                pointsEarned += 10;
+            }
+            
+            if (gameState.consistentCount >= 5) {
+                pointsEarned += Math.floor(gameState.consistentCount / 5) * 5;
+            }
+            
+            const today = new Date().toDateString();
+            if (gameState.lastActivityDate !== today) {
+                gameState.consecutiveDays = gameState.lastActivityDate && 
+                    (new Date(gameState.lastActivityDate).getTime() === 
+                     new Date(today).getTime() - 86400000) ? 
+                    (gameState.consecutiveDays || 0) + 1 : 1;
+                gameState.lastActivityDate = today;
+                
+                if (gameState.consecutiveDays > 1) {
+                    pointsEarned += gameState.consecutiveDays * 5;
+                    gameState.streakCount = Math.max(gameState.streakCount || 0, gameState.consecutiveDays);
+                }
+            }
+            
+            gameState.points += pointsEarned;
+            gameState.xp += pointsEarned;
+            
+            checkLevelUp();
+            checkAchievements();
+            updateGamificationDisplay();
+            saveGameState();
+            
+            return pointsEarned;
+        }
+
+        function checkLevelUp() {
+            while (gameState.xp >= gameState.xpToNextLevel) {
+                gameState.xp -= gameState.xpToNextLevel;
+                gameState.level++;
+                gameState.xpToNextLevel = Math.floor(gameState.xpToNextLevel * 1.5);
+                
+                showNotification(
+                    '🎉 Level Up!',
+                    `You've reached Level ${gameState.level}!`,
+                    '+1 Level'
+                );
+            }
+        }
+
+        function checkAchievements() {
+            let unlockedCount = 0;
+            
+            achievements.forEach(achievement => {
+                if (!gameState.achievements[achievement.id]) {
+                    const isUnlocked = achievement.condition(gameState);
+                    if (isUnlocked) {
+                        gameState.achievements[achievement.id] = true;
+                        gameState.points += achievement.points;
+                        unlockedCount++;
+                        
+                        showNotification(
+                            '🏆 Achievement Unlocked!',
+                            achievement.name,
+                            `+${achievement.points} Points`
+                        );
+                        
+                        renderAchievements();
+                    }
+                } else {
+                    unlockedCount++;
+                }
+            });
+            
+            achievementsCount.textContent = `${unlockedCount}/${achievements.length} Unlocked`;
+        }
+
+        function updateGamificationDisplay() {
+            totalPoints.textContent = gameState.points;
+            currentLevel.textContent = gameState.level;
+            
+            const levelNames = [
+                'Beginner Learner', 'Novice Analyst', 'Skilled Observer',
+                'Proficient Monitor', 'Expert Evaluator', 'Master Analyst',
+                'Emotion Expert', 'Psychological Pro', 'Sentiment Sage',
+                'Emotion Guru'
+            ];
+            const levelIndex = Math.min(gameState.level - 1, levelNames.length - 1);
+            levelName.textContent = levelNames[levelIndex];
+            
+            const progressPercentage = (gameState.xp / gameState.xpToNextLevel) * 100;
+            levelProgressBar.style.width = `${progressPercentage}%`;
+            
+            currentXP.textContent = `${gameState.xp} XP`;
+            nextLevel.textContent = `Level ${gameState.level + 1}`;
+            nextLevelPoints.textContent = `${gameState.xp}/${gameState.xpToNextLevel} XP`;
+        }
+
+        function renderAchievements() {
+            achievementsGrid.innerHTML = '';
+            
+            achievements.forEach(achievement => {
+                const isUnlocked = gameState.achievements[achievement.id] || false;
+                const progress = achievement.progress ? achievement.progress(gameState) : 0;
+                const maxProgress = achievement.maxProgress || 1;
+                const progressPercent = (progress / maxProgress) * 100;
+                const rarityClass = achievement.rarity || 'common';
+                
+                const badge = document.createElement('div');
+                badge.className = `achievement-badge ${isUnlocked ? 'unlocked' : 'locked'} ${rarityClass}`;
+                badge.innerHTML = `
+                    <div class="badge-icon">
+                        <i class="${achievement.icon}"></i>
+                    </div>
+                    <div class="badge-name">${achievement.name}</div>
+                    <div class="badge-desc">${achievement.description}</div>
+                    <div class="badge-points">${achievement.points} pts</div>
+                    ${!isUnlocked ? `
+                        <div class="badge-progress">
+                            <div class="progress-bar" style="width: ${progressPercent}%"></div>
+                        </div>
+                        <div class="progress-text">${progress}/${maxProgress}</div>
+                    ` : `
+                        <div class="progress-text" style="color: #fbbf24; font-weight: bold;">✓ UNLOCKED</div>
+                    `}
+                `;
+                
+                achievementsGrid.appendChild(badge);
+            });
+        }
+
+        function showNotification(title, message, points) {
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            notificationPoints.textContent = points;
+            
+            achievementNotification.style.display = 'block';
+            
+            setTimeout(() => {
+                achievementNotification.style.display = 'none';
+            }, 3000);
+        }
+
+        // ===================== CHART FUNCTIONS =====================
+        function initCharts() {
+            const engagementCtx = document.getElementById('engagementChart').getContext('2d');
+            const frustrationCtx = document.getElementById('frustrationChart').getContext('2d');
+            
+            chartLabels = Array.from({length: 10}, (_, i) => `#${i + 1}`);
+            engagementData = Array(10).fill(null);
+            frustrationData = Array(10).fill(null);
+            
+            engagementChart = new Chart(engagementCtx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Engagement %',
+                        data: engagementData,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { 
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { 
+                                color: '#94a3b8',
+                                callback: value => value + '%'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            frustrationChart = new Chart(frustrationCtx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Frustration %',
+                        data: frustrationData,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { 
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { 
+                                color: '#94a3b8',
+                                callback: value => value + '%'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts(engagement, frustration) {
+            engagementData.push(engagement);
+            frustrationData.push(frustration);
+            
+            if (engagementData.length > 10) {
+                engagementData.shift();
+                frustrationData.shift();
+            }
+            
+            chartLabels = [];
+            for (let i = 1; i <= engagementData.length; i++) {
+                chartLabels.push(`#${i}`);
+            }
+            
+            engagementChart.data.labels = chartLabels;
+            engagementChart.data.datasets[0].data = engagementData;
+            frustrationChart.data.labels = chartLabels;
+            frustrationChart.data.datasets[0].data = frustrationData;
+            
+            const engAvg = engagementData.filter(v => v !== null).reduce((a, b) => a + b, 0) / engagementData.filter(v => v !== null).length || 0;
+            const frusAvg = frustrationData.filter(v => v !== null).reduce((a, b) => a + b, 0) / frustrationData.filter(v => v !== null).length || 0;
+            const engMax = Math.max(...engagementData.filter(v => v !== null));
+            const frusMax = Math.max(...frustrationData.filter(v => v !== null));
+            
+            engagementHigh.textContent = `Peak: ${Math.round(engMax)}%`;
+            engagementAvg.textContent = `Avg: ${Math.round(engAvg)}%`;
+            frustrationHigh.textContent = `Peak: ${Math.round(frusMax)}%`;
+            frustrationAvg.textContent = `Avg: ${Math.round(frusAvg)}%`;
+            
+            engagementChart.update();
+            frustrationChart.update();
+        }
+
+        // ===================== HELPER FUNCTIONS =====================
+        function updateStatistics() {
+            if (analysisCount === 0) return;
+            
+            const avgEng = totalEngagementSum / analysisCount;
+            const avgFrus = totalFrustrationSum / analysisCount;
+            const balance = Math.max(0, Math.min(100, 100 - Math.abs(avgEng - avgFrus)));
+            
+            avgEngagement.textContent = Math.round(avgEng) + '%';
+            avgFrustration.textContent = Math.round(avgFrus) + '%';
+            balanceScore.textContent = Math.round(balance) + '%';
+        }
+
+        function updateDetectionTime() {
+            if (!detectionStartTime) return;
+            
+            const now = new Date();
+            const diffMs = now - detectionStartTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.floor((diffMs % 60000) / 1000);
+            
+            detectionTime.textContent = 
+                diffMins.toString().padStart(2, '0') + ':' + 
+                diffSecs.toString().padStart(2, '0');
+        }
+
+        function updateSessionStats() {
+            if (!sessionStartTime) return;
+            
+            const now = new Date();
+            const diffMs = now - sessionStartTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            
+            sessionTime.textContent = `${diffMins}m`;
+        }
+
+        function logAnalysis(engagement, frustration, emotionBreakdown = {}, dominantEmotion = '') {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+            
+            let emotion = 'Neutral';
+            if (engagement >= 85) emotion = 'Highly Engaged';
+            else if (engagement >= 70) emotion = 'Engaged';
+            else if (engagement >= 60) emotion = 'Attentive';
+            else if (frustration >= 70) emotion = 'Frustrated';
+            else if (frustration >= 60) emotion = 'Stressed';
+            else if (Math.abs(engagement - 50) <= 5) emotion = 'Balanced';
+            else if (engagement > frustration) emotion = 'Positive';
+            else emotion = 'Withdrawn';
+            
+            if (dominantEmotion) {
+                emotion = dominantEmotion.charAt(0).toUpperCase() + dominantEmotion.slice(1);
+            }
+            
+            const logItem = document.createElement('div');
+            logItem.className = 'log-item';
+            logItem.innerHTML = `
+                <div class="log-time">${timeString}</div>
+                <div class="log-emotion">${emotion}</div>
+                <div class="log-values">
+                    <span class="log-engagement">Eng: ${Math.round(engagement)}%</span>
+                    <span class="log-frustration">Frus: ${Math.round(frustration)}%</span>
+                </div>
+            `;
+            
+            logContainer.insertBefore(logItem, logContainer.firstChild);
+            
+            if (logContainer.children.length > 8) {
+                logContainer.removeChild(logContainer.lastChild);
+            }
+        }
+
+        function saveGameState() {
+            const stateToSave = {
+                ...gameState,
+                detectedEmotions: Array.from(gameState.detectedEmotions || [])
+            };
+            localStorage.setItem('emotionGameState', JSON.stringify(stateToSave));
+        }
+
+        function restoreProgress() {
+            if (confirm('Restore all saved progress and achievements?')) {
+                initGameState();
+                showNotification(
+                    '🔄 Progress Restored',
+                    'All your saved progress has been restored!',
+                    'Continue where you left off'
+                );
+            }
+        }
+
+        function exportData() {
+            const data = {
+                gameState: {
+                    ...gameState,
+                    detectedEmotions: Array.from(gameState.detectedEmotions || [])
+                },
+                stats: {
+                    totalCaptures: gameState.captures,
+                    averageEngagement: totalEngagementSum / analysisCount || 0,
+                    averageFrustration: totalFrustrationSum / analysisCount || 0,
+                    totalAnalyses: analysisCount,
+                    unlockedAchievements: Object.keys(gameState.achievements || {}).length,
+                    totalPoints: gameState.points,
+                    currentLevel: gameState.level,
+                    achievementsUnlocked: Object.keys(gameState.achievements).length,
+                    totalAchievements: achievements.length
+                },
+                timestamp: new Date().toISOString()
+            };
+            
+            gameState.dataScientistCount = (gameState.dataScientistCount || 0) + 1;
+            saveGameState();
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `emotion-data-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification(
+                '📥 Data Exported',
+                'Your data has been downloaded successfully',
+                'Check downloads folder'
+            );
+        }
+
+        function clearSession() {
+            if (confirm('Clear current session data? This will reset session stats but keep your progress.')) {
+                analysisCount = 0;
+                totalEngagementSum = 0;
+                totalFrustrationSum = 0;
+                feedbackStats = { positive: 0, warning: 0 };
+                sessionPointsEarned = 0;
+                gameState.sessionCaptures = 0;
+                faceDetectionErrors = 0;
+                
+                engagementData = Array(10).fill(null);
+                frustrationData = Array(10).fill(null);
+                chartLabels = Array.from({length: 10}, (_, i) => `#${i + 1}`);
+                
+                engagementChart.data.labels = chartLabels;
+                engagementChart.data.datasets[0].data = engagementData;
+                frustrationChart.data.labels = chartLabels;
+                frustrationChart.data.datasets[0].data = frustrationData;
+                engagementChart.update();
+                frustrationChart.update();
+                
+                sessionCaptures.textContent = '0';
+                sessionPoints.textContent = '0';
+                sessionTime.textContent = '0m';
+                positiveFeedbacks.textContent = '0';
+                warningFeedbacks.textContent = '0';
+                avgEngagement.textContent = '0%';
+                avgFrustration.textContent = '0%';
+                balanceScore.textContent = '0%';
+                
+                while (feedbackMessages.children.length > 1) {
+                    feedbackMessages.removeChild(feedbackMessages.lastChild);
+                }
+                
+                logContainer.innerHTML = '';
+                
+                showNotification(
+                    '🗑️ Session Cleared',
+                    'Session data has been cleared',
+                    'Your progress is saved'
+                );
+            }
+        }
+
+        function restoreGamification() {
+            if (confirm('Restore gamification system and achievements to default?\nThis will reset your points, level, and achievements.')) {
+                gameState = {
+                    points: 0,
+                    level: 1,
+                    xp: 0,
+                    xpToNextLevel: 100,
+                    captures: 0,
+                    highEngagementCount: 0,
+                    perfectEngagementCount: 0,
+                    balancedCount: 0,
+                    lowFrustrationCount: 0,
+                    frustrationControlCount: 0,
+                    precisionCount: 0,
+                    consistentCount: 0,
+                    uniqueEmotionsCount: 0,
+                    detectedEmotions: new Set(),
+                    allEmotionsDetected: false,
+                    consecutiveDays: 0,
+                    lastActivityDate: null,
+                    sessionCaptures: 0,
+                    achievements: {},
+                    lastEngagement: 50,
+                    lastFrustration: 50,
+                    positiveFeedbacks: 0,
+                    rapidAnalysisCount: 0,
+                    lastAnalysisTime: null,
+                    moodSwingCount: 0,
+                    streakCount: 0,
+                    emotionMasterCount: 0,
+                    quickLearnerCount: 0,
+                    calmMasterCount: 0,
+                    expertAnalystCount: 0,
+                    focusProCount: 0,
+                    emotionalIntelligenceCount: 0,
+                    sessionMarathonCount: 0,
+                    dataScientistCount: 0,
+                    emotionalAlchemistCount: 0,
+                    zenGuruCount: 0
+                };
+                
+                saveGameState();
+                updateGamificationDisplay();
+                renderAchievements();
+                
+                showNotification(
+                    '🔄 Gamification Restored',
+                    'Gamification system has been reset to default',
+                    'Start fresh with your achievements!'
+                );
+            }
+        }
+
+        // ===================== INITIALIZATION =====================
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Initializing Emotion Detection System...");
+            
+            // Check if running on HTTPS or localhost
+            if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                console.warn("Running on non-secure context. Camera may not work.");
+                showFeedback('warning', 'Security Notice', 
+                    'For best camera compatibility, use HTTPS or localhost. Some browsers may restrict camera access on HTTP.');
+            }
+            
+            // Load saved API configuration
+            const savedConfig = localStorage.getItem('faceppConfig');
+            if (savedConfig) {
+                try {
+                    const config = JSON.parse(savedConfig);
+                    faceppKeyInput.value = config.key;
+                    faceppSecretInput.value = config.secret;
+                    
+                    // Auto-test API if credentials exist
+                    setTimeout(() => {
+                        if (config.key && config.secret) {
+                            setupFacePlusPlus();
+                        }
+                    }, 1000);
+                } catch (e) {
+                    console.log('Error loading saved API config');
+                }
+            }
+            
+            initGameState();
+            
+            // Update timers periodically
+            setInterval(() => {
+                if (isCameraActive) {
+                    updateDetectionTime();
+                    updateSessionStats();
+                }
+            }, 1000);
+            
+            // Test browser support
+            if (!checkCameraSupport()) {
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<i class="fas fa-times"></i> Camera Not Supported';
+            }
+            
+            console.log("Initialization complete.");
+        });
+
+        // ===================== EVENT LISTENERS =====================
+        startBtn.addEventListener('click', startCamera);
+        stopBtn.addEventListener('click', stopCamera);
+        captureBtn.addEventListener('click', captureAndAnalyze);
+        restoreBtn.addEventListener('click', restoreProgress);
+        exportBtn.addEventListener('click', exportData);
+        clearBtn.addEventListener('click', clearSession);
+        gamificationRestoreBtn.addEventListener('click', restoreGamification);
+        closeFaceErrorBtn.addEventListener('click', closeFaceErrorModal);
+        setupApiBtn.addEventListener('click', setupFacePlusPlus);
+        getApiKeysBtn.addEventListener('click', () => {
+            window.open('https://www.faceplusplus.com/', '_blank');
+        });
+
+        toggleApiConfigBtn.addEventListener('click', toggleApiConfiguration);
+
+        faceErrorModal.addEventListener('click', (e) => {
+            if (e.target === faceErrorModal) {
+                closeFaceErrorModal();
+            }
+        });
+
+        // ===================== TROUBLESHOOTING FUNCTIONS =====================
+        function checkCameraPermissions() {
+            if (navigator.permissions && navigator.permissions.query) {
+                navigator.permissions.query({name: 'camera'})
+                    .then(permissionStatus => {
+                        console.log('Camera permission state:', permissionStatus.state);
+                        if (permissionStatus.state === 'denied') {
+                            showFeedback('danger', 'Camera Blocked', 
+                                'Camera access is blocked. Please enable camera permissions in your browser settings.');
+                        }
+                    })
+                    .catch(console.error);
+            }
+        }
+
+        // Check permissions on load
+        document.addEventListener('DOMContentLoaded', checkCameraPermissions);
+    </script>
+</body>
+</html>

@@ -1,0 +1,2078 @@
+2026-01-06 14:00:26,171 | INFO | AUDIT | login_success | {"actor": "krishnaparidwal9879@gmail.com", "role": "Admin"}
+2026-01-06 16:16:59,629 | INFO | AUDIT | login_failed | {"actor": "khushi.rajput@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:18:03,476 | INFO | AUDIT | login_failed | {"actor": "khushi@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:18:05,171 | INFO | AUDIT | login_failed | {"actor": "khushi@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:18:06,060 | INFO | AUDIT | login_failed | {"actor": "khushi@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:19:28,043 | INFO | AUDIT | login_success | {"actor": "new@gmail.com", "role": "Admin"}
+2026-01-06 16:33:28,593 | INFO | AUDIT | optimization_failed | {"actor": "new@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": null, "termination": "not_available"}
+2026-01-06 16:33:37,462 | WARNING | Gurobi not available; falling back to CBC.
+2026-01-06 16:33:37,463 | INFO | AUDIT | optimization_failed | {"actor": "new@gmail.com", "mode": "deterministic", "requested_solver": "gurobi", "solver_used": null, "termination": "not_available"}
+2026-01-06 16:37:27,385 | INFO | AUDIT | login_failed | {"actor": "", "reason": "Please enter a valid email address."}
+2026-01-06 16:37:58,357 | INFO | AUDIT | login_failed | {"actor": "khushi@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:38:07,420 | INFO | AUDIT | login_success | {"actor": "new@gmail.com", "role": "Admin"}
+2026-01-06 16:38:22,758 | WARNING | Solver 'gurobi' not available; falling back to cbc.
+2026-01-06 16:38:22,758 | WARNING | Solver 'cbc' not available; falling back to highs.
+2026-01-06 16:38:22,808 | INFO | AUDIT | optimization_success | {"actor": "new@gmail.com", "mode": "deterministic", "requested_solver": "gurobi", "solver_used": "highs", "months": ["2026-01"], "runtime_seconds": 0.033172607421875}
+2026-01-06 16:41:28,205 | INFO | AUDIT | logout | {"actor": "new@gmail.com", "role": "Admin"}
+2026-01-06 16:42:22,005 | INFO | AUDIT | login_failed | {"actor": "abc@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:42:24,053 | INFO | AUDIT | login_failed | {"actor": "abc@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:42:29,760 | INFO | AUDIT | login_failed | {"actor": "abc@gmail.com", "reason": "Invalid email or password."}
+2026-01-06 16:42:33,394 | INFO | AUDIT | login_success | {"actor": "abc@gmail.com", "role": "Planner"}
+2026-01-06 16:43:33,895 | INFO | AUDIT | logout | {"actor": "abc@gmail.com", "role": "Planner"}
+2026-01-06 16:44:42,875 | INFO | AUDIT | login_success | {"actor": "new1@gmail.com", "role": "Viewer"}
+2026-01-06 23:31:01,385 | INFO | AUDIT | login_success | {"actor": "khichiptatik90@gmail.com", "role": "Planner"}
+2026-01-08 11:20:54,992 | INFO | AUDIT | login_success | {"actor": "xyz@gmail.com", "role": "Admin"}
+2026-01-08 11:20:54,992 | INFO | AUDIT | login_success | {"actor": "xyz@gmail.com", "role": "Admin"}
+2026-01-08 11:20:54,992 | INFO | AUDIT | login_success | {"actor": "xyz@gmail.com", "role": "Admin"}
+2026-01-08 11:20:54,992 | INFO | AUDIT | login_success | {"actor": "xyz@gmail.com", "role": "Admin"}
+2026-01-08 11:20:54,992 | INFO | AUDIT | login_success | {"actor": "xyz@gmail.com", "role": "Admin"}
+2026-01-08 14:07:33,911 | INFO | AUDIT | login_failed | {"actor": "zeel@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 14:07:47,332 | INFO | AUDIT | login_failed | {"actor": "zeel@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 14:07:48,673 | INFO | AUDIT | login_failed | {"actor": "zeel@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 14:07:52,862 | INFO | AUDIT | login_failed | {"actor": "zeel@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 14:07:53,693 | INFO | AUDIT | login_failed | {"actor": "zeel@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 14:19:54,379 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 15:12:29,021 | INFO | AUDIT | login_failed | {"actor": "xyz123@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 15:12:37,358 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 15:19:31,518 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 15:20:08,383 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 15:20:32,657 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:02:50,429 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 17:03:05,956 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:11:21,634 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 17:11:28,363 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:21:38,705 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 17:21:47,392 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:22:09,982 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:22:11,327 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:22:11,563 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:22:21,978 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:27:32,563 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:27:33,459 | INFO | AUDIT | optimization_failed | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "termination": "infeasible"}
+2026-01-08 17:30:50,970 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 18:29:56,083 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 18:30:15,478 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:16,335 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:20,258 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:20,733 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:50,212 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:50,747 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:50,999 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:51,271 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:51,515 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:51,752 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:52,001 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:52,265 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:30:52,514 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:31:35,136 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:31:35,835 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 18:31:37,011 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:25:42,758 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 21:26:03,084 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:08,442 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:09,185 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:10,276 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:49,747 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:58,905 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:59,241 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:26:59,491 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:31:20,678 | INFO | AUDIT | login_failed | {"actor": "xyz123@gmail.com", "reason": "Invalid email or password."}
+2026-01-08 21:31:54,950 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 21:32:16,727 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:04,126 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:05,411 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:06,205 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:17,735 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:18,145 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:35,866 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 21:33:44,981 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:51,519 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:33:52,090 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:34:07,901 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:34:08,775 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:34:09,343 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:34:10,283 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 184, in render_optimization_run
+    results = parse_results(model, plant_names=data.plant_names)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in parse_results
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\optimization\result_parser.py", line 103, in <genexpr>
+    hold_cost = sum(_safe_value(model.Inv[p, t]) * _safe_value(model.HoldCost[p]) for p in model.P for t in model.T)
+                                                               ^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pyomo\core\base\block.py", line 552, in __getattr__
+    raise AttributeError(
+        "'%s' object has no attribute '%s'" % (self.__class__.__name__, val)
+    )
+AttributeError: 'ConcreteModel' object has no attribute 'HoldCost'. Did you mean: 'ProdCost'?
+2026-01-08 21:41:47,990 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 21:41:54,030 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:41:57,186 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:41:58,210 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:42:03,611 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:42:04,298 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:42:11,305 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:42:14,827 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:42:15,344 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in render_optimization_run
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\series.py", line 4719, in map
+    new_values = self._map_values(arg, na_action=na_action)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\pandas\core\algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 191, in <lambda>
+    inv_df["safety_stock"] = inv_df["plant_id"].map(lambda pid: float(data.safety_stock.get(pid, 0.0)))
+                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'SimpleFeasibleData' object has no attribute 'safety_stock'
+2026-01-08 21:54:04,584 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 21:54:10,217 | INFO | AUDIT | optimization_success | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "months": ["2026-02"], "runtime_seconds": 0.06951093673706055}
+2026-01-08 22:04:18,887 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 22:08:09,187 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 72, in render_scenario_comparison
+    sample_size = st.slider(
+        "Number of recent runs to display",
+    ...<4 lines>...
+        help="Adjust how many of the most recent runs are included in the charts below.",
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\runtime\metrics_util.py", line 409, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\elements\widgets\slider.py", line 502, in slider
+    return self._slider(
+           ~~~~~~~~~~~~^
+        label=label,
+        ^^^^^^^^^^^^
+    ...<12 lines>...
+        ctx=ctx,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\elements\widgets\slider.py", line 780, in _slider
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Slider `min_value` must be less than the `max_value`.
+The values were 2 and 2.
+2026-01-08 22:08:45,832 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 22:15:56,742 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 72, in render_scenario_comparison
+    sample_size = st.slider(
+        "Number of recent runs to display",
+    ...<4 lines>...
+        help="Adjust how many of the most recent runs are included in the charts below.",
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\runtime\metrics_util.py", line 409, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\elements\widgets\slider.py", line 502, in slider
+    return self._slider(
+           ~~~~~~~~~~~~^
+        label=label,
+        ^^^^^^^^^^^^
+    ...<12 lines>...
+        ctx=ctx,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\streamlit\elements\widgets\slider.py", line 780, in _slider
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Slider `min_value` must be less than the `max_value`.
+The values were 2 and 2.
+2026-01-08 22:35:20,543 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 22:35:24,769 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-08 22:36:57,674 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 22:37:00,560 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-08 22:40:26,431 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-08 22:40:36,730 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-08 22:52:07,582 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 23:05:54,636 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 23:06:13,449 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-08 23:08:55,773 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-08 23:11:02,743 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-08 23:27:02,825 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-09 00:01:19,239 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:01:43,402 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-09 00:10:21,465 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:21:19,572 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:21:25,259 | ERROR | Page error: Scenario Comparison | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\scenario_comparison.py", line 109, in render_scenario_comparison
+    fig_tradeoff = px.scatter(
+        df_sample,
+    ...<6 lines>...
+        labels={"avg_buffer": "Avg buffer (tons)", "objective_value": "Total cost"},
+    )
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_chart_types.py", line 69, in scatter
+    return make_figure(args=locals(), constructor=go.Scatter)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 2702, in make_figure
+    patch, fit_results = make_trace_kwargs(
+                         ~~~~~~~~~~~~~~~~~^
+        args, trace_spec, group, mapping_labels.copy(), sizeref
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\_core.py", line 430, in make_trace_kwargs
+    y_out, hover_header, fit_results = trendline_function(
+                                       ~~~~~~~~~~~~~~~~~~^
+        args["trendline_options"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        non_missing.to_numpy(),  # numpy array
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\.venv\Lib\site-packages\plotly\express\trendline_functions\__init__.py", line 42, in ols
+    import statsmodels.api as sm
+ModuleNotFoundError: No module named 'statsmodels'
+2026-01-09 00:23:57,576 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:29:46,374 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:34:12,820 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:37:58,972 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:38:04,120 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:40:00,042 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:40:02,167 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:55:35,007 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 00:55:41,860 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:31,506 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:34,019 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:35,509 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:36,118 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:44,339 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:46,938 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:54,786 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:56,017 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:57,013 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:58,296 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:57:59,467 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:58:00,377 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:58:01,072 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:58:01,771 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:58:02,345 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:58:20,610 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 00:59:23,298 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 94, in render_demand_uncertainty_analysis
+    display_analysis_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 181, in display_analysis_results
+    display_summary_view(comparison, scenarios)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 266, in display_summary_view
+    f"{diffs['unmet_demand_diff']:+,.0f}",
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'unmet_demand_diff'
+2026-01-09 01:15:08,818 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 01:19:21,121 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 01:21:54,494 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 01:22:10,349 | INFO | AUDIT | optimization_success | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "months": ["2026-02"], "runtime_seconds": 0.06488823890686035}
+2026-01-09 01:22:10,352 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 255, in render_optimization_run
+    cost_df = pd.DataFrame([
+              ^^
+NameError: name 'pd' is not defined. Did you mean: 'id'?
+2026-01-09 01:22:56,320 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-09 06:28:06,825 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 06:28:14,562 | INFO | AUDIT | optimization_success | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "months": ["2026-02"], "runtime_seconds": 0.07357954978942871}
+2026-01-09 06:28:14,565 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 255, in render_optimization_run
+    cost_df = pd.DataFrame([
+              ^^
+NameError: name 'pd' is not defined. Did you mean: 'id'?
+2026-01-09 06:35:35,870 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 06:35:43,339 | INFO | AUDIT | optimization_success | {"actor": "xyz123@gmail.com", "mode": "deterministic", "requested_solver": "cbc", "solver_used": "cbc", "months": ["2026-02"], "runtime_seconds": 0.06918501853942871}
+2026-01-09 06:35:43,342 | ERROR | Page error: Run Optimization | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\optimization_run.py", line 255, in render_optimization_run
+    cost_df = pd.DataFrame([
+              ^^
+NameError: name 'pd' is not defined. Did you mean: 'id'?
+2026-01-09 07:24:05,676 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 07:27:27,773 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_ultra_simple_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ULTRA_SIMPLE_UI.py", line 141, in render_ultra_simple_uncertainty_analysis
+    'Scenario': s.get('name', 'Unknown'),
+                ^^^^^
+AttributeError: 'DemandScenario' object has no attribute 'get'
+2026-01-09 07:27:37,897 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_ultra_simple_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ULTRA_SIMPLE_UI.py", line 141, in render_ultra_simple_uncertainty_analysis
+    'Scenario': s.get('name', 'Unknown'),
+                ^^^^^
+AttributeError: 'DemandScenario' object has no attribute 'get'
+2026-01-09 07:31:40,706 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 07:46:39,846 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 07:47:24,574 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_ultra_simple_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ULTRA_SIMPLE_UI.py", line 170, in render_ultra_simple_uncertainty_analysis
+    st.switch_page("Demand Uncertainty Settings")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Demand Uncertainty Settings`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 07:50:43,217 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 07:57:39,307 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_self_contained_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\SELF_CONTAINED_ANALYSIS.py", line 250, in render_self_contained_uncertainty_analysis
+    st.switch_page("Demand Uncertainty Settings")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Demand Uncertainty Settings`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 08:14:51,310 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 08:17:09,927 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 08:21:27,066 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 08:21:46,086 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_pure_python_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\PURE_PYTHON_ANALYSIS.py", line 252, in render_pure_python_uncertainty_analysis
+    st.switch_page("Demand Uncertainty Settings")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Demand Uncertainty Settings`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 08:55:32,388 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:00:30,821 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:08:54,190 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:16:38,394 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:17:30,831 | INFO | AUDIT | login_failed | {"actor": "xyz123@gmail.com", "reason": "Invalid email or password."}
+2026-01-09 09:17:39,232 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:21:21,371 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:21:39,847 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-09 09:21:41,167 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-09 09:21:47,858 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-09 09:21:49,558 | ERROR | Page error: Management Insights Dashboard | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\management_dashboard.py", line 122, in render_management_dashboard
+    st.metric("Production headroom", f"{components.get('production_headroom', 0.0):.1f}%")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+2026-01-09 09:22:19,018 | INFO | AUDIT | logout | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:23:00,040 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:25:07,861 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:29:30,829 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:29:41,212 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:29:42,299 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:29:42,536 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:29:42,711 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:29:42,888 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:32:57,916 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:33:07,016 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:33:07,804 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:33:08,028 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:33:08,190 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.switch_page("Data Input")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\commands\execution_control.py", line 292, in switch_page
+    raise StreamlitAPIException(
+    ...<3 lines>...
+    )
+streamlit.errors.StreamlitAPIException: Could not find page: `Data Input`. Must be the file path relative to the main script, from the directory: `auth-system`. Only the main app file and files in the `pages/` directory are supported.
+2026-01-09 09:42:41,619 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:42:51,151 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:52,037 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:52,283 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:52,476 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:52,671 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:53,018 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:42:53,213 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:44:29,440 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:44:36,208 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:44:36,773 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:44:37,123 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 09:51:44,617 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 09:51:50,576 | ERROR | Page error: Demand Uncertainty Analysis | context={}
+Traceback (most recent call last):
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\backend\core\error_handler.py", line 33, in _wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\ui\demand_uncertainty_ui.py", line 20, in render_demand_uncertainty_analysis
+    return render_mongodb_uncertainty_analysis()
+  File "C:\Users\zeelk\OneDrive\Desktop\Adani\hack-clink\auth-system\MONGODB_UNCERTAINTY_ANALYSIS.py", line 34, in render_mongodb_uncertainty_analysis
+    st.session_state.navigation = "Data Input"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 136, in __setattr__
+    self[key] = value
+    ~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\metrics_util.py", line 531, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__
+    get_session_state()[key] = value
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__
+    self._state[key] = value
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\zeelk\AppData\Roaming\Python\Python314\site-packages\streamlit\runtime\state\session_state.py", line 540, in __setitem__
+    raise StreamlitAPIException(
+    ...<2 lines>...
+    )
+streamlit.errors.StreamlitAPIException: `st.session_state.navigation` cannot be modified after the widget with key `navigation` is instantiated.
+2026-01-09 10:02:24,463 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 10:06:55,393 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 10:12:22,357 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}
+2026-01-09 10:16:34,135 | INFO | AUDIT | login_success | {"actor": "xyz123@gmail.com", "role": "Admin"}

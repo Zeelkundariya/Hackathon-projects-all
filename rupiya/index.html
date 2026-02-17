@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rupiya.app - Empowering Farmers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 4rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .logo {
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        #logo{
+            height: 50px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2d6e3e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #2d6e3e;
+        }
+
+        .login-btn {
+            background: #2d6e3e;
+            color: white;
+            padding: 0.7rem 2rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background: #234d2e;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to bottom, #f8f9fa 0%, white 100%);
+            padding: 4rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 600px;
+            background-color: #FEFEFE;
+            background-image: url(https://rupiya.app/wp-content/uploads/2025/03/peanut-planting-rural-thailand-copy.png);
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .hero-content .hindi-text {
+            color: #ff8c42;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content .green-text {
+            color: #2d6e3e;
+        }
+
+        .hero-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            background: #2d6e3e;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            background: #234d2e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(45, 110, 62, 0.3);
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .download-btn:hover::after {
+            animation: ripple 1s ease-out;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 5rem 4rem;
+            text-align: center;
+            padding-bottom: 10vh;
+            background-image: url(https://rupiya.app/wp-content/uploads/2025/03/Farmer-Banner-2.jpg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            color: #2d6e3e;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .features .hindi-heading {
+            color: #2d6e3e;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .features p {
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(100px, 1fr));
+            gap: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #c4e538;
+            padding: 2rem 1rem;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: #2d6e3e;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Carbon Credits Section */
+        .carbon-section {
+            background: white;
+            padding: 5rem 4rem;
+            margin-top: 20vh;
+            text-align: center;
+            background-color: #FEFEFE;
+            background-image: url(https://rupiya.app/wp-content/uploads/2025/03/Asset-16.png);
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .carbon-section h2 {
+            font-size: 2rem;
+            color: #2d6e3e;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .carbon-section .gold-text {
+            color: #d4a855;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .carbon-section p {
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .carbon-section span {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        .carbon-section span:last-child {
+            animation-delay: 0.5s;
+        }
+
+        /* Investment Section */
+        .investment {
+            background: linear-gradient(135deg, #1a4d2e 0%, #2d6e3e 100%);
+            padding: 5rem 4rem;
+            margin-top: 70vh;
+            text-align: center;
+            color: white;
+        }
+
+        .investment h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Partners Section */
+        .partners {
+            background: white;
+            padding: 4rem 4rem;
+            text-align: center;
+        }
+
+        .partners h2 {
+            color: #2d6e3e;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .partner-logos img {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+        }
+
+        .partner-logos img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        /* Blog Section */
+        .blogs {
+            background: #d4e8d8;
+            padding: 4rem 4rem;
+        }
+
+        .blog-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-nav a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .blog-nav a:first-child,
+        .blog-nav a:hover {
+            color: #2d6e3e;
+            border-bottom-color: #2d6e3e;
+        }
+
+        .blog-nav a:not(:first-child):hover {
+            transform: translateY(-2px);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(45, 110, 62, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card h3 {
+            color: #2d6e3e;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* App Features Section */
+        .app-features {
+            background: #d4e8d8;
+            padding: 5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .app-mockup {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .app-benefits {
+            flex: 1;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            padding: 4rem;
+            border-radius: 30px;
+            color: white;
+            height: 60vh;
+            display: flex;
+            justify-content: space-evenly;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-benefits::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .app-benefits:hover::before {
+            opacity: 1;
+            animation: shine 3s infinite;
+        }
+
+        .mobile_this img{
+            height: 500px;
+            position: relative;
+            top: -39%;
+            left: 0;
+        }
+
+        .app-benefits ul {
+            list-style: none;
+        }
+
+        .app-benefits li {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .app-benefits li:hover {
+            transform: translateX(10px);
+        }
+
+        .app-benefits li:before {
+            content: "✓";
+            background: white;
+            color: #4a90e2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #f5f5dc;
+            padding: 4rem 4rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: #2d6e3e;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .footer-section a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover::before {
+            opacity: 1;
+            left: -15px;
+        }
+
+        .footer-section a:hover {
+            color: #2d6e3e;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .app-buttons img {
+            height: 50px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #2d6e3e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-links a:hover {
+            background: #234d2e;
+            transform: translateY(-5px) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ccc;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #2d6e3e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .scroll-top:hover {
+            background: #234d2e;
+            transform: translateY(-5px);
+            animation: pulse 1s infinite;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #2d6e3e;
+            transition: all 0.3s;
+        }
+        #farmer{
+            padding-left: 10vw;
+        }
+
+        .marquee{
+            display: flex;
+        }
+
+        /* Drop down mwnuuu  */
+
+        .nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* NEW: Hover lift animation */
+}
+
+.nav-menu li.dropdown {
+    position: relative; /* Establishes positioning context */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to its parent li */
+     /* top: 100%; Appears directly below the parent link */
+    /* left: 0; */
+ 
+    background-color: #ffffff;
+    min-width: 160px; /* Ensures links aren't cramped */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow */
+    border-radius: 8px; /* Slightly rounded edges */
+    padding: 8px 0; /* Padding top/bottom */
+    z-index: 1001; /* Sits on top of other content */
+}
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    /* left: 0; */
+    transform: none; /* Disable lift for dropdown items */
+}
+.dropdown-content a {
+    color: #333; /* Black text */
+    padding: 12px 16px; /* Padding for each link */
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    white-space: nowrap; /* Prevents text wrap */
+}
+.dropdown-content a:hover {
+    color: #3d8c40; 
+    background-color: #d4e8d8; /* Light green background */
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    /* left: 0; */
+}
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav, .hero, .features, .carbon-section, .investment, .partners, .blogs, .app-features, footer {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+                background-image: url();
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .app-features {
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .blog-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+       <a href="index.html">   <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" height="40px" id="logo" alt=""></a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="scanner.html">Scanner</a></li>
+            <li><a href="diseases.html">Diseases</a></li>
+            <li><a href="fertilizer.html">Fertilizer Calculator</a></li>
+            <li><a href="weather.html">Weather</a></li>
+            <li><a href="farmer.html">Farming</a></li>
+            <li><a href="buyer.html">Buyer</a></li>
+            <li><a href="carbon.html">Carbon Credit</a></li>
+            <li><a href="product.html">Products</a></li>
+             <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blogs</a></li>
+                    </ul>
+                </li>
+            <li><button class="login-btn">Login</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hindi-text">किसान की हर जरूरत का Digital साथी!</p>
+            <h1 class="green-text">Empowering Farmers</h1>
+            <p>From your fields to your future, rupiya.app stands with the hands that feed the nation. Let's grow together, sustainably and successfully</p>
+            <button class="download-btn">Download Now ▶</button>
+        </div>
+        <div class="hero-image">
+          <img src="https://rupiya.app/wp-content/uploads/2025/03/Layer-19-copy-1453x1536.png" id="farmer" alt="">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="hindi-heading">किसानों का भरोसेमंद साथी</h2>
+        <p>We empower farmers with high-quality fertilizers, advanced satellite-based soil analysis, and reliable crop insurance.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/Fertilizer-1-1636x2048.png.webp" height="120px" alt="">
+            </div>
+            <div class="feature-card">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/satelite-1770x2048.png.webp" height="120px" alt="">
+            </div>
+            <div class="feature-card">
+                   <img src="https://rupiya.app/wp-content/uploads/2025/03/rupiya-icons-01-2-1447x1536.png" height="120px" alt="">
+            </div>
+            <div class="feature-card">
+                     <img src="https://rupiya.app/wp-content/uploads/2025/03/product-crop-selling-1-1723x2048.png.webp" height="120px" alt="">
+            </div>
+            <div class="feature-card">
+                  <img src="https://rupiya.app/wp-content/uploads/2025/03/ask-experts-1-1841x2048.png.webp" height="120px" alt="">
+            </div>
+            <div class="feature-card">
+                <div style="font-size: 3rem;">👨‍🌾</div>
+                <h3>Ask Experts</h3>
+            </div>
+        </div>
+        <button class="download-btn" style="margin-top: 3rem;">Download Now</button>
+    </section>
+
+    <!-- Carbon Credits Section -->
+    <section class="carbon-section">
+        <h2>पर्यावरण बचाओ पैसे कमाओ</h2>
+        <div class="gold-text">CARBON CREDITS</div>
+        <p>One app, endless possibilities! From recharges to loans, bookings to insurance — rupiya.app makes finances effortless. Plus, enjoy exciting cashback on every spend!</p>
+        <div style="margin-top: 3rem;">
+            <span style="font-size: 4rem; color: #8b7355;">CO₂</span>
+            <span style="font-size: 4rem; color: #4a90e2; margin-left: 3rem;">O₂</span>
+        </div>
+    </section>
+
+    <section class="partners">
+        <h2>Trusted Partner</h2>
+        <div class="partner-logos">
+            <marquee behavior="alternate" direction="" class="marquee">
+                <div class="marquee_row" style="display: flex;">
+            <div style="padding: 1rem; color: #666;">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/ICICI_Bank_Logo.svg_.png" id="" height="40px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/probus-logo-new-3.png"  height="50px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/ITC_Limited-Logo.wine_.png"  height="80px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png"  height="50px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/goibibo-logo.png"  height="50px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/nsdl.png"  height="50px" alt="">
+            </div>
+            <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png"  height="50px" alt="">
+            </div>
+
+              <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/probus-logo-new-3.png"  height="50px" alt="">
+            </div>
+
+              <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/Samaarambh_Logo_New.png"  height="50px" alt="">
+            </div>
+
+              <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png"  height="50px" alt="">
+            </div>
+
+              <div style="padding: 1rem; color: #666;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png"  height="50px" alt="">
+            </div>
+            </div>
+            </marquee>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blogs">
+        <div class="blog-nav">
+            <a href="#blogs">Blogs</a>
+            <a href="#products">Products</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#awards">Awards</a>
+        </div>
+        <div class="blog-grid">
+            <div class="blog-card" >
+                <div style="background: linear-gradient(135deg, #8b4513 0%, #654321 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/08/1-Cashback-on-Recharge-Bill-Payments-1536x1032.jpg" alt="">
+                </div>
+                <div class="blog-card-content">
+                    <h3>Cash Treat: Why 1% Cashback...</h3>
+                    <p>The Sweetness of a Cash Treat Who doesn't love a</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div style="background: linear-gradient(135deg, #4a7c59 0%, #2d5a3d 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/08/Carbon-Credits-A-Step-Towards-a-Greener-Future-1536x1032.jpg" alt="">
+                </div>
+                <div class="blog-card-content">
+                    <h3>Carbon Credits: A Step Towards...</h3>
+                    <p>🌍 Climate change is one of the biggest challenges of</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div style="background: linear-gradient(135deg, #6b8e23 0%, #556b2f 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/08/What-is-Carbon-Credit-Program-for-Farmers-1536x1032.jpg" alt="">
+                </div>
+                <div class="blog-card-content">
+                    <h3>What Is Carbon Credit Program...</h3>
+                    <p>The Carbon Credit Program is creating a buzz everywhere —</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Features Section -->
+    <section class="app-features">
+        <div class="app-benefits">
+            <div class="mobile_this">
+                <img src="https://rupiya.app/wp-content/uploads/2025/05/1234.png" alt="">
+            </div>
+            <div class="mobile_that">
+            <ul>
+                <li>One-stop solutions for farmers</li>
+                <li>Easy-to-use app</li>
+                <li>Enjoy cashback and extra savings</li>
+                <li>Partnered with trusted brands</li>
+                <li>24/7 customer support</li>
+            </ul>
+            <button class="download-btn" style="margin-top: 2rem;">Download Now</button>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>rupiya.app offers farmers a complete set of tools for success. With features like satellite monitoring, soil testing, personalized advice, and more, we simplify farming. Plus, our platform provides access to agricultural loans, ensuring the support needed for growth.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#" style="display: block; margin-bottom: 0.5rem;">Privacy Policy</a>
+                    <a href="#" style="display: block; margin-bottom: 0.5rem;">Refund Policy</a>
+                    <a href="#" style="display: block;">Terms Of Use</a>
+                </div>
+                <div class="app-buttons">
+                    <div style="background: #000; color: white; padding: 0.5rem 1rem; border-radius: 8px;">Google Play</div>
+                    <div style="background: #000; color: white; padding: 0.5rem 1rem; border-radius: 8px;">App Store</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Smart farming</a></li>
+                    <li><a href="#">Carbon credit</a></li>
+                    <li><a href="#">Recharge</a></li>
+                    <li><a href="#">Bookings</a></li>
+                    <li><a href="#">Loan service</a></li>
+                    <li><a href="#">Gold solutions</a></li>
+                    <li><a href="#">Insurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Career</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <span style="font-weight: bold;">R</span> rupiya.app
+                </div>
+                <p>📧 info@rupiya.app</p>
+                <p>📞 +91 79 4100 6237</p>
+                <p>📍 Corporate Office: 1005 - 1006 Ganesh Glory, Jagatpur Road, Off SG Highway, Ahmedabad 382481.</p>
+                <div class="social-links">
+                    <a href="#">f</a>
+                    <a href="#">𝕏</a>
+                    <a href="#">📷</a>
+                    <a href="#">in</a>
+                    <a href="#">▶</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>©Copyright 2025 rupiya.app | All rights reserved</p>
+           
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" onclick="scrollToTop()">
+        ▲
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll button
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

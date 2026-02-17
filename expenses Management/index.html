@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LedgerCore - Expense Management</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #8b5cf6;
+        --primary-color-darker: #2575fc;
+        --solid-black: #111827;
+        --text-color: #F9FAFB;
+        --text-color-muted: #9CA3AF;
+        --card-bg-dark: rgba(31, 41, 55, 0.5);
+        --card-border-dark: rgba(255, 255, 255, 0.1);
+    }
+    html {
+        background-color: var(--solid-black);
+    }
+    body {
+        font-family: "Segoe UI", "Poppins", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--solid-black);
+        color: var(--text-color);
+        margin: 0;
+        min-height: 100vh;
+    }
+    #root {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        overflow-x: hidden;
+    }
+   
+    .view-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .landing-page {
+        width: 100%;
+        color: var(--text-color);
+        background-color: #111827;
+    }
+    .landing-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    .landing-nav .logo { font-weight: 700; font-size: 1.5rem; color: #F9FAFB; }
+    .landing-nav .nav-links a { margin: 0 1rem; text-decoration: none; color: var(--text-color-muted); font-weight: 600; }
+    .landing-nav .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; background-color: var(--primary-color); color: white; cursor: pointer; font-weight: 600; transition: background-color 0.3s; }
+    .landing-nav .btn:hover { background-color: #7c3aed; }
+
+    .hero-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4rem 2rem;
+        max-width: 1280px;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+    .hero-content {
+        max-width: 500px;
+    }
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        color: #F9FAFB;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+        color: var(--text-color-muted);
+        margin-bottom: 2rem;
+    }
+
+    .hero-buttons .btn {
+        margin-right: 1rem;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 2px solid transparent; 
+    }
+    .hero-buttons .btn-secondary {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+    }
+    .hero-buttons .btn-secondary:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .hero-image img {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .trusted-section {
+        background-color: #1F2937;
+        padding: 3rem 2rem;
+        text-align: center;
+    }
+    .trusted-section h3 {
+        color: var(--text-color-muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+    }
+    .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        filter: grayscale(100%) invert(1);
+        opacity: 0.6;
+    }
+    
+    .auth-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+   
+    .signup-box {
+        background: var(--card-bg-dark);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--card-border-dark);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+    }
+    .signup-box h2 {
+        border: none;
+        padding-bottom: 0;
+        margin-bottom: 10px;
+        color: var(--text-color);
+        font-size: 28px;
+        text-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+    }
+    .signup-box p {
+        color: var(--text-color-muted);
+        margin-bottom: 30px;
+    }
+    .auth-wrapper .input-group {
+        position: relative;
+        margin-bottom: 25px;
+        text-align: left;
+    }
+    .auth-wrapper input, .auth-wrapper select {
+        width: 100%;
+        padding: 14px;
+        box-sizing: border-box;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: transparent;
+        color: var(--text-color);
+        outline: none;
+        transition: all 0.3s;
+    }
+    .auth-wrapper input::placeholder { color: transparent; }
+    .auth-wrapper label {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: var(--text-color-muted);
+        pointer-events: none;
+        transition: all 0.3s ease-out;
+    }
+    .auth-wrapper input:focus + label, .auth-wrapper input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 10px;
+        transform: scale(0.85);
+        background-color: var(--primary-color);
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+    }
+    .auth-wrapper button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+     .auth-wrapper button[type="submit"]:hover {
+        background-color: #7c3aed;
+    }
+    .login-link { color: var(--text-color-muted); }
+    .login-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .role-selector { display: flex; gap: 10px; margin-bottom: 25px; }
+    .role-selector button {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: var(--text-color-muted);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    .role-selector button.active {
+        background: var(--primary-color);
+        color: #fff;
+        border-color: var(--primary-color);
+    }
+   
+    .dashboard-wrapper {
+        max-width: 1280px;
+        width: 100%;
+        margin: auto;
+        position: relative;
+        z-index: 1;
+        padding: 1rem;
+    }
+    .dashboard h2, .dashboard h3 {
+        margin: 1rem 0 0.75rem;
+        color: var(--primary-color);
+        border-bottom: 1px solid #374151;
+        padding-bottom: 8px;
+    }
+    .dashboard { display: grid; grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); gap: 24px; }
+    .card {
+        width: 85vw;
+        background-color: #1F2937;
+        border: 1px solid #374151;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li {
+        background: #374151;
+        margin-bottom: 12px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #4B5563;
+    }
+    button.approve-btn, button.reject-btn, button.logout-btn, button.delete-btn, button.backup-btn, button.assign-btn { 
+        margin-left: 10px; 
+        margin-bottom: 1vw;
+        padding: 6px 16px; 
+        font-weight: 600; 
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
+    }
+    button.approve-btn { background-color: #16a34a; color: white; }
+    button.reject-btn, button.logout-btn { background-color: #dc2626; color: white; }
+    button.delete-btn { background-color: #9ca3af; color: #1f2937; }
+    button.backup-btn { background-color: #2563eb; color: white; }
+    button.assign-btn { background-color: #7c3aed; color: white; }
+    .message { margin-top: 16px; text-align: center; padding: 12px 16px; border-radius: 8px; font-weight: 700; }
+    .message.error { background-color: green; color: #fecaca; }
+    .message.success { background-color: #166534; color: #dcfce7; }
+    .summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .summary-card {
+        background: #1F2937;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #374151;
+    }
+    .summary-card .value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    .summary-card .label {
+        font-size: 0.9rem;
+        color: var(--text-color-muted);
+    }
+
+    .dashboard-wrapper input, .dashboard-wrapper select {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #4B5563;
+        border-radius: 8px;
+        background-color: #374151;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+        margin-top: 1.5vw;
+    }
+    .dashboard-wrapper form input, .dashboard-wrapper form select {
+        margin-bottom: 1rem;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-manager-approved { background: #dbeafe; color: #1e40af; }
+    .status-approved { background: #dcfce7; color: #166534; }
+    .status-rejected { background: #fee2e2; color: #991b1b; }
+    
+    .data-management {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .data-management button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    .data-management button:hover {
+        transform: translateY(-2px);
+    }
+    .file-input {
+        display: none;
+    }
+    .file-input-label {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #374151;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+    .file-input-label:hover {
+        background-color: #4B5563;
+    }
+    
+    .user-management {
+    margin-bottom: 20px;
+    grid-column: 1 / -1; /* Make it span full width */
+}
+
+.user-management h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.assign-manager-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 15px;
+    align-items: end;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #374151;
+    border-radius: 8px;
+    border: 1px solid #4B5563;
+}
+
+.assign-manager-form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.assign-manager-form label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.user-card {
+    background: #374151;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #4B5563;
+    transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+}
+
+.user-card h4 {
+    margin: 0 0 12px 0;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.user-card p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// SIMPLE DATABASE - Everything in one place
+const initialData = {
+  users: [
+    { id: 1, name: "Alice Admin", email: "admin@test.com", password: "password", role: "ADMIN", managerId: null },
+    { id: 2, name: "Mike Manager", email: "manager@test.com", password: "password", role: "MANAGER", managerId: 1 },
+    { id: 3, name: "Erin Employee", email: "employee@test.com", password: "password", role: "EMPLOYEE", managerId: 2 },
+    { id: 4, name: "Sam Employee", email: "sam@test.com", password: "password", role: "EMPLOYEE", managerId: 2 },
+  ],
+  expenses: [
+    { id: 101, employeeId: 3, name: "Client Lunch", amount: 2500, category: "Meals", date: "2025-10-01", status: "PENDING" },
+    { id: 102, employeeId: 4, name: "Office Supplies", amount: 1200, category: "Supplies", date: "2025-10-02", status: "APPROVED" },
+    { id: 103, employeeId: 3, name: "Taxi Fare", amount: 800, category: "Travel", date: "2025-09-28", status: "REJECTED" },
+    { id: 104, employeeId: 4, name: "Software License", amount: 5000, category: "Software", date: "2025-10-03", status: "MANAGER_APPROVED" },
+  ]
+};
+
+// Enhanced data persistence with multiple storage options
+const DataManager = {
+  // Save to localStorage with timestamp
+  saveToLocalStorage: (data) => {
+    const dataWithTimestamp = {
+      ...data,
+      lastSaved: new Date().toISOString()
+    };
+    localStorage.setItem('ledgercore_data', JSON.stringify(dataWithTimestamp));
+    console.log('Data saved to localStorage at:', dataWithTimestamp.lastSaved);
+  },
+
+  // Load from localStorage
+  loadFromLocalStorage: () => {
+    const saved = localStorage.getItem('ledgercore_data');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        console.log('Data loaded from localStorage, last saved:', parsed.lastSaved);
+        return parsed;
+      } catch (e) {
+        console.error('Error parsing localStorage data:', e);
+      }
+    }
+    console.log('No saved data found, using initial data');
+    return initialData;
+  },
+
+  // Export data as JSON file
+  exportData: (data) => {
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `ledgercore-backup-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    console.log('Data exported successfully');
+  },
+
+  // Import data from JSON file
+  importData: (file, callback) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target.result);
+        console.log('Data imported successfully');
+        callback(importedData);
+      } catch (error) {
+        console.error('Error parsing imported file:', error);
+        alert('Invalid file format. Please select a valid JSON backup file.');
+      }
+    };
+    reader.readAsText(file);
+  },
+
+  // Clear all data (reset to initial)
+  clearData: () => {
+    if (window.confirm('Are you sure you want to clear all data? This will delete ALL employees and expenses. This action cannot be undone.')) {
+      const resetData = {
+        users: [
+          { id: 1, name: "Alice Admin", email: "admin@test.com", password: "password", role: "ADMIN", managerId: null },
+          { id: 2, name: "Mike Manager", email: "manager@test.com", password: "password", role: "MANAGER", managerId: 1 }
+        ],
+        expenses: []
+      };
+      localStorage.removeItem('ledgercore_data');
+      console.log('All data cleared - employees and expenses reset to zero');
+      return resetData;
+    }
+    return null;
+  },
+
+  // Auto-save every 5 minutes
+  enableAutoSave: (data, setData) => {
+    return setInterval(() => {
+      DataManager.saveToLocalStorage(data);
+    }, 5 * 60 * 1000); // 5 minutes
+  }
+};
+
+// Landing Page
+function LandingPage({ switchToLogin, switchToSignUp }) {
+    return (
+        <div className="landing-page">
+            <nav className="landing-nav">
+                <div className="logo">LedgerCore</div>
+                <div className="nav-links">
+                    <a href="#">Solutions</a>
+                    <a href="#">Platform</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Company</a>
+                </div>
+                <div>
+                    <button className="btn" onClick={switchToLogin}>Login</button>
+                </div>
+            </nav>
+            <section className="hero-section">
+                <div className="hero-content">
+                    <h1>Expense management software</h1>
+                    <p>Choose expense management software that shows you employee expenses in real time. Monitor team budgets, track requests and approvals, reimburse expenses, and embrace admin.</p>
+                    <div className="hero-buttons">
+                        <button className="btn" onClick={switchToSignUp}>Sign Up</button>
+                        <button className="btn btn-secondary" onClick={switchToLogin}>Login</button>
+                    </div>
+                </div>
+                <div className="hero-image">
+                    <img src="https://res.cloudinary.com/ddmt5vrxi/image/upload/v1759568782/WhatsApp_Image_2025-10-04_at_14.32.14_bb031eed_rhiykz.jpg" alt="Expense management app screenshot" />
+                </div>
+            </section>
+            <section className="trusted-section">
+                <h3>THOUSANDS OF WORLD-CLASS COMPANIES STREAMLINE EXPENSES WITH LedgerCore</h3>
+                <div className="logos">
+                    <span>ALGOLIA</span>
+                    <span>ITRS</span>
+                    <span>Habito</span>
+                    <span>SECURA</span>
+                    <span>NICKEL</span>
+                </div>
+            </section>
+        </div>
+    );
+}
+
+// Sign Up Page
+function SignUpPage({ onSignUp, switchToLogin, error }) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [role, setRole] = useState('EMPLOYEE');
+    const handleSubmit = (e) => { e.preventDefault(); onSignUp({ name, email, password, confirmPassword, role }); };
+
+    return (
+        <div className="auth-wrapper">
+             <div className="signup-box">
+                <h2>Create Your Account</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group"><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder=" " required /><label>Full Name</label></div>
+                    <div className="input-group"><input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder=" " required /><label>Email</label></div>
+                    <div className="input-group">
+                        <div className="role-selector">
+                             <button type="button" onClick={() => setRole('EMPLOYEE')} className={role === 'EMPLOYEE' ? 'active' : ''}>Employee</button>
+                             <button type="button" onClick={() => setRole('MANAGER')} className={role === 'MANAGER' ? 'active' : ''}>Manager</button>
+                             <button type="button" onClick={() => setRole('ADMIN')} className={role === 'ADMIN' ? 'active' : ''}>Admin</button>
+                        </div>
+                    </div>
+                    <div className="input-group"><input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder=" " required minLength="8" /><label>Password</label></div>
+                    <div className="input-group"><input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder=" " required /><label>Confirm Password</label></div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                {error && <div className="message error">{error}</div>}
+                <div className="login-link">Already have an account? <a onClick={switchToLogin}>Log In</a></div>
+            </div>
+        </div>
+    );
+}
+
+// Login Page
+function LoginPage({ onLogin, switchToSignUp, error }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = (e) => { e.preventDefault(); onLogin(email, password); };
+
+  return (
+    <div className="auth-wrapper">
+        <div className="signup-box">
+            <h2>Welcome Back</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="input-group"><input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder=" " required /><label>Email</label></div>
+                <div className="input-group"><input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder=" " required /><label>Password</label></div>
+                <button type="submit">Login</button>
+            </form>
+            {error && <div className="message error">{error}</div>}
+            <div className="login-link">Don't have an account? <a onClick={switchToSignUp}>Sign Up</a></div>
+        </div>
+    </div>
+  );
+}
+
+// Employee Dashboard
+function EmployeeDashboard({ loggedInUser, expenses, onExpenseSubmit }) {
+    const [localExpenses, setLocalExpenses] = useState([]);
+    const [newExpense, setNewExpense] = useState({ 
+        name: '', 
+        amount: '', 
+        category: 'Meals', 
+        date: new Date().toISOString().split('T')[0] 
+    });
+
+    // Load local expenses
+    useEffect(() => {
+        const stored = localStorage.getItem(`local_expenses_${loggedInUser.id}`);
+        if (stored) {
+            setLocalExpenses(JSON.parse(stored));
+        }
+    }, [loggedInUser.id]);
+
+    // Get submitted expenses for this employee
+    const submittedExpenses = expenses.filter(exp => exp.employeeId === loggedInUser.id);
+
+    const handleAddExpense = (e) => {
+        e.preventDefault();
+        if (!newExpense.name || !newExpense.amount) {
+            alert('Please fill all fields');
+            return;
+        }
+
+        const expense = {
+            id: Date.now(),
+            name: newExpense.name,
+            amount: parseFloat(newExpense.amount),
+            category: newExpense.category,
+            date: newExpense.date
+        };
+
+        const updated = [...localExpenses, expense];
+        setLocalExpenses(updated);
+        localStorage.setItem(`local_expenses_${loggedInUser.id}`, JSON.stringify(updated));
+        
+        // Reset form
+        setNewExpense({ 
+            name: '', 
+            amount: '', 
+            category: 'Meals', 
+            date: new Date().toISOString().split('T')[0] 
+        });
+    };
+
+    const handleSubmitForApproval = () => {
+        if (localExpenses.length === 0) {
+            alert('No expenses to submit');
+            return;
+        }
+
+        if (window.confirm(`Submit ${localExpenses.length} expenses for approval?`)) {
+            onExpenseSubmit(localExpenses);
+            setLocalExpenses([]);
+            localStorage.removeItem(`local_expenses_${loggedInUser.id}`);
+            alert('Expenses submitted successfully!');
+        }
+    };
+
+    const formatCurrency = (val) => `₹${Number(val).toLocaleString('en-IN')}`;
+
+    return (
+        <div className="dashboard">
+            <div className="card" style={{ gridColumn: '1 / -1' }}>
+                <h2>Add New Expense</h2>
+                <form onSubmit={handleAddExpense}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                        <div>
+                            <label>Expense Name</label>
+                            <input 
+                                type="text" 
+                                value={newExpense.name} 
+                                onChange={e => setNewExpense({...newExpense, name: e.target.value})}
+                                placeholder="Lunch with client"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Amount (₹)</label>
+                            <input 
+                                type="number" 
+                                value={newExpense.amount} 
+                                onChange={e => setNewExpense({...newExpense, amount: e.target.value})}
+                                placeholder="1000"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Category</label>
+                            <select 
+                                value={newExpense.category} 
+                                onChange={e => setNewExpense({...newExpense, category: e.target.value})}
+                                required
+                            >
+                                <option value="Meals">Meals</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Supplies">Supplies</option>
+                                <option value="Software">Software</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Date</label>
+                            <input 
+                                type="date" 
+                                value={newExpense.date} 
+                                onChange={e => setNewExpense({...newExpense, date: e.target.value})}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <button type="submit" className="approve-btn" style={{ marginTop: '1rem' }}>Add Expense</button>
+                </form>
+            </div>
+
+            <div className="card">
+                <h2>Unsubmitted Expenses ({localExpenses.length})</h2>
+                {localExpenses.length > 0 ? (
+                    <ul>
+                        {localExpenses.map(exp => (
+                            <li key={exp.id}>
+                                <div>
+                                    <strong>{exp.name}</strong><br />
+                                    {formatCurrency(exp.amount)} • {exp.category}<br />
+                                    <small>{exp.date}</small>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : <p>No unsubmitted expenses</p>}
+                {localExpenses.length > 0 && (
+                    <button className="approve-btn" onClick={handleSubmitForApproval} style={{ width: '100%', marginTop: '1rem' }}>
+                        Submit {localExpenses.length} Expenses for Approval
+                    </button>
+                )}
+            </div>
+
+            <div className="card">
+                <h2>Submitted Expenses Status ({submittedExpenses.length})</h2>
+                {submittedExpenses.length > 0 ? (
+                    <ul>
+                        {submittedExpenses.map(exp => (
+                            <li key={exp.id}>
+                                <div>
+                                    <strong>{exp.name}</strong><br />
+                                    {formatCurrency(exp.amount)} • {exp.category}<br />
+                                    <small>{exp.date}</small>
+                                </div>
+                                <span className={`status-badge status-${exp.status.toLowerCase().replace('_', '-')}`}>
+                                    {exp.status.replace('_', ' ')}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                ) : <p>No submitted expenses</p>}
+            </div>
+        </div>
+    );
+}
+
+// User Management Component for Admin
+function UserManagement({ users, onAssignManager, loggedInUser }) {
+    const [selectedManager, setSelectedManager] = useState('');
+    const [selectedEmployee, setSelectedEmployee] = useState('');
+
+    // Get all employees (users with role EMPLOYEE)
+    const employees = users.filter(user => user.role === 'EMPLOYEE');
+    
+    // Get all managers (users with role MANAGER)
+    const managers = users.filter(user => user.role === 'MANAGER');
+
+    const handleAssignManager = () => {
+        if (!selectedEmployee || !selectedManager) {
+            alert('Please select both employee and manager');
+            return;
+        }
+
+        onAssignManager(parseInt(selectedEmployee), parseInt(selectedManager));
+        setSelectedEmployee('');
+        setSelectedManager('');
+    };
+
+    const getManagerName = (managerId) => {
+        if (!managerId) return 'Not Assigned';
+        const manager = users.find(user => user.id === managerId);
+        return manager ? manager.name : 'Unknown Manager';
+    };
+
+    return (
+        <div className="card">
+            <h2>User Management</h2>
+            
+            <div className="user-management">
+                <h3>Assign Manager to Employee</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '20px', alignItems: 'end' }}>
+                    <div>
+                        <label>Select Employee</label>
+                        <select 
+                            value={selectedEmployee} 
+                            onChange={e => setSelectedEmployee(e.target.value)}
+                        >
+                            <option value="">Select Employee</option>
+                            {employees.map(employee => (
+                                <option key={employee.id} value={employee.id}>
+                                    {employee.name} ({employee.email})
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Select Manager</label>
+                        <select 
+                            value={selectedManager} 
+                            onChange={e => setSelectedManager(e.target.value)}
+                        >
+                            <option value="">Select Manager</option>
+                            {managers.map(manager => (
+                                <option key={manager.id} value={manager.id}>
+                                    {manager.name} ({manager.email})
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <button className="assign-btn" onClick={handleAssignManager}>
+                        Assign Manager
+                    </button>
+                </div>
+            </div>
+
+            <div className="user-list">
+                <h3>All Employees</h3>
+                {employees.map(employee => (
+                    <div key={employee.id} className="user-card">
+                        <h4>{employee.name}</h4>
+                        <p><strong>Email:</strong> {employee.email}</p>
+                        <p><strong>Manager:</strong> {getManagerName(employee.managerId)}</p>
+                        <p><strong>Status:</strong> {employee.managerId ? 'Assigned' : 'Unassigned'}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+// Manager & Admin Dashboard
+function ManagerAdminDashboard({ loggedInUser, users, expenses, onExpenseUpdate, onAssignManager }) {
+    const isManager = loggedInUser.role === 'MANAGER';
+    const isAdmin = loggedInUser.role === 'ADMIN';
+
+    // Get team members for manager - employees assigned to this manager
+    const myTeamMemberIds = isManager ? 
+        users.filter(u => u.managerId === loggedInUser.id).map(u => u.id) : [];
+   
+    // Manager sees only their team's PENDING expenses
+    const managerApprovalQueue = isManager 
+        ? expenses.filter(e => myTeamMemberIds.includes(e.employeeId) && e.status === 'PENDING')
+        : [];
+   
+    // Admin sees ALL pending and manager-approved expenses for final approval
+    const adminApprovalQueue = isAdmin 
+        ? expenses.filter(e => e.status === 'PENDING' || e.status === 'MANAGER_APPROVED')
+        : [];
+
+    const formatCurrency = (val) => `₹${Number(val).toLocaleString('en-IN')}`;
+
+    const handleManagerApproval = (expenseId, isApproved) => {
+        const newStatus = isApproved ? "MANAGER_APPROVED" : "REJECTED";
+        onExpenseUpdate(expenseId, newStatus);
+    };
+
+    const handleAdminApproval = (expenseId, isApproved) => {
+        const newStatus = isApproved ? "APPROVED" : "REJECTED";
+        onExpenseUpdate(expenseId, newStatus);
+    };
+
+    const getUserName = (userId) => {
+        const user = users.find(u => u.id === userId);
+        return user ? user.name : 'Unknown User';
+    };
+
+    const getManagerName = (employeeId) => {
+        const employee = users.find(u => u.id === employeeId);
+        if (!employee) return 'Unknown';
+        const manager = users.find(u => u.id === employee.managerId);
+        return manager ? manager.name : 'No Manager Assigned';
+    };
+
+    return (
+        <div className="dashboard">
+            <div className="summary-cards" style={{ gridColumn: '1 / -1' }}>
+                <div className="summary-card">
+                    <div className="value">{formatCurrency(
+                        isManager 
+                            ? managerApprovalQueue.reduce((sum, e) => sum + e.amount, 0)
+                            : adminApprovalQueue.reduce((sum, e) => sum + e.amount, 0)
+                    )}</div>
+                    <div className="label">
+                        {isManager ? 'Pending Manager Approval' : 'Pending Final Approval'}
+                    </div>
+                </div>
+                <div className="summary-card">
+                    <div className="value">
+                        {isManager ? myTeamMemberIds.length : users.filter(u => u.role !== 'ADMIN').length}
+                    </div>
+                    <div className="label">{isManager ? 'Team Members' : 'Total Users'}</div>
+                </div>
+            </div>
+
+            {/* USER MANAGEMENT FOR ADMIN */}
+            {isAdmin && (
+                <UserManagement 
+                    users={users} 
+                    onAssignManager={onAssignManager}
+                    loggedInUser={loggedInUser}
+                />
+            )}
+
+            {/* MANAGER APPROVAL QUEUE */}
+            {isManager && (
+                <div className="card" style={{ gridColumn: '1 / -1' }}>
+                    <h2>Manager Approval Queue ({managerApprovalQueue.length})</h2>
+                    {managerApprovalQueue.length > 0 ? (
+                        <ul>
+                            {managerApprovalQueue.map(exp => (
+                                <li key={exp.id}>
+                                    <div>
+                                        <strong>{getUserName(exp.employeeId)}</strong>: {exp.name}<br />
+                                        {formatCurrency(exp.amount)} • {exp.category}<br />
+                                        <small>Date: {exp.date}</small>
+                                    </div>
+                                    <div>
+                                        <button className="approve-btn" onClick={() => handleManagerApproval(exp.id, true)}>
+                                            Approve
+                                        </button>
+                                        <button className="reject-btn" onClick={() => handleManagerApproval(exp.id, false)}>
+                                            Reject
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : <p>No pending expenses for approval</p>}
+                </div>
+            )}
+
+            {/* ADMIN APPROVAL QUEUE */}
+            {isAdmin && (
+                <div className="card" style={{ gridColumn: '1 / -1' }}>
+                    <h2>Admin Approval Queue ({adminApprovalQueue.length})</h2>
+                    {adminApprovalQueue.length > 0 ? (
+                        <ul>
+                            {adminApprovalQueue.map(exp => (
+                                <li key={exp.id}>
+                                    <div>
+                                        <strong>{getUserName(exp.employeeId)}</strong>: {exp.name}<br />
+                                        {formatCurrency(exp.amount)} • {exp.category}<br />
+                                        <small>Date: {exp.date} • Manager: {getManagerName(exp.employeeId)}</small>
+                                    </div>
+                                    <div>
+                                        <button className="approve-btn" onClick={() => handleAdminApproval(exp.id, true)}>
+                                            Approve
+                                        </button>
+                                        <button className="reject-btn" onClick={() => handleAdminApproval(exp.id, false)}>
+                                            Reject
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : <p>No expenses pending approval</p>}
+                </div>
+            )}
+
+            {/* ALL EXPENSES VIEW */}
+            <div className="card" style={{ gridColumn: '1 / -1' }}>
+                <h2>All Expenses ({expenses.length})</h2>
+                {expenses.length > 0 ? (
+                    <ul style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                        {expenses.map(exp => (
+                            <li key={exp.id}>
+                                <div>
+                                    <strong>{getUserName(exp.employeeId)}</strong>: {exp.name}<br />
+                                    {formatCurrency(exp.amount)} • {exp.category} • {exp.date}<br />
+                                    <small>Manager: {getManagerName(exp.employeeId)}</small>
+                                </div>
+                                <span className={`status-badge status-${exp.status.toLowerCase().replace('_', '-')}`}>
+                                    {exp.status.replace('_', ' ')}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                ) : <p>No expenses found</p>}
+            </div>
+        </div>
+    );
+}
+
+// Dashboard Wrapper
+function Dashboard({ loggedInUser, onLogout, users, expenses, onExpenseSubmit, onExpenseUpdate, onExportData, onImportData, onClearData, onAssignManager }) {
+    const [message, setMessage] = useState('');
+    const [showMessage, setShowMessage] = useState(false);
+    
+    const handleFileImport = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            onImportData(file);
+            setMessage('Data imported successfully!');
+            setShowMessage(true);
+            setTimeout(() => setShowMessage(false), 3000);
+        }
+        e.target.value = ''; // Reset file input
+    };
+    
+    const handleExport = () => {
+        onExportData();
+        setMessage('Data exported successfully!');
+        setShowMessage(true);
+        setTimeout(() => setShowMessage(false), 3000);
+    };
+    
+    const handleClear = () => {
+        const result = onClearData();
+        if (result) {
+            setMessage('All data cleared successfully! Employees and expenses reset to zero.');
+            setShowMessage(true);
+            setTimeout(() => setShowMessage(false), 5000);
+        }
+    };
+
+    return (
+        <div className="dashboard-wrapper">
+            <div style={{ textAlign: "center", marginBottom: "24px" }}>
+                <h1>LedgerCore</h1>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px'}}>
+                    <p>Welcome, <strong>{loggedInUser.name}</strong> ({loggedInUser.role})</p>
+                    <button onClick={onLogout} className="logout-btn" style={{margin: 0}}>Logout</button>
+                </div>
+                
+                {/* Data Management Controls */}
+                <div className="data-management">
+                    <button className="backup-btn" onClick={handleExport}>
+                        Export Data
+                    </button>
+                    
+                    <label className="file-input-label">
+                        Import Data
+                        <input 
+                            type="file" 
+                            className="file-input" 
+                            accept=".json" 
+                            onChange={handleFileImport}
+                        />
+                    </label>
+                    
+                    {loggedInUser.role === 'ADMIN' && (
+                        <button className="delete-btn" onClick={handleClear}>
+                            Clear All Data
+                        </button>
+                    )}
+                </div>
+                
+                {showMessage && <div className="message success">{message}</div>}
+            </div>
+            
+            {loggedInUser.role === 'EMPLOYEE' ? (
+                <EmployeeDashboard 
+                    loggedInUser={loggedInUser} 
+                    expenses={expenses}
+                    onExpenseSubmit={onExpenseSubmit}
+                />
+            ) : (
+                <ManagerAdminDashboard 
+                    loggedInUser={loggedInUser} 
+                    users={users}
+                    expenses={expenses}
+                    onExpenseUpdate={onExpenseUpdate}
+                    onAssignManager={onAssignManager}
+                />
+            )}
+        </div>
+    );
+}
+
+// Main App
+function App() {
+    const [view, setView] = useState('landing');
+    const [loggedInUser, setLoggedInUser] = useState(null);
+    const [error, setError] = useState('');
+    const [data, setData] = useState(DataManager.loadFromLocalStorage());
+
+    // Save data when it changes
+    useEffect(() => {
+        DataManager.saveToLocalStorage(data);
+    }, [data]);
+
+    // Set up auto-save
+    useEffect(() => {
+        const autoSaveInterval = DataManager.enableAutoSave(data, setData);
+        return () => clearInterval(autoSaveInterval);
+    }, [data]);
+
+    const handleSignUp = (newUser) => {
+        if (newUser.password !== newUser.confirmPassword) {
+            setError("Passwords do not match.");
+            return;
+        }
+        if (data.users.find(u => u.email === newUser.email)) {
+            setError("An account with this email already exists.");
+            return;
+        }
+        
+        setError('');
+        
+        // For new employees, don't assign manager automatically - let admin assign later
+        let managerId = null;
+        if (newUser.role === 'MANAGER') {
+            // Find an admin to be manager of this manager
+            const admin = data.users.find(u => u.role === 'ADMIN');
+            managerId = admin ? admin.id : null;
+        }
+        // ADMIN has no manager
+        // EMPLOYEE starts with no manager - will be assigned by admin
+        
+        const userToCreate = {
+            id: Date.now(),
+            name: newUser.name,
+            email: newUser.email,
+            password: newUser.password,
+            role: newUser.role,
+            managerId: managerId
+        };
+        
+        const newData = {
+            ...data,
+            users: [...data.users, userToCreate]
+        };
+        setData(newData);
+        setView('login');
+        setError("Account created successfully! Please log in.");
+    };
+
+    const handleLogin = (email, password) => {
+        setError('');
+        const foundUser = data.users.find(user => user.email === email && user.password === password);
+        if (foundUser) {
+            setLoggedInUser(foundUser);
+            setView('dashboard');
+        } else {
+            setError("Invalid email or password.");
+        }
+    };
+
+    const handleLogout = () => {
+        setLoggedInUser(null);
+        setView('landing');
+    };
+
+    const handleExpenseSubmit = (localExpenses) => {
+        const newExpenses = localExpenses.map(exp => ({
+            ...exp,
+            id: Date.now() + Math.random(),
+            employeeId: loggedInUser.id,
+            status: 'PENDING'
+        }));
+        
+        const newData = {
+            ...data,
+            expenses: [...data.expenses, ...newExpenses]
+        };
+        setData(newData);
+    };
+
+    const handleExpenseUpdate = (expenseId, newStatus) => {
+        const newData = {
+            ...data,
+            expenses: data.expenses.map(exp => 
+                exp.id === expenseId ? { ...exp, status: newStatus } : exp
+            )
+        };
+        setData(newData);
+    };
+
+    const handleAssignManager = (employeeId, managerId) => {
+        const newData = {
+            ...data,
+            users: data.users.map(user => 
+                user.id === employeeId ? { ...user, managerId: managerId } : user
+            )
+        };
+        setData(newData);
+        alert('Manager assigned successfully!');
+    };
+
+    const handleExportData = () => {
+        DataManager.exportData(data);
+    };
+
+    const handleImportData = (file) => {
+        DataManager.importData(file, (importedData) => {
+            setData(importedData);
+        });
+    };
+
+    const handleClearData = () => {
+        const result = DataManager.clearData();
+        if (result) {
+            setData(result);
+            return true;
+        }
+        return false;
+    };
+
+    const renderView = () => {
+        switch(view) {
+            case 'landing': 
+                return <LandingPage 
+                    switchToSignUp={() => setView('signup')} 
+                    switchToLogin={() => setView('login')} 
+                />;
+            case 'dashboard': 
+                return <Dashboard 
+                    loggedInUser={loggedInUser} 
+                    onLogout={handleLogout}
+                    users={data.users}
+                    expenses={data.expenses}
+                    onExpenseSubmit={handleExpenseSubmit}
+                    onExpenseUpdate={handleExpenseUpdate}
+                    onAssignManager={handleAssignManager}
+                    onExportData={handleExportData}
+                    onImportData={handleImportData}
+                    onClearData={handleClearData}
+                />;
+            case 'login': 
+                return <LoginPage 
+                    onLogin={handleLogin} 
+                    switchToSignUp={() => { setView('signup'); setError(''); }} 
+                    error={error} 
+                />;
+            case 'signup': 
+            default: 
+                return <SignUpPage 
+                    onSignUp={handleSignUp} 
+                    switchToLogin={() => { setView('login'); setError(''); }} 
+                    error={error} 
+                />;
+        }
+    };
+
+    return (
+        <div className="view-container">
+            {renderView()}
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
+
+
+
+

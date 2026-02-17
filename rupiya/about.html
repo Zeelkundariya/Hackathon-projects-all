@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Team - rupiya.app</title>
+    <link rel="stylesheet" href="about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden; /* Prevents horizontal scroll from animations */
+}
+
+/* --- NEW: Animation Styles --- */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Start 30px down */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.page-section {
+    /* Set initial state for animation */
+    opacity: 0; 
+    animation: slideUpFadeIn 0.7s ease-out forwards;
+    
+    /* Add spacing between sections */
+    margin-top: 3rem;
+}
+.page-section:first-child {
+    margin-top: 0;
+}
+
+/* Stagger the animations */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+
+
+/* --- 1. Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* This spaces Logo (left) and nav-menu (right) */
+    align-items: center;
+    padding: 10px 4%; /* Padding top/bottom and left/right */
+    background-color: #fff;
+    border-bottom: 1px solid #000; /* The thin black line from the image */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+}
+
+.nav-menu ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2.5rem; /* Space between links */
+}
+
+.nav-menu li {
+    transition: transform 0.2s ease-out;
+}
+.nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* Lift animation */
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #3d8c40; /* Green on hover */
+}
+
+.login-btn {
+    background-color: #3d8c40;
+    color: white !important; /* Force white text */
+    padding: 10px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #2a632c;
+    color: white !important;
+    transform: translateY(-2px); /* Lift animation */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Resources Dropdown Styles --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1001;
+}
+
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    transform: none; /* Disable lift for dropdown items */
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+    background-color: #d4e8d8; 
+    color: #3d8c40;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* --- 2. Hero Section --- */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem 0; /* No bottom padding */
+    text-align: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 2; /* Sits on top of the green bar */
+}
+
+.hero-text .hindi-heading {
+    color: #3d8c40;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.hero-text .sub-heading {
+    font-size: 0.95rem;
+    color: #555;
+    max-width: 600px;
+    margin: 1rem auto 0;
+    line-height: 1.6;
+}
+
+/* --- Animated Phone Mockups --- */
+.phone-mockups {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Aligns phones to the bottom */
+    position: relative;
+    height: 480px; /* Container height to hold the phones */
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.phone {
+    position: absolute;
+    bottom: 0;
+    height: 420px; /* Base height */
+    width: auto;
+    opacity: 0; /* Start hidden for animation */
+    transform-origin: bottom center;
+    animation: fan-in 0.7s ease-out forwards; /* Apply animation */
+    animation-fill-mode: forwards; /* Stays at the end state */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+    border-radius: 20px; /* Rounded corners for the phone */
+}
+
+.phone:hover {
+    transform: scale(1.05) translateY(-10px) !important; /* Enlarge on hover */
+    z-index: 20 !important; /* Bring to front on hover */
+}
+
+/* --- Animation Definitions --- */
+@keyframes fan-in {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Phone 4 (Middle) */
+.phone-4 {
+    height: 480px; /* Middle one is tallest */
+    z-index: 10;
+    animation-delay: 0s;
+    transform: translateY(0); 
+}
+/* Phone 3 (Left-Center) */
+.phone-3 {
+    z-index: 9;
+    height: 450px;
+    animation-delay: 0.1s;
+    transform: translateX(-110px);
+}
+/* Phone 5 (Right-Center) */
+.phone-5 {
+    z-index: 9;
+    height: 450px;
+    animation-delay: 0.1s;
+    transform: translateX(110px);
+}
+/* Phone 2 (Left-Mid) */
+.phone-2 {
+    z-index: 8;
+    height: 420px;
+    animation-delay: 0.2s;
+    transform: translateX(-210px);
+}
+/* Phone 6 (Right-Mid) */
+.phone-6 {
+    z-index: 8;
+    height: 420px;
+    animation-delay: 0.2s;
+    transform: translateX(210px);
+}
+/* Phone 1 (Far Left) */
+.phone-1 {
+    z-index: 7;
+    height: 390px;
+    animation-delay: 0.3s;
+    transform: translateX(-290px);
+}
+/* Phone 7 (Far Right) */
+.phone-7 {
+    z-index: 7;
+    height: 390px;
+    animation-delay: 0.3s;
+    transform: translateX(290px);
+}
+
+
+/* --- 3. Green Divider Bar --- */
+.green-bar {
+    width: 100%;
+    height: 150px;
+    background-color: #3d8c40;
+    margin-top: -100px; 
+    position: relative;
+    z-index: 1; /* Sits behind the hero section */
+}
+
+/* --- 4. "We are on a Mission" Section --- */
+.mission-section {
+    text-align: center;
+    padding: 6rem 2rem 4rem; /* Extra top padding */
+}
+
+.mission-section h2 {
+    color: #3d8c40;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 4.5rem; /* Space between title and cards */
+}
+
+.mission-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows cards to wrap on mobile */
+    gap: 2.5rem; /* Space between cards */
+}
+
+.mission-card {
+    position: relative; /* Required for the icon positioning */
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Soft shadow */
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 320px;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s, box-shadow 0.3s; /* Hover animation */
+}
+
+.mission-card:hover {
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle {
+    position: absolute;
+    top: -35px; /* Pulls the icon up */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the icon */
+    background-color: #3d8c40;
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem; /* Icon size */
+    border: 4px solid #fff; /* White border to cut into the card */
+    transition: transform 0.3s;
+}
+
+.mission-card:hover .icon-circle {
+    transform: translateX(-50%) scale(1.1) rotate(5deg); /* Icon animation */
+}
+
+.mission-card h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000;
+    margin-top: 1.5rem; /* Space below the icon */
+    margin-bottom: 0.5rem;
+}
+
+.mission-card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* --- 5. "About Us" Section --- */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    background-color: #e8e8e8; /* Light grey background */
+    border-radius: 15px;
+    padding: 60px 40px; /* Adjust padding for spacing */
+    max-width: 1200px; /* Max width */
+    width: 90%; /* Responsive width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    gap: 40px; /* Space between text and phone */
+    margin: 3rem auto; /* Center the container */
+}
+
+.about-content {
+    flex: 1; /* Allows content to grow */
+    max-width: 600px; /* Max width for the text block */
+}
+
+.about-us-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #3d8c40; /* Green color for "About Us" */
+    margin-bottom: 10px;
+}
+
+.main-heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+.description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.phone-mockup {
+    flex-shrink: 0; /* Prevent phone from shrinking */
+    width: 300px; /* Fixed width for the phone */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px; 
+}
+
+.phone-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    animation: float 3s ease-in-out infinite; /* Apply floating animation */
+}
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 900px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .phone-mockups {
+        height: 480px; 
+    }
+    .phone-1, .phone-2, .phone-3, .phone-5, .phone-6, .phone-7 {
+        display: none;
+    }
+    .phone-4 {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 992px) { /* Tablet breakpoint for About Us */
+    .about-container {
+        flex-direction: column; /* Stack content vertically */
+        text-align: center;
+        padding: 40px 30px;
+        gap: 30px;
+    }
+    .about-content {
+        max-width: 100%;
+    }
+    .main-heading {
+        font-size: 1.8rem;
+    }
+    .phone-mockup {
+        width: 250px; 
+    }
+}
+
+@media (max-width: 480px) { /* Mobile breakpoint */
+    .hero-text .hindi-heading {
+        font-size: 2rem;
+    }
+    .hero-text .sub-heading {
+        font-size: 0.85rem;
+    }
+    .phone-mockups {
+        height: 380px;
+    }
+    .phone-4 {
+        height: 380px;
+    }
+    .green-bar {
+        margin-top: -80px;
+    }
+
+    .mission-section h2 {
+        font-size: 2rem;
+    }
+    .mission-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .about-container {
+        padding: 30px 20px;
+        width: 95%;
+    }
+    .about-us-title {
+        font-size: 1rem;
+    }
+    .main-heading {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .description {
+        font-size: 0.85rem;
+    }
+    .phone-mockup {
+        width: 200px;
+    }
+}
+
+/* 4 */
+
+/* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    padding: 2rem;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+}
+
+/* --- Animations --- */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- Partners Section --- */
+.partners-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    width: 100%;
+    
+    /* Animation: Fade in on load */
+    opacity: 0;
+    animation: fadeInSlideUp 0.8s ease-out forwards;
+}
+
+.download-btn {
+    background-color: #b0d37d; /* Light green */
+    color: #333;
+    padding: 12px 28px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.download-btn:hover {
+    background-color: #9cb96c; /* Darker green */
+    transform: translateY(-3px); /* Lift on hover */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.partners-title {
+    color: #3d8c40; /* Dark green */
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2.5rem; /* Space between logos */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-container img {
+    width: 150px; /* Give a consistent base width */
+    object-fit: contain;
+    
+    /* Animation: Start grayscale */
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.4s ease;
+    
+    /* Animation: Floating */
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Stagger the floating animation for a natural look */
+.logo-container img:nth-child(1) { animation-delay: 0s; }
+.logo-container img:nth-child(2) { animation-delay: -0.8s; }
+.logo-container img:nth-child(3) { animation-delay: -1.6s; }
+.logo-container img:nth-child(4) { animation-delay: -2.4s; }
+.logo-container img:nth-child(5) { animation-delay: -3.2s; }
+.logo-container img:nth-child(6) { animation-delay: -4.0s; }
+.logo-container img:nth-child(7) { animation-delay: -4.8s; }
+
+/* Animation: Color and lift on hover */
+.logo-container img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1) translateY(-5px);
+    animation-play-state: paused; /* Pause floating on hover */
+}
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 768px) {
+    .partners-title {
+        font-size: 2rem;
+    }
+    .logo-container {
+        gap: 2rem 1rem; /* Smaller gap on mobile */
+    }
+    .logo-container img {
+        width: 120px; /* Smaller logos on mobile */
+    }
+}
+
+/* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* --- Animation: Fade-in on Load --- */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-section {
+    opacity: 0; /* Start hidden */
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+    animation-delay: 0.2s; /* Start animation slightly after page load */
+}
+
+/* --- Footer --- */
+.footer-container {
+    width: 100%;
+    background-color: #f7f7f5; /* Light beige background from image */
+    padding-top: 4rem;
+    border-top: 1px solid #eee; /* Light border */
+}
+
+.footer-main {
+    display: flex;
+    flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    gap: 2rem; 
+}
+
+.footer-column {
+    flex: 1; 
+    min-width: 250px; 
+}
+
+/* Column 1: About */
+.footer-column.about p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.policy-links {
+    margin-bottom: 1.5rem;
+}
+
+.policy-links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 1.5rem;
+    transition: color 0.3s;
+}
+
+.policy-links a:hover {
+    color: #3d8c40; 
+}
+
+.app-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.app-buttons img {
+    height: 40px; 
+    transition: transform 0.3s ease;
+}
+.app-buttons img:hover {
+    transform: scale(1.05); /* Slight zoom animation */
+}
+
+/* Columns 2 & 3: Links */
+.footer-column.links h3 {
+    color: #3d8c40; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-column.links ul {
+    list-style: none;
+}
+
+.footer-column.links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-column.links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block; /* Needed for transform */
+}
+
+.footer-column.links a:hover {
+    color: #3d8c40;
+    transform: translateX(5px); /* Slide right animation */
+}
+
+/* Column 4: Contact */
+.footer-logo img {
+    height: 45px; 
+    margin-bottom: 1.5rem;
+}
+
+.contact-info {
+    list-style: none;
+}
+
+.contact-info li {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info i {
+    color: #3d8c40;
+    margin-right: 10px;
+    margin-top: 4px; 
+    width: 20px; 
+    text-align: center;
+}
+
+/* Social Media Icons (Facebook, Instagram, etc.) */
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #3d8c40;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease; /* Animation for hover */
+}
+
+.social-icons a:hover {
+    background-color: #2a632c; 
+    transform: translateY(-3px); /* Lift animation */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Bottom Copyright Bar */
+.footer-bottom {
+    background-color: #3d8c40;
+    color: white;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+}
+
+.footer-bottom .copyright,
+.footer-bottom .designer {
+    margin: 5px 0;
+}
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 768px) {
+    .footer-main {
+        flex-direction: column;
+        padding: 0 1.5rem;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo" class="logo-image">
+        </a>
+
+        <nav class="nav-menu">
+            <ul>
+                  <li><a href="farmer.html">Farmer</a></li>
+                <li><a href="buyer.html">Buyer</a></li>
+                <li><a href="carbon.html">Carbon Credit</a></li>
+                <li><a href="product.html">Products</a></li>
+                
+                <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blogs</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero-section page-section">
+            <div class="hero-text">
+                <h1 class="hindi-heading">आपकी ज़रूरतों का साथी</h1>
+                <p class="sub-heading">rupiya.app streamlines agriculture & finance by offering features like digital payments, agricultural loans, insurance options, and connections to agricultural resources, all through a user-friendly mobile platform.</p>
+            </div>
+            
+            <div class="phone-mockups">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-10.png" alt="App Screenshot 1" class="phone phone-1">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-14.png" alt="App Screenshot 2" class="phone phone-2">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-12-1.png" alt="App Screenshot 3" class="phone phone-3">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-08-1.png" alt="App Screenshot 4" class="phone phone-4">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-14.png" alt="App Screenshot 5" class="phone phone-5">
+                <img src="https://rupiya.app/wp-content/uploads/2025/05/phone_035-Converted-04-e1747219412735.png" alt="App Screenshot 6" class="phone phone-6">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/phone_035-Converted-08-1.png" alt="App Screenshot 7" class="phone phone-7">
+            </div>
+        </section>
+
+        <div class="green-bar"></div>
+
+        <section class="mission-section page-section delay-1">
+            <h2>We are on a Mission</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>3 Lakh Farmers</h3>
+                    <p>We Aim To Empower<br>3 Lakh Farmers</p>
+                </div>
+                <div class="mission-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>5 Lakh Hectares</h3>
+                    <p>Safeguarding The Soil Health</p>
+                </div>
+                <div class="mission-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-smog"></i>
+                    </div>
+                    <h3>2.5 Million Tons</h3>
+                    <p>Carbon Sequestration</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="about-container page-section delay-2">
+            <div class="about-content">
+                <h2 class="about-us-title">About Us</h2>
+                <h1 class="main-heading">We are more than just an app; we are a partner in the journey of agricultural growth.</h1>
+                <p class="description">
+                    rupiya.app is a financial technology platform dedicated to empowering 
+                    the agricultural sector in India. We understand the unique challenges 
+                    faced by farmers and are committed to bridging the gap between 
+                    traditional financial services and the modern agricultural landscape. Our 
+                    mission is to provide accessible, efficient, and transparent financial 
+                    solutions that drive growth and sustainability.
+                </p>
+            </div>
+            <div class="phone-mockup">
+                
+        
+        <div class="phone-mockup">
+            <img src="https://rupiya.app/wp-content/uploads/2025/05/phone_035-Converted-04-e1747219412735.png" alt="Rupiya App Screenshot" class="phone-image">
+        </div>
+    </div>
+        </div>
+
+    </main>
+
+
+    <!-- 4 -->
+
+    <section class="partners-section">
+        <a href="#" class="download-btn">Download Now</a>
+        <h2 class="partners-title">Trusted Partners</h2>
+        
+        <div class="logo-container">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/goibibo-logo.png" alt="Goibibo" style="height: 40px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/ICICI_Bank_Logo.svg_.png" alt="ICICI Bank" style="height: 40px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/ITC_Limited-Logo.wine_.png" alt="ITC Limited" style="height: 60px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/nsdl.png" alt="NSDL Payments Bank" style="height: 50px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/probus-logo-new-3.png" alt="Probus" style="height: 50px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/Samaarambh_Logo_New.png" alt="Samaarambh" style="height: 45px;">
+            <img src="https://rupiya.app/wp-content/uploads/2025/03/augmont-1.png" alt="Augmont" style="height: 40px;">
+        </div>
+    </section>
+
+
+   
+    <footer class="footer-container page-section">
+        <div class="footer-main">
+            
+            <div class="footer-column about">
+                <p>
+                    rupiya.app offers farmers a complete set of tools for 
+                    success. With features like satellite monitoring, soil 
+                    testing, personalized advice, and more, we simplify 
+                    farming. Plus, our platform provides access to 
+                    agricultural loans, ensuring the support needed for 
+                    growth.
+                </p>
+                <div class="policy-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Terms Of Use</a>
+                </div>
+                <div class="app-buttons">
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play"></a>
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1000px-Download_on_the_App_Store_Badge.svg.png" alt="Download on the App Store"></a>
+                </div>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Smart farming</a></li>
+                    <li><a href="#">Carbon credit</a></li>
+                    <li><a href="#">Recharge</a></li>
+                    <li><a href="#">Bookings</a></li>
+                    <li><a href="#">Loan service</a></li>
+                    <li><a href="#">Gold solutions</a></li>
+                    <li><a href="#">Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="career.html">Career</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column contact">
+                <a href="#" class="footer-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo">
+                </a> 
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> info@rupiya.app</li>
+                    <li><i class="fas fa-phone"></i> +91 79 4100 6237</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Corporate Office: 1005 - 1006 Ganesh Glory, Jagatpur Road, Off SG Highway, Ahmedabad 382481.</li>
+                </ul>
+                
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">©Copyright 2025 rupiya.app | All rights reserved</p>
+            <p class="designer">Designed By Cravity Studio</p>
+        </div>
+    </footer>
+</body>
+</html>

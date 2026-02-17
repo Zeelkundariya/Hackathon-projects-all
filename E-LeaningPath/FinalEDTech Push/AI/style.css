@@ -1,0 +1,218 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+.chat-container{
+    width: 100%;
+    height: 80%;
+    background-color: rgb(45, 52, 59);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    font-size: 20px;
+    overflow: auto;
+}
+.user-chat-box{
+    width: 60%;
+    position: relative;
+    left:40%;
+}
+.ai-chat-box{
+    width: 60%;
+    position: relative;
+}
+.user-chat-area{
+    width: 90%;
+    padding: 20px;
+    background-color: black;
+    color:rgba(255, 255, 255, 0.639);
+    border-radius: 40px 0px 40px 40px;
+    box-shadow: 2px 2px 10px black;
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+}
+.chooseimg{
+    width: 30%;
+    border-radius: 30px;
+}
+.ai-chat-area{
+    width: 90%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.361);
+    position: relative;
+    left:10%;
+    color:rgba(255, 255, 255, 0.639);
+    border-radius: 0px 40px 40px 40px;
+    box-shadow: 2px 2px 10px black;
+}
+#userImage{
+    position: absolute;
+    right: 0;
+    filter:drop-shadow( 2px 2px 10px black);
+
+}
+#aiImage{
+    position: absolute;
+left:0;
+filter:drop-shadow( 2px 2px 10px black);
+}
+.prompt-area{
+    width: 100%;
+    height: 20%;
+    background-color: rgb(45, 52, 59);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px
+}
+.prompt-area input{
+    width: 50%;
+    height: 80px;
+    background-color: black;
+    outline: none;
+    border:none;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    font-size: 20px;
+    box-shadow: 2px 2px 10px black;
+}
+.prompt-area button{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: black;
+    border:none;
+    box-shadow: 2px 2px 10px black;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.prompt-area button:hover{
+    background-color: rgba(0, 0, 0, 0.338);
+}
+.load{
+    filter:drop-shadow( 2px 2px 10px black)
+}
+.choose{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+#image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width:600px) {
+    .user-chat-box{
+        width: 80%;
+        left:20%
+    }
+    .ai-chat-box{
+        width: 80%;
+    }
+    
+}
+
+
+
+
+
+/* Style for the close button */
+.close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #ff2e43;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Optional: Add this if you want the close button to close the chat */
+body {
+    position: relative;
+}
+
+
+/* Style for the close button */
+.close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    /* Ensure it's clickable */
+    pointer-events: auto !important;
+}
+
+/* Make sure nothing is covering the button */
+.close-btn:hover {
+    background: #ff2e43;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Ensure no parent elements are blocking clicks */
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* Add this to your CSS to debug */
+.close-btn {
+    /* border: 2px solid yellow;  */
+    display: inline-flex; /* Better for centering the '×' */
+}
+
+.close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* Boost this significantly */
+    pointer-events: auto !important; /* Forces clickability */
+}
+
+/* Ensure the container doesn't swallow clicks */
+.chat-container {
+    position: relative;
+    z-index: 1;
+}

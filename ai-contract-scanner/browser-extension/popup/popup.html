@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Contract Risk Scanner</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>⚖️ AI Risk Scanner</h1>
+      <p class="subtitle">Analyze contracts for legal risks</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="analyze">🔍 Analyze</button>
+      <button class="tab-btn" data-tab="chat">💬 Chat</button>
+      <button class="tab-btn" data-tab="history">⏳ History</button>
+      <button class="tab-btn" id="openSettings">⚙️ Settings</button>
+    </div>
+
+    <!-- Analyze Tab Content -->
+    <div id="analyzeTab" class="tab-content active">
+      <!-- Settings Row -->
+      <div class="settings-row">
+        <div class="setting-group">
+          <label>Your Role:</label>
+          <select id="userRole">
+            <option value="individual">Individual</option>
+            <option value="freelancer">Freelancer</option>
+            <option value="founder">Founder</option>
+            <option value="student">Student</option>
+            <option value="consumer">Consumer</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Industry:</label>
+          <select id="industry">
+            <option value="general">General</option>
+            <option value="freelancer">Freelance</option>
+            <option value="employment">Employment</option>
+            <option value="saas">SaaS</option>
+            <option value="real-estate">Real Estate</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ELI15 Toggle -->
+      <div class="toggle-section">
+        <label class="toggle-label">
+          <input type="checkbox" id="eli15Toggle" checked>
+          <span class="toggle-text">📚 Show ELI15 Explanations</span>
+        </label>
+      </div>
+
+      <!-- Contract Input -->
+      <div class="input-section">
+        <div class="input-header">
+          <label for="contractText">Paste Contract Text:</label>
+          <button id="uploadBtn" class="upload-mini-btn" title="Upload PDF or TXT">📎 Upload File</button>
+          <input type="file" id="fileInput" accept=".txt,.pdf" style="display: none;">
+        </div>
+        <textarea id="contractText" placeholder="Paste your contract here (minimum 50 characters)..."
+          rows="6"></textarea>
+        <div class="char-count-row">
+          <div id="fileStatus" class="file-status hidden"></div>
+          <div class="char-count" id="charCount">0 characters</div>
+        </div>
+      </div>
+
+      <!-- Analyze Button -->
+      <button id="analyzeBtn" class="analyze-btn">
+        <span id="btnText">🔍 Analyze Contract</span>
+        <span id="loadingSpinner" class="spinner hidden">⏳</span>
+      </button>
+
+      <!-- Results Section -->
+      <div id="results" class="results hidden">
+        <!-- New Ultimate Features -->
+        <div id="overallSummary" class="smart-features">
+          <h3>📝 Contract Summary</h3>
+          <div id="summaryText" class="clause-reason">Analysis details...</div>
+        </div>
+
+        <div id="actionPlan" class="smart-features">
+          <h3>🛡️ Legal Action Plan</h3>
+          <div id="actionItems" class="clause-reason"></div>
+        </div>
+
+        <!-- Audio Dashboard -->
+        <div id="audioDashboard" class="audio-dashboard hidden">
+          <div class="dashboard-main">
+            <div class="playback-controls">
+              <button id="readAllBtn" class="play-btn" title="Read all risks">▶ Play Summary</button>
+              <button id="stopBtn" class="stop-btn hidden" title="Stop reading">⏹ Stop</button>
+            </div>
+            <div class="playback-info">
+              <div id="audioVisualizer" class="visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-settings">
+            <select id="voiceSelect" class="mini-select"></select>
+            <select id="speedSelect" class="mini-select">
+              <option value="0.5">0.5x</option>
+              <option value="1" selected>1.0x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Risk Score -->
+        <div class="risk-score">
+          <div class="score-label">Risk Score</div>
+          <div class="score-value" id="riskScore">0</div>
+          <div class="verdict" id="verdict">-</div>
+        </div>
+
+        <!-- Smart Features -->
+        <div id="smartFeatures" class="smart-features hidden">
+          <h3>⚠️ What Should I Worry About?</h3>
+          <div class="worry-item">
+            <strong>Worst Case:</strong>
+            <span id="worstCase">-</span>
+          </div>
+          <div class="worry-item">
+            <strong>Who Benefits:</strong>
+            <span id="beneficiary">-</span>
+          </div>
+          <div class="worry-item">
+            <strong>Top 3 Risks:</strong>
+            <span id="topRisks">-</span>
+          </div>
+        </div>
+
+        <!-- OCR Detections -->
+        <div id="ocrDetections" class="smart-features hidden">
+          <h3>📑 OCR Detections</h3>
+          <div id="signatureStatus" class="detection-item">
+            <strong>Signatures:</strong>
+            <span id="sigValue">Not Checked</span>
+          </div>
+          <div id="handwritingStatus" class="detection-item">
+            <strong>Handwriting:</strong>
+            <span id="hwValue">Not Detected</span>
+          </div>
+          <div id="dateStatus" class="detection-item">
+            <strong>Found Dates:</strong>
+            <div id="dateValues" class="date-tags">None</div>
+          </div>
+        </div>
+
+        <!-- Risk Breakdown -->
+        <div id="riskBreakdown" class="risk-breakdown hidden">
+          <h3>📊 Risk Categories</h3>
+          <div id="categoryBars" class="category-bars"></div>
+        </div>
+
+        <!-- Risky Clauses -->
+        <div id="riskyClausesSection" class="clauses-section hidden">
+          <div class="section-header">
+            <h3>📋 Detected Risks (<span id="clauseCount">0</span>)</h3>
+          </div>
+          <div id="riskyClauses"></div>
+        </div>
+
+        <!-- Autocomplete Suggestions -->
+        <div id="autocompleteBox" class="autocomplete-box hidden">
+          <div class="suggestion-header">
+            <span>💡 AI Suggestion</span>
+            <button id="closeSuggest" class="close-btn">×</button>
+          </div>
+          <div id="suggestionText" class="suggestion-text"></div>
+          <div class="suggestion-actions">
+            <button id="replaceBtn" class="primary-btn">Replace Clause</button>
+            <div class="risk-toggles">
+              <label><input type="radio" name="riskLevel" value="conservative" checked> 🛡️ Safe</label>
+              <label><input type="radio" name="riskLevel" value="aggressive"> ⚡ Aggressive</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons mt-4 hidden" id="resultActions">
+          <button id="exportTxt" class="secondary-btn">📄 Export TXT</button>
+          <button id="exportJson" class="secondary-btn">💻 Export JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Tab Content -->
+    <div id="chatTab" class="tab-content">
+      <div id="chatContainer" class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message ai-message">
+            👋 Hello! I'm your Contract Assistant. Analyze a contract first, then ask me anything about it!
+          </div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" id="chatInput" placeholder="Ask about the contract..." autocomplete="off">
+          <button id="sendChatBtn" class="send-btn">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab Content -->
+    <div id="historyTab" class="tab-content">
+      <div id="historyList" class="history-list">
+        <div class="empty-state">No history yet. Start analyzing!</div>
+      </div>
+      <button id="clearHistory" class="danger-btn hidden">🗑️ Clear History</button>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="error hidden"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <a href="#" id="openWebApp">🔗 Open Full Web App</a>
+    </div>
+  </div>
+
+  <script src="/shared/pdf.min.js"></script>
+  <script src="/shared/pdf-init.js"></script>
+  <script src="/shared/api.js"></script>
+  <script src="/popup/popup.js"></script>
+</body>
+
+</html>

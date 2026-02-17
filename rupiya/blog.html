@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Blogs - rupiya.app</title>
+    <link rel="stylesheet" href="blogs.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden; /* Prevents scrollbars from animations */
+}
+
+/* --- NEW: Animation Styles --- */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Start 30px down */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-section {
+    /* Set initial state for animation */
+    opacity: 0; 
+    animation: slideUpFadeIn 0.7s ease-out forwards;
+}
+
+/* Stagger the animations */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+
+/* --- 1. Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4%; /* Padding top/bottom and left/right */
+    background-color: #fff;
+    border-bottom: 1px solid #eee; /* Light border */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+}
+
+.nav-menu ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2.5rem; /* Space between links */
+}
+
+.nav-menu li {
+    transition: transform 0.2s ease-out;
+}
+.nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* Lift animation */
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #3d8c40; /* Green on hover */
+}
+
+.login-btn {
+    background-color: #3d8c40;
+    color: white !important; /* Force white text */
+    padding: 10px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #2a632c;
+    color: white !important;
+    transform: translateY(-2px); /* Lift animation */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Resources Dropdown Styles --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1001;
+}
+
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    transform: none; /* Disable lift for dropdown items */
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    white-space: nowrap;
+}
+
+/* This is the green hover effect you requested */
+.dropdown-content a:hover {
+    background-color: #d4e8d8; /* Light green background */
+    color: #3d8c40; /* Dark green text */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* --- 2. "Latest Blogs" Section --- */
+.blogs-section {
+    text-align: center;
+    padding: 4rem 2rem; /* 4rem top/bottom, 2rem left/right */
+}
+
+.blogs-title {
+    color: #3d8c40;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem; /* Space between title and categories */
+}
+
+.category-filters ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows categories to wrap on small screens */
+    list-style: none;
+    gap: 2.5rem; /* Space between category links */
+    margin-bottom: 3rem; /* Space before cards */
+}
+
+.category-filters a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+.category-filters a:hover {
+    color: #3d8c40;
+    transform: translateY(-2px); /* Lift animation */
+}
+
+
+/* --- 3. Blog Cards & Pagination --- */
+.blog-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-card {
+    width: 100%;
+    max-width: 360px;
+    background-color: #ffffff;
+    border: 1px solid #c8e6a1; /* Light green border */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left; /* Keep card text left-aligned */
+}
+
+.blog-card:hover {
+    transform: translateY(-5px); /* Lifts the card on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-image {
+    overflow: hidden; /* Keep the image inside the rounded border */
+}
+
+.card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+    transition: transform 0.4s ease-out;
+}
+
+.blog-card:hover .card-image img {
+    transform: scale(1.05); /* Zoom image on card hover */
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-content h3 {
+    color: #3d8c40;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.card-content p {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 0 1rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #f4f4f4;
+    color: #3d8c40;
+    transform: translateY(-2px); /* Lift animation */
+}
+
+.pagination a.active {
+    color: #3d8c40;
+    font-weight: 700;
+}
+
+
+/* --- 4. Footer --- */
+.footer-container {
+    width: 100%;
+    background-color: #f7f7f5; /* Light beige background */
+    padding-top: 4rem;
+    border-top: 1px solid #eee; /* Light border */
+}
+
+.footer-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    gap: 2rem; 
+}
+
+.footer-column {
+    flex: 1; 
+    min-width: 250px; 
+}
+
+.footer-column.about p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.policy-links {
+    margin-bottom: 1.5rem;
+}
+
+.policy-links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 1.5rem;
+    transition: color 0.3s;
+}
+
+.policy-links a:hover {
+    color: #3d8c40; 
+}
+
+.app-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.app-buttons img {
+    height: 40px; 
+    transition: transform 0.3s;
+}
+.app-buttons img:hover {
+    transform: scale(1.05); /* Zoom on hover */
+}
+
+.footer-column.links h3 {
+    color: #3d8c40; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-column.links ul {
+    list-style: none;
+}
+
+.footer-column.links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-column.links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-column.links a:hover {
+    color: #3d8c40;
+}
+
+.footer-logo img {
+    height: 45px; 
+    margin-bottom: 1.5rem;
+}
+
+.contact-info {
+    list-style: none;
+}
+
+.contact-info li {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info i {
+    color: #3d8c40;
+    margin-right: 10px;
+    margin-top: 4px; 
+    width: 20px; 
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #3d8c40;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: #2a632c; 
+    transform: translateY(-3px); /* Lift on hover */
+}
+
+.footer-bottom {
+    background-color: #3d8c40;
+    color: white;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+}
+
+.footer-bottom .copyright,
+.footer-bottom .designer {
+    margin: 5px 0;
+}
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 900px) {
+    .nav-menu {
+        display: none; /* Hide nav menu on tablet/mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .blogs-title {
+        font-size: 2.2rem;
+    }
+    .category-filters ul {
+        gap: 1rem 1.5rem; /* Smaller gap on mobile */
+    }
+    .category-filters a {
+        font-size: 0.9rem;
+    }
+
+    .blog-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-main {
+        flex-direction: column;
+        padding: 0 1.5rem;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo" class="logo-image">
+        </a>
+
+        <nav class="nav-menu">
+            <ul>
+            <li><a href="farmer.html">Farmer</a></li>
+                <li><a href="buyer.html">Buyer</a></li>
+                <li><a href="carbon.html">Carbon Credit</a></li>
+                <li><a href="product.html">Products</a></li>
+                
+                <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="blog.html">Blogs</a></li>
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section class="blogs-section page-section">
+            <h1 class="blogs-title">Latest Blogs</h1>
+
+            <nav class="category-filters">
+                <ul>
+                    <li><a href="#">Agriculture</a></li>
+                    <li><a href="#">Carbon Credits</a></li>
+                    <li><a href="#">Residue-free Farming</a></li>
+                    <li><a href="#">Cold</a></li>
+                    <li><a href="#">Insurance</a></li>
+                    <li><a href="#">Loan</a></li>
+                    <li><a href="#">Recharge</a></li>
+                    <li><a href="#">Travel</a></li>
+                </ul>
+            </nav>
+
+            <div class="blog-grid page-section delay-1">
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/09/digital-gold-investment-1536x1032.jpg" alt="Digital Gold Investment">
+                    </div>
+                    <div class="card-content">
+                        <h3>Digital Gold Investment – The Safest Investment in the World</h3>
+                        <p>Have you ever wondered why gold has always been called the safest investment in the world? Now imagine owning that gold without worrying about...</p>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/08/1-Cashback-on-Recharge-Bill-Payments-1536x1032.jpg" alt="Cashback on Recharge">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cash Treat: Why 1% Cashback on Recharge & Bill Payments is a Big Deal!</h3>
+                        <p>The Sweetness of a Cash Treat Who doesn't love a treat? Now imagine a treat that comes not in the form of chocolate or pizza but in the form of cashback...</p>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/08/Carbon-Credits-A-Step-Towards-a-Greener-Future-1536x1032.jpg" alt="Carbon Credits">
+                    </div>
+                    <div class="card-content">
+                        <h3>Carbon Credits: A Step Towards a Greener Future</h3>
+                        <p>🌍 Climate change is one of the biggest challenges of our time, and carbon credits are emerging as a powerful solution. But what exactly are they, and why...</p>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/08/What-is-Carbon-Credit-Program-for-Farmers-1536x1032.jpg" alt="Farmer in a field">
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Carbon Credit Program for Farmers?</h3>
+                        <p>The Carbon Credit Program is creating a buzz everywhere – from farming communities to global environmental talks. But what exactly is it? Why are...</p>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/08/Why-Monsoon-is-the-Perfect-Time-for-a-Trip-1536x1032.jpg" alt="People enjoying monsoon">
+                    </div>
+                    <div class="card-content">
+                        <h3>Why Monsoon is the Perfect Time for a Trip?</h3>
+                        <p>Travel in August August is a month when nature wears its most beautiful outfit. The rains make the air fresh, the hills turn lush green, and waterfalls come alive. F...</p>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="card-image">
+                        <img src="https://rupiya.app/wp-content/uploads/2025/08/Travel-in-Janmashtami-Top-5-Krishna-Destinations-to-Visit%E2%80%8B-1-1536x1032.jpg" alt="Janmashtami celebration">
+                    </div>
+                    <div class="card-content">
+                        <h3>Travel in Janmashtami - Top 5 Krishna Destinations to Visit</h3>
+                        <p>Travel in Janmashtami – Top 5 Krishna Destinations to Visit The Magic of Krishna Janmashtami Travel Krishna Janmashtami brings a wave of joy, musical...</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <nav class="pagination page-section delay-2">
+                <a href="#">Previous</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">Next</a>
+            </nav>
+        </section>
+        
+    </main>
+
+    <footer class="footer-container page-section delay-3">
+        <div class="footer-main">
+            
+            <div class="footer-column about">
+                <p>
+                    rupiya.app offers farmers a complete set of tools for 
+                    success. With features like satellite monitoring, soil 
+                    testing, personalized advice, and more, we simplify 
+                    farming. Plus, our platform provides access to 
+                    agricultural loans, ensuring the support needed for 
+                    growth.
+                </p>
+                <div class="policy-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Terms Of Use</a>
+                </div>
+                <div class="app-buttons">
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play"></a>
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1000px-Download_on_the_App_Store_Badge.svg.png" alt="Download on the App Store"></a>
+                </div>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Smart Farming</a></li>
+                    <li><a href="#">Carbon credit</a></li>
+                    <li><a href="#">Recharge</a></li>
+                    <li><a href="#">Bookings</a></li>
+                    <li><a href="#">Loan service</a></li>
+                    <li><a href="#">Gold solutions</a></li>
+                    <li><a href="#">Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Career</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column contact">
+                <a href="#" class="footer-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo">
+                </a> 
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> info@rupiya.app</li>
+                    <li><i class="fas fa-phone"></i> +91 79 4100 6237</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Corporate Office: 1005 - 1006 Ganesh Glory, Jagatpur Road, Off SG Highway, Ahmedabad 382481.</li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">©Copyright 2025 rupiya.app | All rights reserved</p>
+            <p class="designer">Designed By Cravity Studio</p>
+        </div>
+    </footer>
+
+</body>
+</html>

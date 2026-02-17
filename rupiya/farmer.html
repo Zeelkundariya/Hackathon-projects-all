@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriPro - Residue-Free Farming Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .logo-icon {
+            background: #6b9f3e;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #6b9f3e;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6b9f3e;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: #6b9f3e;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #5a8533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 159, 62, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f0f7e9 0%, #e8f5d9 100%);
+            padding: 4rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            min-height: 600px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: slideInLeft 1s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            color: #2d5016;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            animation: slideInRight 1s ease;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #f8fdf3;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(107, 159, 62, 0.2);
+            border-color: #6b9f3e;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #6b9f3e;
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(360deg);
+        }
+
+        .feature-card h3 {
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #f0f7e9 0%, #e8f5d9 100%);
+        }
+
+        .process h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 1rem;
+        }
+
+        .process-subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 3rem;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .process-step:hover {
+            transform: scale(1.05);
+        }
+
+        .process-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            border: 3px dashed #6b9f3e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: all 0.3s;
+        }
+
+        .process-step:hover .process-icon {
+            border-style: solid;
+            background: #6b9f3e;
+            color: white;
+        }
+
+        /* App Section */
+        .app-section {
+            background: #6b9f3e;
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+            
+        }
+
+        .app-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .app-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .app-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 3rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #f8fdf3;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(107, 159, 62, 0.2);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 200px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d5016;
+            color: white;
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #6b9f3e;
+        }
+
+                .nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* NEW: Hover lift animation */
+}
+
+.nav-menu li.dropdown {
+    position: relative; /* Establishes positioning context */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to its parent li */
+    /* top: 100%; Appears directly below the parent link */
+    left: 900px;
+    background-color: #ffffff;
+    min-width: 160px; /* Ensures links aren't cramped */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow */
+    border-radius: 8px; /* Slightly rounded edges */
+    padding: 8px 0; /* Padding top/bottom */
+    z-index: 1001; /* Sits on top of other content */
+}
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    left: 0;
+    transform: none; /* Disable lift for dropdown items */
+}
+.dropdown-content a {
+    color: #333; /* Black text */
+    padding: 12px 16px; /* Padding for each link */
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    white-space: nowrap; /* Prevents text wrap */
+}
+.dropdown-content a:hover {
+    color: #3d8c40; 
+    background-color: #d4e8d8; /* Light green background */
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    right: 100vw;
+}
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+                  <div class="logo">
+       <a href="index.html">   <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" height="40px" id="logo" alt=""></a>
+        </div>
+            <ul class="nav-links" id="navLinks">
+            <li><a href="farmer.html">Farming</a></li>
+            <li><a href="buyer.html">Buyer</a></li>
+            <li><a href="carbon.html">Carbon Credit</a></li>
+            <li><a href="product.html">Products</a></li>
+              <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </li>
+ 
+        </ul>
+            <a href="#signin" class="cta-button">Login In</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Residue-Free Farming Solutions for Farmers</h1>
+            <p>We empower farmers to transition to residue-free farming through comprehensive training, quality inputs, and guaranteed market access—maximizing both environmental sustainability and profitability. Our commitment is resolving the growing concern for health by supplying 100% non-chemical grown agri-produce.</p>
+            <a href="#getstarted" class="cta-button">Download Now</a>
+        </div>
+        <div class="hero-image">
+         <img src="https://rupiya.app/wp-content/uploads/2025/03/erasebg-transformed-2.png" height="300px" alt="">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>आपका फायदा हमारी सफलता</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/Fertilizer-1636x2048.png.webp" height="100px" alt="">
+                </div>
+                <h3>Fertiliser</h3>
+                <p>Access quality fertilizers tailored for residue-free farming at competitive prices.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/product-crop-selling-1-1723x2048.png.webp" height="100px" alt="">
+                </div>
+                <h3>Pesticide/Crop Protection</h3>
+                <p>Get certified organic pesticides - ensuring safety for crops and the environment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/satelite-1770x2048.png.webp" height="100px" alt="">
+                </div>
+                <h3>Seed Solutions</h3>
+                <p>High-quality seeds that are residue-free and optimized for better yields.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/rupiya-icons-01-2-1447x1536.png" height="100px" alt="">
+                </div>
+                <h3>Soil Testing</h3>
+                <p>Know soil to always test for you – including minerals-deficiencies with organic recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/farming-e1740848030654-1892x2048.png.webp" height="100px" alt="">
+                </div>
+                <h3>Farming Schemes</h3>
+                <p>Learn about loan and scheme opportunities to help you invest in residue-free farming.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/03/ask-experts-1-1841x2048.png.webp" height="100px" alt="">
+                </div>
+                <h3>Ask Expert</h3>
+                <p>Get expert advice anytime you face challenges - be it pestilence, weather challenges, or any crop-related issues.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <h2>From Soil to Market</h2>
+        <p class="process-subtitle">Step-by-Step Support</p>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-icon">🌱</div>
+                <h3>Know your soil better through expert</h3>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">🌾</div>
+                <h3>Crop selection for better farming</h3>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">✓</div>
+                <h3>Get the right pestilizer & grow</h3>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">📦</div>
+                <h3>Sell products once ready</h3>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">❓</div>
+                <h3>Ask the expert anytime</h3>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">🌾</div>
+                <h3>Crop Selling</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-section" style="display: flex; justify-content: space-evenly;">
+        <div class="div_image"> 
+            <img src="https://rupiya.app/wp-content/uploads/2025/05/phone-icon.png" height="300px"  alt="">
+        </div>
+        <div class="div_only_text">
+
+        <h2>Only One App<br>That's All a Farmer Need</h2>
+        <div class="app-features">
+            <div class="app-feature">✓ One App, All Your Solutions</div>
+            <div class="app-feature">✓ Simple and User-Friendly Platform</div>
+            <div class="app-feature">✓ 24/7 Access Anytime, Anywhere</div>
+        </div>
+        <a href="#download" class="cta-button">Download Now</a>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What Types of Fertilizers does raigya app offers?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We offer a complete range of organic and bio-based fertilizers designed for residue-free farming, ensuring soil health and increased yields.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    How does Satellite Soil Testing Work?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Our satellite technology analyzes soil composition remotely and provides detailed reports on nutrients and recommendations.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    How does the Farming Schedule Feature Help Farmers?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    It provides personalized farming schedules based on crop type, season, and local conditions to optimize your farming activities.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What Assistance does raigya app Provide for Selling Crops?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We connect farmers directly with buyers, ensuring fair prices and eliminating middlemen.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About</h3>
+                <a href="#">About Us</a>
+                <a href="#">Services</a>
+                <a href="#">Our team</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Fertilizer</a>
+                <a href="#">Pesticides</a>
+                <a href="#">Seeds</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Disclaimer</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📞 +91-9876543210</p>
+                <p>✉️ support@agripro.com</p>
+                <p>📍 125B Street, Delhi, India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+            const icon = element.querySelector('.faq-question span');
+            icon.textContent = element.classList.contains('active') ? '−' : '+';
+        }
+
+        // Add scroll animation
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSmart AI | Progress Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            padding: 25px 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Progress Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .summary-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .summary-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        /* Charts Container */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Subject Progress */
+        .subject-progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .subject-score {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .recommendation-item {
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .subject-progress-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--light-gray);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            background: white;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+
+        /* Test History */
+        .test-history {
+            margin-top: 30px;
+        }
+
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .history-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .history-subjects {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .subject-badge {
+            background: rgba(67, 97, 238, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>LearnSmart AI</span>
+                </div>
+
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="learningpath.html">Learning Path</a></li>
+                        <li><a href="#" class="active">Progress Analytics</a></li>
+                        <li><a href="certificates.html">Certificates</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </nav>
+
+                <div class="user-profile">
+                    <div class="avatar">SU</div>
+                    <div>
+                        <div class="user-name">Swaminarayan</div>
+                        <div class="user-level">Advanced Learner</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <div class="container">
+        <div class="dashboard">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <h3><i class="fas fa-chart-line"></i> Analytics Tools</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-chart-bar"></i> Progress Overview</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Achievement Badges</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Study Timeline</a></li>
+                    <li><a href="#"><i class="fas fa-bullseye"></i> Goal Tracking</a></li>
+                    <li><a href="#" id="exportReports"><i class="fas fa-download"></i> Export Reports</a></li>
+                </ul>
+
+                <h3><i class="fas fa-filter"></i> Filter By</h3>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All Time</button>
+                    <button class="filter-btn" data-filter="month">This Month</button>
+                    <button class="filter-btn" data-filter="week">This Week</button>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: rgba(67, 97, 238, 0.05); border-radius: 10px;">
+                    <h4><i class="fas fa-lightbulb"></i> Tips</h4>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        Take regular skill assessments to track your learning progress and identify areas for improvement.
+                    </p>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Welcome Card -->
+                <div class="welcome-card">
+                    <div class="welcome-text">
+                        <h2>Progress Analytics</h2>
+                        <p>Track your learning journey based on actual test performance</p>
+                    </div>
+                </div>
+
+                <!-- Content will be dynamically loaded here -->
+                <div id="analyticsContent">
+                    <!-- Loading state -->
+                    <div class="loading" id="loadingState">
+                        <div class="spinner"></div>
+                        <span style="margin-left: 15px;">Loading your progress data...</span>
+                    </div>
+
+                    <!-- Empty state (will be shown if no tests taken) -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>No Test Data Available</h3>
+                        <p>You haven't taken any skill assessment tests yet. Take a test to start tracking your progress and see detailed analytics.</p>
+                        <button class="btn btn-primary" id="startTestBtn">
+                            <i class="fas fa-file-alt"></i> Take Skill Assessment Test
+                        </button>
+                    </div>
+
+                    <!-- Analytics content (will be shown if tests taken) -->
+                    <div id="analyticsData" style="display: none;">
+                        <!-- Summary Cards -->
+                        <div class="summary-cards">
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="summary-value" id="overallScore">0%</div>
+                                <p>Overall Score</p>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="summary-value" id="testsTaken">0</div>
+                                <p>Tests Taken</p>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="summary-value" id="improvementRate">0%</div>
+                                <p>Improvement Rate</p>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="summary-value" id="certificatesEarned">0</div>
+                                <p>Certificates</p>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="charts-container">
+                            <div class="chart-card">
+                                <h3><i class="fas fa-chart-bar"></i> Subject-wise Performance</h3>
+                                <div class="chart-container">
+                                    <canvas id="subjectChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-card">
+                                <h3><i class="fas fa-chart-line"></i> Progress Over Time</h3>
+                                <div class="chart-container">
+                                    <canvas id="progressChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subject Progress Grid -->
+                        <div class="chart-card">
+                            <h3><i class="fas fa-graduation-cap"></i> Detailed Subject Progress</h3>
+                            <div class="subject-progress-grid" id="subjectGrid">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Test History -->
+                        <div class="chart-card test-history">
+                            <h3><i class="fas fa-history"></i> Recent Test History</h3>
+                            <div id="testHistory">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- AI Recommendations -->
+                        <div class="recommendations">
+                            <h3><i class="fas fa-robot"></i> AI-Powered Recommendations</h3>
+                            <div id="recommendationsList">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>LearnSmart AI &copy; 2023 - EdTech 2.0 Platform for Smarter Learning</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                Personalized Learning | Adaptive Assessment | Progress Tracking
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Chart.js variables
+            let subjectChart = null;
+            let progressChart = null;
+
+            // DOM Elements
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const analyticsData = document.getElementById('analyticsData');
+            const startTestBtn = document.getElementById('startTestBtn');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const exportReportsBtn = document.getElementById('exportReports');
+
+            // Storage keys from the main page
+            const TEST_RESULTS_KEY = 'learnsmart-test-history';
+            const CERTIFICATES_KEY = 'learnsmart-certificates';
+            const EXCELLENCE_AWARDS_KEY = 'learnsmart-excellence-awards';
+
+            // Initialize page
+            loadProgressData();
+
+            // Event Listeners
+            startTestBtn.addEventListener('click', function () {
+                window.location.href = 'index.html#testConfigModal';
+            });
+
+            exportReportsBtn.addEventListener('click', function () {
+                exportProgressReport();
+            });
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    loadProgressData(this.dataset.filter);
+                });
+            });
+
+            // Main function to load and display progress data
+            function loadProgressData(filter = 'all') {
+                loadingState.style.display = 'flex';
+                emptyState.style.display = 'none';
+                analyticsData.style.display = 'none';
+
+                // Get real data from localStorage
+                setTimeout(() => {
+                    const testResults = getRealTestResults();
+                    const certificates = getCertificates();
+                    
+                    if (testResults.length === 0 && certificates.length === 0) {
+                        showEmptyState();
+                        return;
+                    }
+
+                    // Process and display analytics
+                    displayAnalytics(testResults, certificates, filter);
+                }, 800);
+            }
+
+            // Get REAL test results from localStorage
+            function getRealTestResults() {
+                // First, check if there's a test history
+                const testHistory = JSON.parse(localStorage.getItem(TEST_RESULTS_KEY)) || [];
+                
+                // If no test history, try to extract from certificates (they contain score data)
+                if (testHistory.length === 0) {
+                    const certificates = JSON.parse(localStorage.getItem(CERTIFICATES_KEY)) || [];
+                    const testResultsFromCertificates = [];
+                    
+                    certificates.forEach(cert => {
+                        testResultsFromCertificates.push({
+                            id: cert.id,
+                            date: cert.date,
+                            subject: cert.subject,
+                            score: cert.score,
+                            grade: cert.grade,
+                            type: 'certificate',
+                            certificateId: cert.certificateId
+                        });
+                    });
+                    
+                    return testResultsFromCertificates;
+                }
+                
+                return testHistory;
+            }
+
+            // Get certificates
+            function getCertificates() {
+                return JSON.parse(localStorage.getItem(CERTIFICATES_KEY)) || [];
+            }
+
+            // Get excellence awards
+            function getExcellenceAwards() {
+                return JSON.parse(localStorage.getItem(EXCELLENCE_AWARDS_KEY)) || { count: 0, certificates: [] };
+            }
+
+            // Show empty state when no tests taken
+            function showEmptyState() {
+                loadingState.style.display = 'none';
+                emptyState.style.display = 'block';
+                analyticsData.style.display = 'none';
+            }
+
+            // Display analytics data based on REAL user data
+            function displayAnalytics(testResults, certificates, filter) {
+                // Filter results based on time period
+                const filteredResults = filterResults(testResults, filter);
+                const filteredCertificates = filterCertificates(certificates, filter);
+
+                if (filteredResults.length === 0 && filteredCertificates.length === 0) {
+                    showEmptyState();
+                    return;
+                }
+
+                // Calculate overall statistics from REAL data
+                const stats = calculateRealStatistics(filteredResults, filteredCertificates);
+
+                // Update summary cards with REAL data
+                updateSummaryCards(stats);
+
+                // Create charts from REAL data
+                createRealCharts(filteredResults, filteredCertificates, stats);
+
+                // Populate subject progress grid with REAL data
+                populateSubjectGrid(stats.subjectStats);
+
+                // Show test history
+                displayTestHistory(filteredResults);
+
+                // Generate AI recommendations based on REAL performance
+                generateRecommendations(stats, filteredResults);
+
+                // Show analytics data
+                loadingState.style.display = 'none';
+                emptyState.style.display = 'none';
+                analyticsData.style.display = 'block';
+            }
+
+            // Filter results by time period
+            function filterResults(results, filter) {
+                const now = new Date();
+                let cutoffDate;
+
+                switch (filter) {
+                    case 'week':
+                        cutoffDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                        break;
+                    case 'month':
+                        cutoffDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                        break;
+                    case 'all':
+                    default:
+                        return results;
+                }
+
+                return results.filter(result => {
+                    if (!result.date) return true;
+                    const testDate = new Date(result.date);
+                    return testDate >= cutoffDate;
+                });
+            }
+
+            // Filter certificates by time period
+            function filterCertificates(certificates, filter) {
+                const now = new Date();
+                let cutoffDate;
+
+                switch (filter) {
+                    case 'week':
+                        cutoffDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                        break;
+                    case 'month':
+                        cutoffDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                        break;
+                    case 'all':
+                    default:
+                        return certificates;
+                }
+
+                return certificates.filter(cert => {
+                    if (!cert.date) return true;
+                    const certDate = new Date(cert.date);
+                    return certDate >= cutoffDate;
+                });
+            }
+
+            // Calculate REAL statistics from actual test results and certificates
+            function calculateRealStatistics(testResults, certificates) {
+                if (testResults.length === 0 && certificates.length === 0) {
+                    return {
+                        overallScore: 0,
+                        testsTaken: 0,
+                        improvementRate: 0,
+                        certificatesEarned: 0,
+                        subjectStats: {}
+                    };
+                }
+
+                // Combine test results and certificates for overall scoring
+                const allScores = [];
+                
+                // Add test scores
+                testResults.forEach(result => {
+                    if (result.score !== undefined) {
+                        allScores.push(result.score);
+                    }
+                });
+                
+                // Add certificate scores
+                certificates.forEach(cert => {
+                    if (cert.score !== undefined) {
+                        allScores.push(cert.score);
+                    }
+                });
+
+                // Calculate overall score (average of all scores)
+                const overallScore = allScores.length > 0 
+                    ? Math.round(allScores.reduce((sum, score) => sum + score, 0) / allScores.length)
+                    : 0;
+
+                // Calculate improvement rate (compare first and last test if available)
+                let improvementRate = 0;
+                const sortedTests = [...testResults].sort((a, b) => new Date(a.date) - new Date(b.date));
+                if (sortedTests.length >= 2) {
+                    const firstScore = sortedTests[0].score || 0;
+                    const lastScore = sortedTests[sortedTests.length - 1].score || 0;
+                    improvementRate = firstScore > 0 ? Math.round(((lastScore - firstScore) / firstScore) * 100) : 0;
+                }
+
+                // Calculate subject statistics from REAL test data
+                const subjectStats = {};
+                
+                // Process test results for subject data
+                testResults.forEach(result => {
+                    if (result.subject) {
+                        const subject = result.subject;
+                        if (!subjectStats[subject]) {
+                            subjectStats[subject] = {
+                                scores: [],
+                                average: 0,
+                                testsTaken: 0,
+                                certificates: 0
+                            };
+                        }
+                        if (result.score !== undefined) {
+                            subjectStats[subject].scores.push(result.score);
+                            subjectStats[subject].testsTaken++;
+                        }
+                    }
+                });
+
+                // Process certificates for subject data
+                certificates.forEach(cert => {
+                    if (cert.subject) {
+                        const subject = cert.subject;
+                        if (!subjectStats[subject]) {
+                            subjectStats[subject] = {
+                                scores: [],
+                                average: 0,
+                                testsTaken: 0,
+                                certificates: 0
+                            };
+                        }
+                        if (cert.score !== undefined) {
+                            subjectStats[subject].scores.push(cert.score);
+                            subjectStats[subject].certificates++;
+                        }
+                    }
+                });
+
+                // Calculate averages for each subject
+                Object.keys(subjectStats).forEach(subject => {
+                    const scores = subjectStats[subject].scores;
+                    if (scores.length > 0) {
+                        const total = scores.reduce((sum, score) => sum + score, 0);
+                        subjectStats[subject].average = Math.round(total / scores.length);
+                        
+                        // Calculate trend if there are multiple scores
+                        if (scores.length >= 2) {
+                            const firstScore = scores[0];
+                            const lastScore = scores[scores.length - 1];
+                            subjectStats[subject].trend = firstScore > 0 
+                                ? Math.round(((lastScore - firstScore) / firstScore) * 100)
+                                : 0;
+                        } else {
+                            subjectStats[subject].trend = 0;
+                        }
+                    }
+                });
+
+                return {
+                    overallScore,
+                    testsTaken: testResults.length,
+                    improvementRate,
+                    certificatesEarned: certificates.length,
+                    subjectStats
+                };
+            }
+
+            // Update summary cards with REAL statistics
+            function updateSummaryCards(stats) {
+                document.getElementById('overallScore').textContent = `${stats.overallScore}%`;
+                document.getElementById('testsTaken').textContent = stats.testsTaken;
+                document.getElementById('improvementRate').textContent = `${stats.improvementRate > 0 ? '+' : ''}${stats.improvementRate}%`;
+                document.getElementById('certificatesEarned').textContent = stats.certificatesEarned;
+            }
+
+            // Create charts from REAL data
+            function createRealCharts(testResults, certificates, stats) {
+                // Destroy existing charts if they exist
+                if (subjectChart) subjectChart.destroy();
+                if (progressChart) progressChart.destroy();
+
+                // Create subject performance chart (bar chart)
+                const subjectCtx = document.getElementById('subjectChart').getContext('2d');
+                const subjects = Object.keys(stats.subjectStats);
+                
+                if (subjects.length > 0) {
+                    const subjectAverages = subjects.map(subject => stats.subjectStats[subject].average);
+                    const subjectTrends = subjects.map(subject => stats.subjectStats[subject].trend || 0);
+
+                    // Generate colors based on scores
+                    const backgroundColors = subjectAverages.map(score => {
+                        if (score >= 80) return 'rgba(74, 222, 128, 0.8)'; // Green for high scores
+                        if (score >= 60) return 'rgba(96, 165, 250, 0.8)'; // Blue for medium scores
+                        return 'rgba(248, 113, 113, 0.8)'; // Red for low scores
+                    });
+
+                    subjectChart = new Chart(subjectCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: subjects.map(subject => getSubjectDisplayName(subject)),
+                            datasets: [{
+                                label: 'Average Score (%)',
+                                data: subjectAverages,
+                                backgroundColor: backgroundColors,
+                                borderColor: backgroundColors.map(color => color.replace('0.8', '1')),
+                                borderWidth: 1,
+                                borderRadius: 5
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Score (%)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Subjects'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            const subject = subjects[context.dataIndex];
+                                            const trend = subjectTrends[context.dataIndex];
+                                            const subjectData = stats.subjectStats[subject];
+                                            let trendText = '';
+                                            if (trend > 0) {
+                                                trendText = ` (+${trend}% trend)`;
+                                            } else if (trend < 0) {
+                                                trendText = ` (${trend}% trend)`;
+                                            }
+                                            return `Score: ${context.raw}%${trendText} | Tests: ${subjectData.testsTaken}`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    // No data for subject chart
+                    subjectCtx.fillStyle = '#e2e8f0';
+                    subjectCtx.font = '16px Arial';
+                    subjectCtx.textAlign = 'center';
+                    subjectCtx.fillText('No subject data available yet', subjectCtx.canvas.width / 2, subjectCtx.canvas.height / 2);
+                }
+
+                // Create progress over time chart (line chart)
+                const progressCtx = document.getElementById('progressChart').getContext('2d');
+                
+                // Combine and sort all assessments by date
+                const allAssessments = [
+                    ...testResults.map(r => ({ ...r, type: 'test' })),
+                    ...certificates.map(c => ({ ...c, type: 'certificate', score: c.score }))
+                ].sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+                
+                if (allAssessments.length > 0) {
+                    const dates = allAssessments.map(assessment => {
+                        if (!assessment.date) return 'Recent';
+                        const date = new Date(assessment.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    });
+                    const scores = allAssessments.map(assessment => assessment.score || 0);
+                    const types = allAssessments.map(assessment => assessment.type);
+
+                    // Create gradient
+                    const gradient = progressCtx.createLinearGradient(0, 0, 0, 300);
+                    gradient.addColorStop(0, 'rgba(67, 97, 238, 0.3)');
+                    gradient.addColorStop(1, 'rgba(67, 97, 238, 0.05)');
+
+                    progressChart = new Chart(progressCtx, {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                label: 'Assessment Scores',
+                                data: scores,
+                                borderColor: 'rgba(67, 97, 238, 1)',
+                                backgroundColor: gradient,
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: function(context) {
+                                    const index = context.dataIndex;
+                                    return types[index] === 'certificate' ? '#FFD700' : 'rgba(67, 97, 238, 1)';
+                                },
+                                pointRadius: function(context) {
+                                    const index = context.dataIndex;
+                                    return types[index] === 'certificate' ? 6 : 4;
+                                },
+                                pointHoverRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Score (%)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Date'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        title: function(tooltipItems) {
+                                            const index = tooltipItems[0].dataIndex;
+                                            const assessment = allAssessments[index];
+                                            return assessment.type === 'certificate' 
+                                                ? 'Certificate Awarded' 
+                                                : 'Skill Assessment';
+                                        },
+                                        afterLabel: function(context) {
+                                            const index = context.dataIndex;
+                                            const assessment = allAssessments[index];
+                                            let additionalInfo = '';
+                                            if (assessment.subject) {
+                                                additionalInfo += `Subject: ${getSubjectDisplayName(assessment.subject)}\n`;
+                                            }
+                                            if (assessment.grade) {
+                                                additionalInfo += `Grade: ${assessment.grade}`;
+                                            }
+                                            if (assessment.certificateId) {
+                                                additionalInfo += `\nCertificate ID: ${assessment.certificateId}`;
+                                            }
+                                            return additionalInfo;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    // No data for progress chart
+                    progressCtx.fillStyle = '#e2e8f0';
+                    progressCtx.font = '16px Arial';
+                    progressCtx.textAlign = 'center';
+                    progressCtx.fillText('No progress data available yet', progressCtx.canvas.width / 2, progressCtx.canvas.height / 2);
+                }
+            }
+
+            // Populate subject progress grid with REAL data
+            function populateSubjectGrid(subjectStats) {
+                const subjectGrid = document.getElementById('subjectGrid');
+                subjectGrid.innerHTML = '';
+
+                const sortedSubjects = Object.keys(subjectStats).sort((a, b) => {
+                    return subjectStats[b].average - subjectStats[a].average;
+                });
+
+                sortedSubjects.forEach(subject => {
+                    const stats = subjectStats[subject];
+                    const progressColor = getProgressColor(stats.average);
+                    const trendIcon = stats.trend > 0 ? 'fas fa-arrow-up' : 
+                                     stats.trend < 0 ? 'fas fa-arrow-down' : 
+                                     'fas fa-minus';
+                    const trendColor = stats.trend > 0 ? 'var(--success)' : 
+                                      stats.trend < 0 ? 'var(--danger)' : 
+                                      'var(--gray)';
+
+                    const subjectCard = document.createElement('div');
+                    subjectCard.className = 'subject-card';
+                    subjectCard.innerHTML = `
+                        <div class="subject-header">
+                            <div class="subject-name">${getSubjectDisplayName(subject)}</div>
+                            <div class="subject-score">${stats.average}%</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${stats.average}%; background-color: ${progressColor};"></div>
+                        </div>
+                        <div class="progress-details">
+                            <span>Assessments: ${stats.testsTaken}</span>
+                            <span>Certificates: ${stats.certificates || 0}</span>
+                            <span style="color: ${trendColor};">
+                                <i class="${trendIcon}"></i> ${stats.trend > 0 ? '+' : ''}${stats.trend}%
+                            </span>
+                        </div>
+                    `;
+                    subjectGrid.appendChild(subjectCard);
+                });
+
+                if (sortedSubjects.length === 0) {
+                    subjectGrid.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: var(--gray);">
+                            <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                            <p>No subject data available yet. Take a test to see your progress here.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Display test history
+            function displayTestHistory(testResults) {
+                const testHistory = document.getElementById('testHistory');
+                testHistory.innerHTML = '';
+
+                // Sort by date (newest first)
+                const sortedResults = [...testResults].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)).slice(0, 5);
+
+                if (sortedResults.length === 0) {
+                    testHistory.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-history" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                            <p>No test history available yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                sortedResults.forEach(result => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    const date = result.date ? new Date(result.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    }) : 'Recent';
+                    
+                    const score = result.score || 0;
+                    const grade = result.grade || getGradeFromScore(score);
+                    
+                    historyItem.innerHTML = `
+                        <div class="history-header">
+                            <div>
+                                <strong>${result.type === 'certificate' ? 'Certificate' : 'Skill Assessment'}</strong>
+                                ${result.certificateId ? `<br><small style="color: var(--gray);">ID: ${result.certificateId}</small>` : ''}
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">${score}%</div>
+                                <div class="history-date">${date}</div>
+                            </div>
+                        </div>
+                        ${result.subject ? `
+                            <div style="margin-top: 10px;">
+                                <strong>Subject:</strong> ${getSubjectDisplayName(result.subject)}
+                            </div>
+                        ` : ''}
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <span style="color: ${getGradeColor(grade)}; font-weight: bold;">
+                                Grade: ${grade}
+                            </span>
+                            ${result.timeTaken ? `<span>Time: ${result.timeTaken} min</span>` : ''}
+                        </div>
+                    `;
+                    testHistory.appendChild(historyItem);
+                });
+            }
+
+            // Generate AI recommendations based on REAL performance
+            function generateRecommendations(stats, testResults) {
+                const recommendationsList = document.getElementById('recommendationsList');
+                recommendationsList.innerHTML = '';
+
+                const recommendations = [];
+
+                // Analyze subject performance
+                const weakSubjects = Object.keys(stats.subjectStats)
+                    .filter(subject => stats.subjectStats[subject].average < 60)
+                    .sort((a, b) => stats.subjectStats[a].average - stats.subjectStats[b].average);
+
+                const strongSubjects = Object.keys(stats.subjectStats)
+                    .filter(subject => stats.subjectStats[subject].average >= 80)
+                    .sort((a, b) => stats.subjectStats[b].average - stats.subjectStats[a].average);
+
+                // Generate recommendations based on actual performance
+                if (weakSubjects.length > 0) {
+                    recommendations.push({
+                        icon: 'fas fa-exclamation-triangle',
+                        color: 'var(--warning)',
+                        text: `Focus on improving ${weakSubjects.slice(0, 2).map(s => getSubjectDisplayName(s)).join(' and ')}. Consider reviewing fundamental concepts.`
+                    });
+                    
+                    // Specific recommendations for weak subjects
+                    weakSubjects.forEach(subject => {
+                        const avgScore = stats.subjectStats[subject].average;
+                        if (avgScore < 50) {
+                            recommendations.push({
+                                icon: 'fas fa-book',
+                                color: 'var(--danger)',
+                                text: `Urgent: ${getSubjectDisplayName(subject)} needs immediate attention (Score: ${avgScore}%). Start with basics.`
+                            });
+                        }
+                    });
+                }
+
+                if (strongSubjects.length > 0) {
+                    recommendations.push({
+                        icon: 'fas fa-trophy',
+                        color: 'var(--success)',
+                        text: `Excellent performance in ${strongSubjects.slice(0, 2).map(s => getSubjectDisplayName(s)).join(' and ')}! Consider advanced topics.`
+                    });
+                }
+
+                // Time-based recommendations
+                const lastTest = testResults.length > 0 ? testResults[testResults.length - 1] : null;
+                if (lastTest && lastTest.date) {
+                    const lastTestDate = new Date(lastTest.date);
+                    const daysSinceLastTest = Math.floor((new Date() - lastTestDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysSinceLastTest > 14) {
+                        recommendations.push({
+                            icon: 'fas fa-calendar-times',
+                            color: 'var(--warning)',
+                            text: `It's been ${daysSinceLastTest} days since your last assessment. Regular practice is key to retention.`
+                        });
+                    }
+                }
+
+                // Improvement trend recommendations
+                if (stats.improvementRate > 10) {
+                    recommendations.push({
+                        icon: 'fas fa-chart-line',
+                        color: 'var(--success)',
+                        text: `Outstanding improvement (+${stats.improvementRate}%)! Your consistent effort is paying off.`
+                    });
+                } else if (stats.improvementRate < -5) {
+                    recommendations.push({
+                        icon: 'fas fa-lightbulb',
+                        color: 'var(--warning)',
+                        text: `Try different learning methods for subjects where performance has declined. Consider spaced repetition.`
+                    });
+                }
+
+                // General recommendations
+                if (stats.testsTaken < 3) {
+                    recommendations.push({
+                        icon: 'fas fa-bullseye',
+                        color: 'var(--accent)',
+                        text: `Take more assessments to establish a reliable baseline for your learning progress.`
+                    });
+                }
+
+                recommendations.push({
+                    icon: 'fas fa-calendar-alt',
+                    color: 'var(--primary)',
+                    text: `Aim for at least one skill assessment per week to maintain steady progress tracking.`
+                });
+
+                // Display recommendations
+                if (recommendations.length === 0) {
+                    recommendationsList.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: var(--gray);">
+                            <i class="fas fa-robot" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                            <p>Take more assessments to receive personalized recommendations.</p>
+                        </div>
+                    `;
+                } else {
+                    recommendations.slice(0, 5).forEach(rec => {
+                        const recommendationItem = document.createElement('div');
+                        recommendationItem.className = 'recommendation-item';
+                        recommendationItem.innerHTML = `
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="${rec.icon}" style="color: ${rec.color}; font-size: 1.2rem; margin-top: 3px;"></i>
+                                <span>${rec.text}</span>
+                            </div>
+                        `;
+                        recommendationsList.appendChild(recommendationItem);
+                    });
+                }
+            }
+
+            // Export progress report
+            function exportProgressReport() {
+                const testResults = getRealTestResults();
+                const certificates = getCertificates();
+                const stats = calculateRealStatistics(testResults, certificates);
+                
+                const report = {
+                    generated: new Date().toISOString(),
+                    user: "Jamie Smith",
+                    summary: {
+                        overallScore: stats.overallScore,
+                        testsTaken: stats.testsTaken,
+                        improvementRate: stats.improvementRate,
+                        certificatesEarned: stats.certificatesEarned
+                    },
+                    subjectPerformance: stats.subjectStats,
+                    testHistory: testResults.slice(0, 10),
+                    certificates: certificates.slice(0, 10),
+                    recommendations: generateRecommendationsText(stats, testResults)
+                };
+                
+                // Create downloadable JSON file
+                const dataStr = JSON.stringify(report, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `learnsmart-progress-report-${new Date().toISOString().split('T')[0]}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                // Show success message
+                alert('Progress report exported successfully!');
+            }
+
+            function generateRecommendationsText(stats, testResults) {
+                const recommendations = [];
+                
+                const weakSubjects = Object.keys(stats.subjectStats)
+                    .filter(subject => stats.subjectStats[subject].average < 60);
+                    
+                if (weakSubjects.length > 0) {
+                    recommendations.push(`Focus on: ${weakSubjects.map(s => getSubjectDisplayName(s)).join(', ')}`);
+                }
+                
+                if (stats.improvementRate > 0) {
+                    recommendations.push(`Continue current learning strategy (${stats.improvementRate}% improvement)`);
+                }
+                
+                return recommendations;
+            }
+
+            // Helper function to get display name for subject
+            function getSubjectDisplayName(subject) {
+                const displayNames = {
+                    'javascript': 'JavaScript',
+                    'python': 'Python',
+                    'html': 'HTML',
+                    'css': 'CSS',
+                    'react': 'React',
+                    'c': 'C Language',
+                    'algorithms': 'Algorithms',
+                    'datastructures': 'Data Structures'
+                };
+                return displayNames[subject] || subject.charAt(0).toUpperCase() + subject.slice(1);
+            }
+
+            // Helper function to get progress bar color based on score
+            function getProgressColor(score) {
+                if (score >= 80) return 'var(--success)';
+                if (score >= 60) return 'var(--warning)';
+                return 'var(--danger)';
+            }
+
+            // Helper function to get grade from score
+            function getGradeFromScore(score) {
+                if (score >= 90) return 'A';
+                if (score >= 80) return 'B';
+                if (score >= 70) return 'C';
+                if (score >= 60) return 'D';
+                return 'F';
+            }
+
+            // Helper function to get grade color
+            function getGradeColor(grade) {
+                switch(grade) {
+                    case 'A': return 'var(--success)';
+                    case 'B': return 'var(--primary)';
+                    case 'C': return 'var(--warning)';
+                    case 'D': return 'var(--danger)';
+                    default: return 'var(--gray)';
+                }
+            }
+
+            // IMPORTANT: This function needs to be added to the main page to save test results
+            // Add this to your mainexperiment.html in the submitTest function:
+            /*
+            function saveTestResult(correct, total, subjects, subjectScores, timeTaken) {
+                const testResult = {
+                    id: Date.now(),
+                    date: new Date().toISOString(),
+                    subjects: subjects,
+                    subjectScores: subjectScores,
+                    score: Math.round((correct / total) * 100),
+                    timeTaken: timeTaken,
+                    totalQuestions: total,
+                    type: 'skill-assessment'
+                };
+                
+                const existingResults = JSON.parse(localStorage.getItem('learnsmart-test-history')) || [];
+                existingResults.push(testResult);
+                localStorage.setItem('learnsmart-test-history', JSON.stringify(existingResults));
+            }
+            
+            // Call this function in submitTest() after calculating the score
+            */
+        });
+    </script>
+</body>
+
+</html>

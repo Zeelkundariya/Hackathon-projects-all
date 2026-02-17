@@ -1,0 +1,26 @@
+body {
+    width: 100%;
+    /* Side panel width is determined by browser */
+    min-width: 300px;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Side panel specific adjustments */
+.tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.results {
+    max-height: none;
+    /* Let it scroll naturally */
+}
+
+.clauses-section {
+    max-height: none;
+}

@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Learning Workflow | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap">
+    <style>
+        :root {
+            --js-primary: #f0db4f;
+            --js-secondary: #323330;
+            --js-accent: #f7e018;
+            --js-light: #fffde7;
+            --js-dark: #1a1a1a;
+            --js-gray: #5a5a5a;
+            --js-light-gray: #f5f5f5;
+            --js-card-bg: #ffffff;
+            --js-timeline: #f7df1e;
+            --js-notes: #f0db4f; /* Changed from purple to yellow */
+            --js-progress: #f0db4f;
+            --js-success: #f0db4f;
+            --js-warning: #f59e0b;
+            --js-danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--js-dark);
+            line-height: 1.6;
+            padding: 0;
+            background: linear-gradient(135deg, #fefefe 0%, #f8f9fa 100%);
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--js-primary), #e6c926);
+            color: var(--js-secondary);
+            padding: 40px 0;
+            padding-left: 30px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(240, 219, 79, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "JS";
+            position: absolute;
+            top: -50px;
+            right: 30px;
+            font-size: 250px;
+            font-weight: 900;
+            opacity: 0.1;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--js-secondary);
+            transform: rotate(15deg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--js-secondary);
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            color: var(--js-secondary);
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 25px;
+            margin-right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--js-secondary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--js-gray);
+            font-weight: 500;
+        }
+
+        /* Main layout */
+        .workflow-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .workflow-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: var(--js-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(240, 219, 79, 0.3);
+        }
+
+        .section-title h2 {
+            color: var(--js-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--js-primary), #e6c926);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--js-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--js-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(240, 219, 79, 0.15);
+            background: white;
+        }
+
+        .timeline-item.active {
+            border-left: 6px solid var(--js-primary);
+            background: linear-gradient(to right, rgba(240, 219, 79, 0.08), rgba(240, 219, 79, 0.02));
+            box-shadow: 0 5px 15px rgba(240, 219, 79, 0.15);
+        }
+
+        .timeline-item.completed {
+            border-left-color: var(--js-primary);
+            background-color: rgba(240, 219, 79, 0.1);
+        }
+
+        .timeline-item.completed .timeline-title::after {
+            color: var(--js-secondary);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -47.5px;
+            top: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--js-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--js-secondary);
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(240, 219, 79, 0.3);
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: var(--js-primary);
+            color: var(--js-secondary);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--js-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-title i {
+            color: var(--js-primary);
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: rgba(240, 219, 79, 0.1);
+            color: var(--js-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            border: 1px solid rgba(240, 219, 79, 0.2);
+        }
+
+        .timeline-description {
+            color: var(--js-gray);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .timeline-resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .resource-tag {
+            background: rgba(240, 219, 79, 0.1);
+            color: var(--js-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(240, 219, 79, 0.2);
+            transition: all 0.2s;
+        }
+
+        .resource-tag:hover {
+            background: rgba(240, 219, 79, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .resource-tag i {
+            font-size: 0.8rem;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--js-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: var(--js-light-gray);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--js-primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--js-secondary);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--js-gray);
+        }
+
+        .time-estimate {
+            background: rgba(240, 219, 79, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--js-primary);
+        }
+
+        .time-estimate h4 {
+            margin-bottom: 10px;
+            color: var(--js-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-breakdown {
+            margin-top: 15px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(240, 219, 79, 0.3);
+        }
+
+        .time-item:last-child {
+            border-bottom: none;
+        }
+
+        .time-item.total {
+            font-weight: 600;
+            color: var(--js-secondary);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(240, 219, 79, 0.3);
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: var(--js-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            background: rgba(240, 219, 79, 0.05);
+            border-radius: 12px;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .tip-item:hover {
+            transform: translateX(8px);
+            background: rgba(240, 219, 79, 0.1);
+            border-color: rgba(240, 219, 79, 0.3);
+        }
+
+        .tip-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--js-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--js-secondary);
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(240, 219, 79, 0.3);
+        }
+
+        .tip-content h4 {
+            margin-bottom: 8px;
+            color: var(--js-secondary);
+            font-size: 1.1rem;
+        }
+
+        .tip-content p {
+            color: var(--js-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(240, 219, 79, 0.2);
+            color: var(--js-gray);
+            font-size: 0.9rem;
+            background: rgba(240, 219, 79, 0.03);
+            border-radius: 16px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--js-primary), #e6c926);
+            color: var(--js-secondary);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(240, 219, 79, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(240, 219, 79, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-marker {
+                left: -32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section, .progress-section, .tips-section {
+                padding: 20px;
+            }
+        }
+
+        /* Notes section - Updated to use JavaScript colors */
+        .notes-section {
+            background: var(--js-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--js-primary);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .notes-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--js-primary), #e6c926);
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .notes-title {
+            color: var(--js-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .notes-count {
+            background: rgba(240, 219, 79, 0.1);
+            color: var(--js-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(240, 219, 79, 0.3);
+        }
+
+        .notes-content {
+            margin-bottom: 25px;
+        }
+
+        .notes-summary {
+            color: var(--js-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .notes-stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(240, 219, 79, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .note-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .note-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--js-secondary);
+            margin-bottom: 5px;
+        }
+
+        .note-stat-label {
+            font-size: 0.85rem;
+            color: var(--js-gray);
+        }
+
+        /* Notes Button - Updated to use JavaScript colors */
+        .notes-button {
+            position: relative;
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--js-primary), #e6c926);
+            color: var(--js-secondary);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(240, 219, 79, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .notes-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(240, 219, 79, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .notes-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .notes-button:hover::before {
+            left: 100%;
+        }
+
+        .notes-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .notes-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .recent-notes {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(240, 219, 79, 0.2);
+        }
+
+        .recent-notes h4 {
+            color: var(--js-gray);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-preview {
+            background: rgba(240, 219, 79, 0.05);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--js-primary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(240, 219, 79, 0.1);
+        }
+
+        .note-preview:hover {
+            background: rgba(240, 219, 79, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(240, 219, 79, 0.3);
+        }
+
+        .note-preview-title {
+            font-weight: 600;
+            color: var(--js-secondary);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .note-preview-date {
+            font-size: 0.8rem;
+            color: var(--js-gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Animation for active item */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(240, 219, 79, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(240, 219, 79, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(240, 219, 79, 0); }
+        }
+
+        .timeline-item.active {
+            animation: pulse 2s infinite;
+        }
+
+        /* Progress animation */
+        @keyframes progressFill {
+            from { stroke-dashoffset: 565; }
+            to { stroke-dashoffset: 0; }
+        }
+        
+        /* Completed steps styling */
+        .timeline-item.completed .timeline-marker {
+            background: var(--js-primary);
+            color: var(--js-secondary);
+        }
+        
+        .completed-stats {
+            background: rgba(240, 219, 79, 0.1);
+            color: var(--js-secondary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(240, 219, 79, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1><i class="fab fa-js-square"></i> JavaScript Learning Workflow</h1>
+                    <p>A comprehensive step-by-step guide to master JavaScript from fundamentals to advanced concepts with timeline and progress tracking</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-weeks">10</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-lessons">52</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-projects">7</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="workflow-container">
+            <!-- Main Content - Timeline -->
+            <main>
+                <section class="timeline-section">
+                    <div class="section-title">
+                        <h2><i class="fas fa-road"></i> JavaScript Learning Roadmap</h2>
+                    </div>
+                    
+                    <div class="timeline">
+                        <!-- Week 1 -->
+                        <div class="timeline-item active" data-step="1">
+                            <div class="timeline-marker">1</div>
+                            <h3 class="timeline-title"><i class="fas fa-code"></i> JavaScript Fundamentals</h3>
+                            <span class="timeline-duration">Week 1-2</span>
+                            <p class="timeline-description">Learn JavaScript basics: variables, data types, operators, and basic syntax. Understand how JavaScript works in the browser and Node.js environment.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-play-circle"></i> Interactive Tutorial</span>
+                                <span class="resource-tag"><i class="fas fa-file-code"></i> Code Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-question-circle"></i> Q&A Session</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 2 -->
+                        <div class="timeline-item" data-step="2">
+                            <div class="timeline-marker">2</div>
+                            <h3 class="timeline-title"><i class="fas fa-sitemap"></i> Control Structures & Functions</h3>
+                            <span class="timeline-duration">Week 3</span>
+                            <p class="timeline-description">Master conditional statements, loops, and functions. Learn about function declarations, expressions, arrow functions, and scope.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-puzzle-piece"></i> Logic Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-code"></i> Function Challenges</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 3 -->
+                        <div class="timeline-item completed" data-step="3">
+                            <div class="timeline-marker">3</div>
+                            <h3 class="timeline-title"><i class="fas fa-cube"></i> Arrays & Objects</h3>
+                            <span class="timeline-duration">Week 4</span>
+                            <p class="timeline-description">Work with arrays and objects, learn array methods, object properties, and methods. Understand reference vs value.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-database"></i> Data Manipulation</span>
+                                <span class="resource-tag"><i class="fas fa-list"></i> Array Methods</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 4 -->
+                        <div class="timeline-item completed" data-step="4">
+                            <div class="timeline-marker">4</div>
+                            <h3 class="timeline-title"><i class="fas fa-bolt"></i> DOM Manipulation</h3>
+                            <span class="timeline-duration">Week 5</span>
+                            <p class="timeline-description">Learn to interact with the Document Object Model: selecting elements, modifying content, handling events, and creating dynamic web pages.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-mouse-pointer"></i> Event Handling</span>
+                                <span class="resource-tag"><i class="fas fa-window-restore"></i> Dynamic UI</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 5 -->
+                        <div class="timeline-item completed" data-step="5">
+                            <div class="timeline-marker">5</div>
+                            <h3 class="timeline-title"><i class="fas fa-rocket"></i> ES6+ Modern JavaScript</h3>
+                            <span class="timeline-duration">Week 6</span>
+                            <p class="timeline-description">Master modern JavaScript features: let/const, template literals, destructuring, spread/rest operators, and enhanced object literals.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> ES6 Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-book"></i> Modern Syntax</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 6 -->
+                        <div class="timeline-item" data-step="6">
+                            <div class="timeline-marker">6</div>
+                            <h3 class="timeline-title"><i class="fas fa-cogs"></i> Asynchronous JavaScript</h3>
+                            <span class="timeline-duration">Week 7</span>
+                            <p class="timeline-description">Understand asynchronous programming: callbacks, promises, async/await, and working with APIs. Handle AJAX requests and fetch API.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-sync-alt"></i> Async Patterns</span>
+                                <span class="resource-tag"><i class="fas fa-cloud-download-alt"></i> API Integration</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 7 -->
+                        <div class="timeline-item" data-step="7">
+                            <div class="timeline-marker">7</div>
+                            <h3 class="timeline-title"><i class="fas fa-brain"></i> Advanced Concepts</h3>
+                            <span class="timeline-duration">Week 8</span>
+                            <p class="timeline-description">Dive into closures, prototypes, classes, inheritance, and the 'this' keyword. Understand JavaScript's object-oriented and functional aspects.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> OOP in JS</span>
+                                <span class="resource-tag"><i class="fas fa-project-diagram"></i> Prototype Chain</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 8 -->
+                        <div class="timeline-item" data-step="8">
+                            <div class="timeline-marker">8</div>
+                            <h3 class="timeline-title"><i class="fas fa-tools"></i> Error Handling & Debugging</h3>
+                            <span class="timeline-duration">Week 9</span>
+                            <p class="timeline-description">Learn to debug JavaScript code, handle errors gracefully with try/catch, and use browser developer tools effectively.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-bug"></i> Debugging Tools</span>
+                                <span class="resource-tag"><i class="fas fa-exclamation-triangle"></i> Error Handling</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 9 -->
+                        <div class="timeline-item" data-step="9">
+                            <div class="timeline-marker">9</div>
+                            <h3 class="timeline-title"><i class="fas fa-shield-alt"></i> Modules & Tooling</h3>
+                            <span class="timeline-duration">Week 10</span>
+                            <p class="timeline-description">Work with ES6 modules, understand package managers (npm), and learn about bundlers (Webpack) and transpilers (Babel).</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-box-open"></i> Module Systems</span>
+                                <span class="resource-tag"><i class="fas fa-cog"></i> Build Tools</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 10 -->
+                        <div class="timeline-item" data-step="10">
+                            <div class="timeline-marker">10</div>
+                            <h3 class="timeline-title"><i class="fas fa-vial"></i> Testing & Best Practices</h3>
+                            <span class="timeline-duration">Week 11</span>
+                            <p class="timeline-description">Learn testing frameworks (Jest), write unit tests, understand coding standards, and implement best practices for clean JavaScript code.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-vial"></i> Testing</span>
+                                <span class="resource-tag"><i class="fas fa-check-double"></i> Best Practices</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Week -->
+                        <div class="timeline-item" data-step="11">
+                            <div class="timeline-marker">11</div>
+                            <h3 class="timeline-title"><i class="fas fa-project-diagram"></i> Capstone Project</h3>
+                            <span class="timeline-duration">Week 12</span>
+                            <p class="timeline-description">Build a complete JavaScript application integrating all concepts learned. Choose from: Todo App, Weather App, Quiz App, or E-commerce Cart.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Project Templates</span>
+                                <span class="resource-tag"><i class="fas fa-tasks"></i> Step-by-Step Guide</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Final Week -->
+                        <div class="timeline-item" data-step="12">
+                            <div class="timeline-marker">12</div>
+                            <h3 class="timeline-title"><i class="fas fa-trophy"></i> Review & Certification</h3>
+                            <span class="timeline-duration">Week 12+</span>
+                            <p class="timeline-description">Review all concepts, complete final assessment, and earn your JavaScript certification. Prepare for job interviews with common JS questions.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-question"></i> Interview Prep</span>
+                                <span class="resource-tag"><i class="fas fa-certificate"></i> Certification</span>
+                                <span class="resource-tag"><i class="fas fa-clipboard-check"></i> Final Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tips Section -->
+                <section class="tips-section">
+                    <h2 class="section-title"><i class="fas fa-lightbulb"></i> JavaScript Learning Tips</h2>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Code Every Day</h4>
+                            <p>Consistency is key. Write JavaScript code daily, even if it's just small exercises or debugging existing code.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Embrace the Console</h4>
+                            <p>Use browser console extensively for debugging. Learn console methods like console.log(), console.table(), and console.time().</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Build Real Projects</h4>
+                            <p>Apply concepts by building projects. Start simple and gradually increase complexity. Projects solidify learning better than tutorials.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Read Others' Code</h4>
+                            <p>Study open-source JavaScript projects on GitHub. Understanding others' code improves your own coding style and problem-solving.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside>
+                <!-- Progress Section -->
+                <section class="progress-section">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Learning Progress</h2>
+                    
+                    
+                    
+                    <div class="time-estimate">
+                        <h4><i class="fas fa-clock"></i> Time Estimate</h4>
+                        <p>Complete roadmap in 10-12 weeks with 8-10 hours/week study time.</p>
+                        
+                        <div class="time-breakdown">
+                            <div class="time-item">
+                                <span>Fundamentals</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Intermediate</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Advanced</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item total">
+                                <span>Total Estimated Time</span>
+                                <span>80-120 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Notes Section -->
+                <section class="notes-section">
+                    <div class="notes-header">
+                        <h3 class="notes-title"><i class="fas fa-sticky-note"></i> Learning Notes</h3>
+                        <span class="notes-count" id="notes-count">18 Notes</span>
+                    </div>
+                    
+                    <div class="notes-content">
+                        <p class="notes-summary">
+                            Keep track of important concepts, code snippets, and personal insights as you progress through your JavaScript learning journey.
+                        </p>
+                        
+                        <div class="notes-stats">
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="recent-notes">5</div>
+                                <div class="note-stat-label">Recent</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="code-snippets">9</div>
+                                <div class="note-stat-label">Code Snippets</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="important-notes">4</div>
+                                <div class="note-stat-label">Important</div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-notes">
+                            <h4><i class="fas fa-history"></i> Recent Notes</h4>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Arrow Functions vs Regular Functions</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 day ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Array Methods: map, filter, reduce</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 3 days ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Promise Chaining Patterns</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="learningpath.html" class="backbtn" style="background-color:#e6c926; padding: 1.5vw; border-radius: 10px; text-decoration: none; color: white; ">Back to Learning Paths </a>
+            <br>
+            <br>
+            <br>
+            <p>C Language Workflow • LearnSmart AI • Estimated completion: 12 weeks with consistent practice</p>
+            
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressCircle = document.querySelector('.progress-circle-fill');
+            const completedCount = document.getElementById('completed-count');
+            const completedStats = document.getElementById('completed-stats');
+            const backButton = document.getElementById('back-to-templates');
+            const viewNotesBtn = document.getElementById('view-notes-btn');
+            const notesCount = document.getElementById('notes-count');
+            const recentNotes = document.getElementById('recent-notes');
+            const codeSnippets = document.getElementById('code-snippets');
+            const importantNotes = document.getElementById('important-notes');
+            
+            // State management
+            let currentStep = 1;
+            let completedSteps = new Set([3, 4, 5]); // Initially mark steps 3,4,5 as completed
+            let totalNotes = 18;
+            
+            // Initialize
+            updateProgress();
+            updateNotesStats();
+            
+            // Calculate circumference for progress circle
+            const radius = 90;
+            const circumference = 2 * Math.PI * radius;
+            progressCircle.style.strokeDasharray = `${circumference}`;
+            
+            // Update progress visualization
+            function updateProgress() {
+                const totalSteps = timelineItems.length;
+                const completed = completedSteps.size;
+                const percent = Math.round((completed / totalSteps) * 100);
+                
+                // Update progress percentage
+                progressPercent.textContent = `${percent}%`;
+                
+                // Update progress circle
+                const offset = circumference - (percent / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+                
+                // Update completed count
+                completedCount.textContent = `${completed}/${totalSteps} Steps`;
+                completedStats.textContent = `${completed}/${totalSteps} Completed`;
+                
+                // Update timeline items UI
+                timelineItems.forEach(item => {
+                    const step = parseInt(item.getAttribute('data-step'));
+                    
+                    // Remove all state classes
+                    item.classList.remove('active', 'completed');
+                    
+                    // Add appropriate classes
+                    if (completedSteps.has(step)) {
+                        item.classList.add('completed');
+                    } else if (step === currentStep) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Scroll to current step
+            function scrollToCurrentStep() {
+                const currentItem = document.querySelector(`.timeline-item[data-step="${currentStep}"]`);
+                if (currentItem) {
+                    currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Add pulse animation
+                    currentItem.style.animation = 'none';
+                    setTimeout(() => {
+                        currentItem.style.animation = 'pulse 2s infinite';
+                    }, 10);
+                }
+            }
+            
+            // Click on timeline item to set as current
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    if (step !== currentStep) {
+                        currentStep = step;
+                        updateProgress();
+                        scrollToCurrentStep();
+                    }
+                });
+            });
+            
+            // Back to templates button
+            backButton.addEventListener('click', function() {
+                if (confirm('Return to Learning Path Templates?')) {
+                    // In a real app, you would navigate back
+                    showNotification('Navigating back to Learning Path Templates...', 'info');
+                    // window.location.href = 'learning-paths.html'; // Example navigation
+                }
+            });
+            
+            // View Notes Button functionality
+            viewNotesBtn.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Show notes modal/alert
+                const stepTitles = [
+                    'JavaScript Fundamentals',
+                    'Control Structures & Functions',
+                    'Arrays & Objects',
+                    'DOM Manipulation',
+                    'ES6+ Modern JavaScript',
+                    'Asynchronous JavaScript',
+                    'Advanced Concepts',
+                    'Error Handling & Debugging',
+                    'Modules & Tooling',
+                    'Testing & Best Practices',
+                    'Capstone Project',
+                    'Review & Certification'
+                ];
+                
+                const currentTitle = stepTitles[currentStep - 1] || 'JavaScript Learning';
+                
+                showNotesModal(currentTitle);
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' && currentStep < timelineItems.length) {
+                    currentStep++;
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                    currentStep--;
+                    updateProgress();
+                    scrollToCurrentStep();
+                }
+            });
+            
+            // Add auto-note when clicking on note previews
+            document.querySelectorAll('.note-preview').forEach((note, index) => {
+                note.addEventListener('click', function() {
+                    const noteTitles = [
+                        'Arrow Functions vs Regular Functions',
+                        'Array Methods: map, filter, reduce',
+                        'Promise Chaining Patterns'
+                    ];
+                    
+                    if (index < noteTitles.length) {
+                        showNotification(`Opening note: ${noteTitles[index]}`, 'info');
+                    }
+                });
+            });
+            
+            // Update notes statistics
+            function updateNotesStats() {
+                notesCount.textContent = `${totalNotes} Notes`;
+                recentNotes.textContent = Math.min(5, Math.floor(totalNotes/3));
+                codeSnippets.textContent = Math.floor(totalNotes/2);
+                importantNotes.textContent = Math.floor(totalNotes/4);
+            }
+            
+            // Show completion message
+            function showCompletionMessage() {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 40px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 500px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border: 5px solid var(--js-primary);
+                    ">
+                        <div style="font-size: 4rem; color: var(--js-primary); margin-bottom: 20px;">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 style="color: var(--js-secondary); margin-bottom: 15px;">Congratulations!</h2>
+                        <p style="color: var(--js-gray); margin-bottom: 25px; line-height: 1.6;">
+                            You've completed all steps in the JavaScript Learning Workflow! You've mastered JavaScript from fundamentals to advanced concepts.
+                        </p>
+                        <button id="close-modal" style="
+                            background: linear-gradient(135deg, var(--js-primary), #e6c926);
+                            color: var(--js-secondary);
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            font-size: 1rem;
+                            box-shadow: 0 4px 15px rgba(240,219,79,0.3);
+                        ">
+                            Continue Learning
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                document.getElementById('close-modal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+            }
+            
+            // Show notes modal
+            function showNotesModal(currentTitle) {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 30px;
+                        border-radius: 16px;
+                        max-width: 600px;
+                        max-height: 80vh;
+                        overflow-y: auto;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border-top: 5px solid var(--js-primary);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--js-secondary); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-book-open"></i> JavaScript Notes
+                            </h3>
+                            <button id="close-notes-modal" style="
+                                background: none;
+                                border: none;
+                                font-size: 1.5rem;
+                                color: var(--js-gray);
+                                cursor: pointer;
+                            ">&times;</button>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--js-secondary); margin-bottom: 10px;">Current Step: ${currentTitle}</h4>
+                            <p style="color: var(--js-gray); line-height: 1.6; margin-bottom: 20px;">
+                                Take notes for the current step or review your previous notes. Notes are automatically saved to your learning profile.
+                            </p>
+                        </div>
+                        <div style="background: rgba(240, 219, 79, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(240, 219, 79, 0.1);">
+                            <h5 style="color: var(--js-secondary); margin-bottom: 10px;">Add New Note</h5>
+                            <textarea id="new-note" placeholder="Type your note here..." style="
+                                width: 100%;
+                                height: 100px;
+                                padding: 12px;
+                                border: 1px solid rgba(240, 219, 79, 0.3);
+                                border-radius: 8px;
+                                font-family: inherit;
+                                margin-bottom: 10px;
+                                resize: vertical;
+                                background: white;
+                            "></textarea>
+                            <button id="save-note" style="
+                                background: linear-gradient(135deg, var(--js-primary), #e6c926);
+                                color: var(--js-secondary);
+                                border: none;
+                                padding: 10px 20px;
+                                border-radius: 8px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                box-shadow: 0 4px 10px rgba(240, 219, 79, 0.2);
+                            ">
+                                <i class="fas fa-save"></i> Save Note
+                            </button>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--js-secondary); margin-bottom: 15px;">Recent Notes (${totalNotes} total)</h5>
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                ${generateNotesList()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                document.getElementById('close-notes-modal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+                
+                document.getElementById('save-note').addEventListener('click', function() {
+                    const noteText = document.getElementById('new-note').value;
+                    if (noteText.trim()) {
+                        totalNotes++;
+                        updateNotesStats();
+                        document.getElementById('new-note').value = '';
+                        showNotification('Note saved successfully!', 'info');
+                    }
+                });
+            }
+            
+            // Generate sample notes list
+            function generateNotesList() {
+                const notes = [
+                    {title: 'Arrow Functions vs Regular Functions', date: '1 day ago', content: 'Arrow functions do not have their own "this" context.'},
+                    {title: 'Array Methods: map, filter, reduce', date: '3 days ago', content: 'map transforms, filter selects, reduce accumulates.'},
+                    {title: 'Promise Chaining Patterns', date: '1 week ago', content: 'Use .then() for sequential async operations.'},
+                    {title: 'Closure Examples', date: '2 weeks ago', content: 'Functions that remember their lexical scope.'},
+                    {title: 'DOM Event Delegation', date: '2 weeks ago', content: 'Attach event listener to parent instead of each child.'}
+                ];
+                
+                return notes.map(note => `
+                    <div style="
+                        background: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        margin-bottom: 10px;
+                        border-left: 3px solid var(--js-primary);
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                        border: 1px solid rgba(240, 219, 79, 0.1);
+                    ">
+                        <div style="font-weight: 600; color: var(--js-secondary); margin-bottom: 5px;">
+                            ${note.title}
+                        </div>
+                        <div style="color: var(--js-gray); font-size: 0.9rem; margin-bottom: 8px;">
+                            ${note.content}
+                        </div>
+                        <div style="color: #999; font-size: 0.8rem;">
+                            <i class="far fa-calendar"></i> ${note.date}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Show notification
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'info' ? '#3b82f6' : type === 'error' ? '#ef4444' : '#f0db4f'};
+                    color: ${type === 'info' ? 'white' : 'var(--js-secondary)'};
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 1001;
+                    animation: slideIn 0.3s ease;
+                    max-width: 300px;
+                `;
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'info' ? 'info-circle' : type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+                
+                // Add CSS animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Add CSS animation for pulse effect
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(240, 219, 79, 0.4); }
+                    70% { box-shadow: 0 0 0 10px rgba(240, 219, 79, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(240, 219, 79, 0); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

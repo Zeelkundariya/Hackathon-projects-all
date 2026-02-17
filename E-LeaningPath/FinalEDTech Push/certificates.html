@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600;700&family=Dancing+Script:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(67, 97, 238, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 2px solid rgba(67, 97, 238, 0.2);
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .back-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 60px 0 40px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .achievement-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 25px 25px 0 0;
+            padding: 40px 0;
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.1);
+            min-height: 70vh;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 0 20px 30px;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 40px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-tab {
+            padding: 12px 25px;
+            border-radius: 50px;
+            background: var(--light);
+            border: none;
+            cursor: pointer;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .filter-tab:hover:not(.active) {
+            background: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab i {
+            font-size: 1.1rem;
+        }
+
+        /* Certificates Grid */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+            margin-bottom: 60px;
+        }
+
+        /* Certificate Card */
+        .certificate-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .certificate-card.premium {
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .certificate-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .badge-excellence {
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: white;
+        }
+
+        .badge-completion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .badge-participation {
+            background: linear-gradient(135deg, var(--accent), #3b82f6);
+            color: white;
+        }
+
+        .badge-skill {
+            background: linear-gradient(135deg, var(--success), #10b981);
+            color: white;
+        }
+
+        .certificate-preview {
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .certificate-design {
+            width: 85%;
+            height: 170px;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .certificate-design::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%234361ee" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+            opacity: 0.3;
+        }
+
+        .certificate-icon {
+            font-size: 4rem;
+            color: rgba(67, 97, 238, 0.2);
+            position: absolute;
+        }
+
+        .preview-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .preview-text h4 {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .preview-text p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .certificate-info {
+            padding: 25px;
+            background: linear-gradient(to bottom, white, #f8fafc);
+        }
+
+        .certificate-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .certificate-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .certificate-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .certificate-score {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .grade-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .grade-A {
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: white;
+        }
+
+        .grade-B {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .grade-C {
+            background: linear-gradient(135deg, var(--accent), #3b82f6);
+            color: white;
+        }
+
+        .grade-D {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+
+        .certificate-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .certificate-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-view {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-download {
+            background: white;
+            color: var(--dark);
+            border: 2px solid var(--light-gray);
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-download:hover {
+            border-color: var(--primary);
+            background: var(--light);
+        }
+
+        /* Certificate Modal */
+        .certificate-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .certificate-content {
+            background: white;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: #dc2626;
+        }
+
+        .certificate-view {
+            padding: 0;
+        }
+
+        /* Realistic Certificate Design */
+        .certificate-real {
+            position: relative;
+            padding: 60px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        .certificate-real::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M0,0 L200,200 M200,0 L0,200" stroke="rgba(67,97,238,0.05)" stroke-width="1"/></svg>');
+            pointer-events: none;
+        }
+
+        .certificate-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 15px solid transparent;
+            border-image: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)) 1;
+            pointer-events: none;
+        }
+
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certificate-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+        }
+
+        .certificate-header h2 {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .certificate-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .certificate-body {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certificate-body h1 {
+            font-size: 3.5rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .certificate-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .certificate-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 15px;
+            border: 2px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .certificate-details div {
+            text-align: center;
+            flex: 1;
+        }
+
+        .certificate-details h4 {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .certificate-details p {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .certificate-signatures {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(67, 97, 238, 0.2);
+        }
+
+        .signature {
+            text-align: center;
+            flex: 1;
+        }
+
+        .signature-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .signature-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .signature-line {
+            width: 200px;
+            height: 1px;
+            background: var(--dark);
+            margin: 20px auto;
+        }
+
+        .certificate-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .certificate-watermark {
+            position: absolute;
+            font-size: 12rem;
+            color: rgba(67, 97, 238, 0.05);
+            font-weight: 700;
+            transform: rotate(-45deg);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 20px;
+            margin: 50px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: var(--light-gray);
+            margin-bottom: 30px;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-primary {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Skill Masters Section */
+        .skill-masters {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 40px 20px;
+            color: white;
+        }
+
+        .skill-masters h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-title h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .skill-title p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .skill-progress {
+            margin: 15px 0;
+        }
+
+        .skill-level {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), #FFA500);
+            border-radius: 5px;
+        }
+
+        .skill-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+
+            .certificate-real {
+                padding: 30px;
+            }
+
+            .certificate-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .certificate-body h1 {
+                font-size: 2.5rem;
+            }
+
+            .certificate-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .achievement-stats {
+                gap: 15px;
+            }
+
+            .stat {
+                min-width: 120px;
+                padding: 15px;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certificate-content {
+                width: 95%;
+            }
+
+            .certificate-real {
+                padding: 20px;
+            }
+
+            .certificate-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .certificate-body h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: #dc2626;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-clear {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-clear:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        /* Add animation for the cross button */
+        @keyframes rotateIn {
+            from {
+                transform: rotate(-180deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: rotate(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            animation: rotateIn 0.3s ease-out;
+        }
+
+
+        /* Certificate Modal - UPDATED */
+        .certificate-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .certificate-content {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 15px;
+            overflow: auto;
+            position: relative;
+            max-height: 95vh;
+            margin: auto;
+        }
+
+        .certificate-view {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .certificate-design-full {
+            border: 15px solid #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: auto;
+        }
+
+        /* Make modal close button more accessible */
+        .modal-close {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .certificate-design-full {
+                padding: 20px;
+                border-width: 10px;
+            }
+
+            .certificate-header h2 {
+                font-size: 2rem;
+            }
+
+            .certificate-body h1 {
+                font-size: 1.8rem;
+            }
+
+            .certificate-details {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .certificate-modal {
+                padding: 10px;
+            }
+
+            .certificate-content {
+                max-height: 90vh;
+                margin: 10px;
+            }
+
+            .certificate-design-full {
+                padding: 15px;
+                border-width: 8px;
+            }
+
+            .certificate-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .certificate-body h1 {
+                font-size: 1.5rem;
+            }
+
+            .certificate-text {
+                font-size: 1rem;
+            }
+
+            .modal-close {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>LearnSmart AI</span>
+                </a>
+
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">SU</div>
+                    <div>
+                        <div class="user-name" id="userName">Swaminarayan</div>
+                        <div class="user-level">Master Learner</div>
+                    </div>
+                </div>
+
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>My Achievements</h1>
+        <p>Certificates earned through dedication and hard work</p>
+
+        <div class="achievement-stats">
+            <div class="stat">
+                <div class="stat-value" id="totalCertificates">0</div>
+                <div class="stat-label">Total Certificates</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="avgScore">0%</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="excellenceCount">0</div>
+                <div class="stat-label">Excellence Awards</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="completedSubjects">0</div>
+                <div class="stat-label">Subjects Mastered</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-certificate"></i> All
+                </button>
+                <button class="filter-tab" data-filter="excellence">
+                    <i class="fas fa-trophy"></i> Excellence
+                </button>
+                <button class="filter-tab" data-filter="completion">
+                    <i class="fas fa-check-circle"></i> Completion
+                </button>
+                <button class="filter-tab" data-filter="participation">
+                    <i class="fas fa-users"></i> Participation
+                </button>
+                <button class="filter-tab" data-filter="skill">
+                    <i class="fas fa-star"></i> Skill Mastery
+                </button>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="clearCertificatesBtn" class="btn-clear"
+                    style="padding: 10px 25px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-trash-alt"></i> Clear All Certificates
+                </button>
+            </div>
+        </div>
+
+        <!-- Certificates Grid -->
+        <div class="certificates-grid" id="certificatesGrid">
+            <!-- Certificates will be dynamically loaded here -->
+        </div>
+
+        <!-- Skill Masters Section -->
+        <div class="skill-masters">
+            <h2><i class="fas fa-crown"></i> Skill Masters</h2>
+            <div class="skill-grid" id="skillGrid">
+                <!-- Skill cards will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-award"></i>
+            <h3>No Certificates Yet</h3>
+            <p>Complete assessments and courses to earn certificates that showcase your skills and achievements.</p>
+            <a href="index.html" class="btn-primary">
+                <i class="fas fa-rocket"></i> Start Learning Journey
+            </a>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div class="certificate-modal" id="certificateModal">
+        <div class="certificate-content">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="certificate-view" id="certificateView">
+                <!-- Certificate content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Certificate System with Realistic Design
+        let certificates = JSON.parse(localStorage.getItem('learnsmart-certificates')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('learnsmart-user')) || {
+            name: "Jamie Smith",
+            avatar: "JS",
+            level: "Master Learner"
+        };
+
+        // DOM Elements
+        const certificatesGrid = document.getElementById('certificatesGrid');
+        const emptyState = document.getElementById('emptyState');
+        const certificateModal = document.getElementById('certificateModal');
+        const certificateView = document.getElementById('certificateView');
+        const closeModal = document.getElementById('closeModal');
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+
+        // Stats elements
+        const totalCertificates = document.getElementById('totalCertificates');
+        const avgScore = document.getElementById('avgScore');
+        const excellenceCount = document.getElementById('excellenceCount');
+        const completedSubjects = document.getElementById('completedSubjects');
+        const skillGrid = document.getElementById('skillGrid');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserData();
+            loadCertificates();
+            setupEventListeners();
+            updateStats();
+            loadSkillMasters();
+        });
+
+        function loadUserData() {
+            userName.textContent = currentUser.name;
+            userAvatar.textContent = currentUser.avatar;
+        }
+
+        function loadCertificates(filter = 'all') {
+            let filteredCertificates = certificates;
+
+            // Apply filter
+            if (filter !== 'all') {
+                filteredCertificates = certificates.filter(cert => cert.type === filter);
+            }
+
+            // Sort by date (newest first)
+            filteredCertificates.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Display certificates or empty state
+            if (filteredCertificates.length === 0) {
+                certificatesGrid.innerHTML = '';
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                certificatesGrid.innerHTML = '';
+
+                filteredCertificates.forEach(certificate => {
+                    const card = createCertificateCard(certificate);
+                    certificatesGrid.appendChild(card);
+                });
+            }
+        }
+
+        function createCertificateCard(certificate) {
+            const card = document.createElement('div');
+            card.className = `certificate-card ${certificate.type === 'excellence' ? 'premium' : ''}`;
+
+            const typeLabels = {
+                'excellence': 'Excellence Award',
+                'completion': 'Course Completion',
+                'participation': 'Participation',
+                'skill': 'Skill Mastery'
+            };
+
+            const badgeClasses = {
+                'excellence': 'badge-excellence',
+                'completion': 'badge-completion',
+                'participation': 'badge-participation',
+                'skill': 'badge-skill'
+            };
+
+            const grade = getGradeFromScore(certificate.score);
+            const gradeClass = `grade-${grade.charAt(0)}`;
+            const progress = certificate.score;
+
+            // Skill icons for preview
+            const skillIcons = {
+                'JavaScript': 'fab fa-js',
+                'Python': 'fab fa-python',
+                'HTML': 'fab fa-html5',
+                'CSS': 'fab fa-css3-alt',
+                'React': 'fab fa-react',
+                'C Language': 'fas fa-c',
+                'Algorithms': 'fas fa-sitemap',
+                'Data Structures': 'fas fa-database'
+            };
+
+            card.innerHTML = `
+                <div class="certificate-badge ${badgeClasses[certificate.type]}">
+                    ${typeLabels[certificate.type]}
+                </div>
+                
+                <div class="certificate-preview">
+                    <div class="certificate-design">
+                        <div class="certificate-icon">
+                            <i class="${skillIcons[certificate.subject] || 'fas fa-graduation-cap'}"></i>
+                        </div>
+                        <div class="preview-text">
+                            <h4>${certificate.subject}</h4>
+                            <p>${certificate.title}</p>
+                            <div class="grade-badge ${gradeClass}" style="margin-top: 10px;">
+                                Grade: ${grade}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certificate-info">
+                    <h3>${certificate.title}</h3>
+                    
+                    <div class="certificate-meta">
+                        <span><i class="fas fa-book"></i> ${certificate.subject}</span>
+                        <span><i class="fas fa-calendar"></i> ${formatDate(certificate.date)}</span>
+                    </div>
+                    
+                    <div class="certificate-meta">
+                        <span>Score: <span class="certificate-score">${certificate.score}%</span></span>
+                        <span>ID: <strong>${certificate.certificateId}</strong></span>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress" style="width: ${progress}%"></div>
+                    </div>
+                    
+                    <div class="certificate-actions">
+                        <button class="btn-view" onclick="viewCertificate(${certificate.id})">
+                            <i class="fas fa-eye"></i> View Certificate
+                        </button>
+                        <button class="btn-download" onclick="downloadCertificate(${certificate.id})">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function viewCertificate(id) {
+            const certificate = certificates.find(cert => cert.id === id);
+            if (!certificate) return;
+
+            // Store current scroll position
+            const scrollY = window.scrollY;
+
+            // Disable body scrolling
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+
+            // Rest of your existing viewCertificate code...
+            const typeTitles = {
+                'excellence': 'Certificate of Excellence',
+                'completion': 'Certificate of Completion',
+                'participation': 'Certificate of Participation',
+                'skill': 'Certificate of Skill Mastery'
+            };
+
+            const achievementText = {
+                'excellence': `has demonstrated exceptional mastery and outstanding performance in ${certificate.subject}, achieving a remarkable score of ${certificate.score}%`,
+                'completion': `has successfully completed all requirements and demonstrated comprehensive understanding of ${certificate.subject}, achieving a final score of ${certificate.score}%`,
+                'participation': `has actively participated in and completed the ${certificate.subject} assessment, demonstrating commitment to learning and skill development`,
+                'skill': `has mastered essential skills and concepts in ${certificate.subject}, achieving a proficiency score of ${certificate.score}%`
+            };
+
+            certificateView.innerHTML = `
+        <div class="certificate-real">
+            <div class="certificate-border"></div>
+            <div class="certificate-watermark">LEARNSMART AI</div>
+            
+            <div class="certificate-header">
+                <div class="certificate-logo">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2>${typeTitles[certificate.type]}</h2>
+                <h3>LearnSmart AI Education Platform</h3>
+            </div>
+            
+            <div class="certificate-body">
+                <h1>${currentUser.name}</h1>
+                
+                <p class="certificate-text">
+                    This is to certify that the above named individual<br>
+                    ${achievementText[certificate.type]}<br>
+                    and is hereby awarded this certificate in recognition of their achievement.
+                </p>
+                
+                <div class="certificate-details">
+                    <div>
+                        <h4>Subject</h4>
+                        <p>${certificate.subject}</p>
+                    </div>
+                    <div>
+                        <h4>Score Achieved</h4>
+                        <p>${certificate.score}%</p>
+                    </div>
+                    <div>
+                        <h4>Grade</h4>
+                        <p>${certificate.grade}</p>
+                    </div>
+                    <div>
+                        <h4>Certificate ID</h4>
+                        <p>${certificate.certificateId}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certificate-signatures">
+                <div class="signature">
+                    <div class="signature-name">Dr. Sarah Johnson</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-title">Chief Learning Officer</div>
+                    <div class="signature-title">LearnSmart AI</div>
+                </div>
+                <div class="signature">
+                    <div class="signature-name">Alex Chen</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-title">Head of Assessment</div>
+                    <div class="signature-title">LearnSmart AI</div>
+                </div>
+            </div>
+            
+            <div class="certificate-footer">
+                <p>Issued on ${formatDateLong(certificate.date)} | This certificate is digitally verified and can be validated at learnsmart.ai/verify/${certificate.certificateId}</p>
+            </div>
+        </div>
+    `;
+
+            certificateModal.style.display = 'flex';
+        }
+
+        // Update the closeCertificateModal function to restore scroll position
+        function closeCertificateModal() {
+            const scrollY = document.body.style.top;
+            certificateModal.style.display = 'none';
+
+            // Restore body styles
+            document.body.style.overflow = 'auto';
+            document.body.style.position = 'static';
+            document.body.style.top = 'auto';
+            document.body.style.width = 'auto';
+
+            // Restore scroll position
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
+
+        function downloadCertificate(id) {
+            const certificate = certificates.find(cert => cert.id === id);
+            if (!certificate) return;
+
+            // Show certificate first
+            viewCertificate(id);
+
+            // Wait for modal to render, then trigger print
+            setTimeout(() => {
+                if (confirm("Press OK to print this certificate. For best results, select 'Save as PDF' in print options.")) {
+                    const printContent = certificateView.innerHTML;
+                    const originalContent = document.body.innerHTML;
+
+                    document.body.innerHTML = printContent;
+                    window.print();
+                    document.body.innerHTML = originalContent;
+
+                    // Reload the page to restore functionality
+                    window.location.reload();
+                }
+            }, 500);
+        }
+
+        function updateStats() {
+            if (certificates.length === 0) {
+                totalCertificates.textContent = '0';
+                avgScore.textContent = '0%';
+                excellenceCount.textContent = '0';
+                completedSubjects.textContent = '0';
+                return;
+            }
+
+            totalCertificates.textContent = certificates.length;
+
+            // Calculate average score
+            const totalScore = certificates.reduce((sum, cert) => sum + cert.score, 0);
+            const averageScore = Math.round(totalScore / certificates.length);
+            avgScore.textContent = `${averageScore}%`;
+
+            // Count excellence certificates
+            const excellenceCerts = certificates.filter(cert => cert.type === 'excellence').length;
+            excellenceCount.textContent = excellenceCerts;
+
+            // Count unique subjects
+            const uniqueSubjects = new Set(certificates.map(cert => cert.subject));
+            completedSubjects.textContent = uniqueSubjects.size;
+        }
+
+        function loadSkillMasters() {
+            if (certificates.length === 0) {
+                skillGrid.innerHTML = `
+                    <div class="skill-card" style="grid-column: 1 / -1; text-align: center;">
+                        <div class="skill-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Start Your Learning Journey</h3>
+                        <p>Complete assessments to unlock skill mastery levels</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group certificates by subject
+            const subjects = {};
+            certificates.forEach(cert => {
+                if (!subjects[cert.subject]) {
+                    subjects[cert.subject] = {
+                        scores: [],
+                        highestScore: 0,
+                        totalCertificates: 0
+                    };
+                }
+                subjects[cert.subject].scores.push(cert.score);
+                subjects[cert.subject].totalCertificates++;
+                if (cert.score > subjects[cert.subject].highestScore) {
+                    subjects[cert.subject].highestScore = cert.score;
+                }
+            });
+
+            // Clear and populate skill grid
+            skillGrid.innerHTML = '';
+
+            Object.entries(subjects).forEach(([subject, data], index) => {
+                const avgScore = Math.round(data.scores.reduce((a, b) => a + b, 0) / data.scores.length);
+                const masteryLevel = Math.min(Math.floor(avgScore / 20) + 1, 5); // 1-5 levels
+
+                const skillCard = document.createElement('div');
+                skillCard.className = 'skill-card';
+
+                const skillIcons = {
+                    'JavaScript': 'fab fa-js',
+                    'Python': 'fab fa-python',
+                    'HTML': 'fab fa-html5',
+                    'CSS': 'fab fa-css3-alt',
+                    'React': 'fab fa-react',
+                    'C Language': 'fas fa-c',
+                    'Algorithms': 'fas fa-sitemap',
+                    'Data Structures': 'fas fa-database'
+                };
+
+                const masteryStars = '★'.repeat(masteryLevel) + '☆'.repeat(5 - masteryLevel);
+
+                skillCard.innerHTML = `
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="${skillIcons[subject] || 'fas fa-graduation-cap'}"></i>
+                        </div>
+                        <div class="skill-title">
+                            <h3>${subject}</h3>
+                            <p>${masteryStars}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-level">
+                            <span>Mastery Level</span>
+                            <span>${masteryLevel}/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${(masteryLevel / 5) * 100}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-stats">
+                        <span>Avg Score: ${avgScore}%</span>
+                        <span>Best: ${data.highestScore}%</span>
+                        <span>Certificates: ${data.totalCertificates}</span>
+                    </div>
+                `;
+
+                skillGrid.appendChild(skillCard);
+            });
+        }
+
+        function setupEventListeners() {
+            // Filter tabs
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    loadCertificates(tab.dataset.filter);
+                });
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                certificateModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            });
+
+            certificateModal.addEventListener('click', (e) => {
+                if (e.target === certificateModal) {
+                    certificateModal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Restore scrolling
+                }
+            });
+
+            // Prevent modal close when clicking inside the certificate content
+            document.querySelector('.certificate-content').addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        // Utility Functions
+        function getGradeFromScore(score) {
+            if (score >= 90) return 'A+';
+            if (score >= 85) return 'A';
+            if (score >= 80) return 'A-';
+            if (score >= 75) return 'B+';
+            if (score >= 70) return 'B';
+            if (score >= 65) return 'B-';
+            if (score >= 60) return 'C+';
+            if (score >= 55) return 'C';
+            if (score >= 50) return 'C-';
+            if (score >= 40) return 'D';
+            return 'F';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function formatDateLong(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Function to add a new certificate (called from test results)
+        function addCertificate(subject, score, type = 'participation') {
+            // Get certificate type based on score
+            if (type === 'participation') {
+                if (score >= 90) type = 'excellence';
+                else if (score >= 75) type = 'completion';
+                else if (score >= 60) type = 'skill';
+            }
+
+            const certificateId = generateCertificateId(subject);
+            const grade = getGradeFromScore(score);
+
+            const newCertificate = {
+                id: certificates.length > 0 ? Math.max(...certificates.map(c => c.id)) + 1 : 1,
+                title: `${subject} ${type === 'excellence' ? 'Excellence Award' : 'Assessment Certificate'}`,
+                subject: subject,
+                type: type,
+                score: score,
+                date: new Date().toISOString().split('T')[0],
+                grade: grade,
+                certificateId: certificateId
+            };
+
+            certificates.unshift(newCertificate);
+            localStorage.setItem('learnsmart-certificates', JSON.stringify(certificates));
+
+            // Update stats
+            updateStats();
+            loadSkillMasters();
+
+            return newCertificate;
+        }
+
+        function generateCertificateId(subject) {
+            const prefix = subject.substring(0, 3).toUpperCase();
+            const year = new Date().getFullYear();
+            const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `LS-${prefix}-${year}${month}-${random}`;
+        }
+
+        // Make functions available globally
+        window.viewCertificate = viewCertificate;
+        window.downloadCertificate = downloadCertificate;
+        window.addCertificate = addCertificate;
+
+
+
+        // Function to clear all certificates
+        function clearAllCertificates() {
+            if (confirm("⚠️ WARNING: This will delete ALL your certificates and reset all statistics. This action cannot be undone.\n\nAre you absolutely sure?")) {
+                // Clear certificates from localStorage
+                localStorage.removeItem('learnsmart-certificates');
+                localStorage.removeItem('learnsmart-excellence-awards');
+
+                // Reset certificates array
+                certificates = [];
+
+                // Reload the page to show empty state
+                location.reload();
+            }
+        }
+
+        // Update the setupEventListeners function to include the clear button:
+        function setupEventListeners() {
+            // Filter tabs
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    loadCertificates(tab.dataset.filter);
+                });
+            });
+
+            // Close modal - FIXED VERSION
+            closeModal.addEventListener('click', closeCertificateModal);
+
+            certificateModal.addEventListener('click', (e) => {
+                if (e.target === certificateModal) {
+                    closeCertificateModal();
+                }
+            });
+
+            // Prevent modal close when clicking inside the certificate content
+            document.querySelector('.certificate-content').addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Clear certificates button
+            document.getElementById('clearCertificatesBtn').addEventListener('click', clearAllCertificates);
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && certificateModal.style.display === 'flex') {
+                    closeCertificateModal();
+                }
+            });
+        }
+
+        // Add this new function to properly close the modal
+        function closeCertificateModal() {
+            certificateModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.body.style.height = 'auto';
+            document.body.style.position = 'static';
+        }
+
+        // Also update the loadCertificates function to handle empty state better:
+        function loadCertificates(filter = 'all') {
+            let filteredCertificates = certificates;
+
+            // Apply filter
+            if (filter !== 'all') {
+                filteredCertificates = certificates.filter(cert => cert.type === filter);
+            }
+
+            // Sort by date (newest first)
+            filteredCertificates.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Display certificates or empty state
+            if (filteredCertificates.length === 0) {
+                certificatesGrid.innerHTML = '';
+
+                // Show custom empty message based on filter
+                let emptyMessage = 'No certificates found.';
+                if (filter !== 'all') {
+                    emptyMessage = `No ${filter} certificates found.`;
+                } else if (certificates.length === 0) {
+                    emptyMessage = 'You haven\'t earned any certificates yet.';
+                }
+
+                emptyState.innerHTML = `
+            <i class="fas fa-award"></i>
+            <h3>${emptyMessage}</h3>
+            <p>Complete assessments and courses to earn certificates that showcase your skills and achievements.</p>
+            ${certificates.length === 0 ? `
+                <a href="index.html" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Start Learning Journey
+                </a>
+            ` : ''}
+        `;
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                certificatesGrid.innerHTML = '';
+
+                filteredCertificates.forEach(certificate => {
+                    const card = createCertificateCard(certificate);
+                    certificatesGrid.appendChild(card);
+                });
+            }
+        }
+
+        // Also update the updateStats function to load excellence awards:
+        function updateStats() {
+            if (certificates.length === 0) {
+                totalCertificates.textContent = '0';
+                avgScore.textContent = '0%';
+                excellenceCount.textContent = '0';
+                completedSubjects.textContent = '0';
+                return;
+            }
+
+            totalCertificates.textContent = certificates.length;
+
+            // Calculate average score
+            const totalScore = certificates.reduce((sum, cert) => sum + cert.score, 0);
+            const averageScore = Math.round(totalScore / certificates.length);
+            avgScore.textContent = `${averageScore}%`;
+
+            // Count excellence certificates
+            const excellenceCerts = certificates.filter(cert => cert.type === 'excellence').length;
+            excellenceCount.textContent = excellenceCerts;
+
+            // Count unique subjects
+            const uniqueSubjects = new Set(certificates.map(cert => cert.subject));
+            completedSubjects.textContent = uniqueSubjects.size;
+        }
+    </script>
+</body>
+
+</html>

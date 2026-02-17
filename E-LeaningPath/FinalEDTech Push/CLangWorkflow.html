@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Language Learning Workflow | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --c-color: #ff6b6b;
+            --c-light: #ffeaea;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --card-bg: #ffffff;
+            --timeline-color: #ff8a8a;
+             --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --c-color: #ff6b6b;
+            --c-light: #ffeaea;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --card-bg: #ffffff;
+            --timeline-color: #ff8a8a;
+            --notes-color: #9d4edd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f1f5f9 100%);
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--c-color), #ee5a52);
+            color: white;
+            padding: 40px 0;
+            padding-left: 30px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(255, 107, 107, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            opacity: 0.9;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 25px;
+            margin-right: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            /* backdrop-filter: blur(10px); */
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main layout */
+        .workflow-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .workflow-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .section-title h2 {
+            color: var(--c-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--timeline-color);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--c-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.1);
+        }
+
+        .timeline-item.completed {
+            border-left-color: var(--success);
+            background-color: rgba(74, 222, 128, 0.05);
+        }
+
+        .timeline-item.completed .timeline-title::after {
+            content: ' ✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -47.5px;
+            top: 20px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--c-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: var(--success);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--c-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .timeline-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .timeline-resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .resource-tag {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .resource-tag i {
+            font-size: 0.8rem;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: var(--light-gray);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--c-color);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--c-color);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .time-estimate {
+            background: rgba(255, 107, 107, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--c-color);
+        }
+
+        .time-estimate h4 {
+            margin-bottom: 10px;
+            color: var(--c-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-breakdown {
+            margin-top: 15px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--light-gray);
+        }
+
+        .time-item:last-child {
+            border-bottom: none;
+        }
+
+        .time-item.total {
+            font-weight: 600;
+            color: var(--c-color);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        /* Controls */
+        .controls-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .controls-title {
+            margin-bottom: 20px;
+            color: var(--c-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-btn {
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .control-btn-primary {
+            background: linear-gradient(135deg, var(--c-color), #ee5a52);
+            color: white;
+        }
+
+        .control-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .control-btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--light-gray);
+        }
+
+        .control-btn-secondary:hover {
+            background: var(--light-gray);
+            transform: translateY(-3px);
+        }
+
+        .reset-btn {
+            background: transparent;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        .reset-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 107, 107, 0.05);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .tip-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .tip-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--c-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .tip-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-marker {
+                left: -32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section, .progress-section, .controls-section, .tips-section {
+                padding: 20px;
+            }
+        }
+
+
+        /* notes */
+
+          .recent-notes {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .recent-notes h4 {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-preview {
+            background: var(--light);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--notes-color);
+            transition: all 0.2s ease;
+        }
+
+        .note-preview:hover {
+            background: rgba(157, 78, 221, 0.05);
+            transform: translateX(3px);
+        }
+
+        .note-preview-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .note-preview-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        } .notes-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--notes-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notes-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--notes-color), #c77dff);
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .notes-title {
+            color: var(--notes-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .notes-count {
+            background: rgba(157, 78, 221, 0.1);
+            color: var(--notes-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .notes-content {
+            margin-bottom: 25px;
+        }
+
+        .notes-summary {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .notes-stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(157, 78, 221, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .note-stat {
+            text-align: center;
+        }
+
+        .note-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--notes-color);
+            margin-bottom: 5px;
+        }
+
+        .note-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Notes Button */
+        .notes-button {
+            position: relative;
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--notes-color), #7b2cbf);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.2);
+        }
+
+        .notes-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(157, 78, 221, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .notes-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .notes-button:hover::before {
+            left: 100%;
+        }
+
+        .notes-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .notes-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .notes-button:active {
+            transform: translateY(-1px);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1> C Language Learning Workflow</h1>
+                    <p>A comprehensive step-by-step guide to master C programming with timeline and progress tracking</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">45</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="workflow-container">
+            <!-- Main Content - Timeline -->
+            <main>
+                <section class="timeline-section">
+                    <div class="section-title">
+                        <h2><i class="fas fa-project-diagram"></i> Learning Roadmap</h2>
+                    </div>
+                    
+                    <div class="timeline">
+                        <!-- Week 1-2 -->
+                        <div class="timeline-item" data-step="1">
+                            <div class="timeline-marker">1</div>
+                            <h3 class="timeline-title">Environment Setup & Basics</h3>
+                            <span class="timeline-duration">Week 1-2</span>
+                            <p class="timeline-description">Install C compiler (GCC), setup IDE (VS Code/Code::Blocks), learn basic syntax, data types, variables, and input/output operations.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Hello World Program</span>
+                                <span class="resource-tag"><i class="fas fa-video"></i> Compiler Setup Guide</span>
+                                <span class="resource-tag"><i class="fas fa-file-alt"></i> Syntax Cheatsheet</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 3 -->
+                        <div class="timeline-item" data-step="2">
+                            <div class="timeline-marker">2</div>
+                            <h3 class="timeline-title">Operators & Control Flow</h3>
+                            <span class="timeline-duration">Week 3</span>
+                            <p class="timeline-description">Learn arithmetic, relational, logical operators. Master if-else statements, switch-case, and conditional expressions.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Calculator Program</span>
+                                <span class="resource-tag"><i class="fas fa-puzzle-piece"></i> Conditional Exercises</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 4 -->
+                        <div class="timeline-item" data-step="3">
+                            <div class="timeline-marker">3</div>
+                            <h3 class="timeline-title">Loops & Iterations</h3>
+                            <span class="timeline-duration">Week 4</span>
+                            <p class="timeline-description">Understand for, while, do-while loops. Learn break, continue statements and nested loops with practical examples.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Pattern Programs</span>
+                                <span class="resource-tag"><i class="fas fa-calculator"></i> Number Series</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 5 -->
+                        <div class="timeline-item" data-step="4">
+                            <div class="timeline-marker">4</div>
+                            <h3 class="timeline-title">Functions & Modular Programming</h3>
+                            <span class="timeline-duration">Week 5</span>
+                            <p class="timeline-description">Create and use functions, understand parameters, return values, scope of variables, and recursion.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Recursive Functions</span>
+                                <span class="resource-tag"><i class="fas fa-sitemap"></i> Modular Programs</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 6 -->
+                        <div class="timeline-item" data-step="5">
+                            <div class="timeline-marker">5</div>
+                            <h3 class="timeline-title">Arrays & Strings</h3>
+                            <span class="timeline-duration">Week 6</span>
+                            <p class="timeline-description">Learn one-dimensional and multi-dimensional arrays, string manipulation functions, and character arrays.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Array Operations</span>
+                                <span class="resource-tag"><i class="fas fa-font"></i> String Manipulation</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 7 -->
+                        <div class="timeline-item" data-step="6">
+                            <div class="timeline-marker">6</div>
+                            <h3 class="timeline-title">Pointers - Part 1</h3>
+                            <span class="timeline-duration">Week 7</span>
+                            <p class="timeline-description">Understand pointer basics, address operator, pointer arithmetic, pointers and arrays, call by reference.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Pointer Examples</span>
+                                <span class="resource-tag"><i class="fas fa-brain"></i> Memory Visualization</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 8 -->
+                        <div class="timeline-item" data-step="7">
+                            <div class="timeline-marker">7</div>
+                            <h3 class="timeline-title">Pointers - Part 2</h3>
+                            <span class="timeline-duration">Week 8</span>
+                            <p class="timeline-description">Master pointers to pointers, arrays of pointers, function pointers, and dynamic memory allocation (malloc, calloc, free).</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Dynamic Arrays</span>
+                                <span class="resource-tag"><i class="fas fa-memory"></i> Memory Management</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 9 -->
+                        <div class="timeline-item" data-step="8">
+                            <div class="timeline-marker">8</div>
+                            <h3 class="timeline-title">Structures & Unions</h3>
+                            <span class="timeline-duration">Week 9</span>
+                            <p class="timeline-description">Define and use structures, nested structures, arrays of structures, pointers to structures, and unions.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Student Database</span>
+                                <span class="resource-tag"><i class="fas fa-database"></i> Record Management</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 10 -->
+                        <div class="timeline-item" data-step="9">
+                            <div class="timeline-marker">9</div>
+                            <h3 class="timeline-title">File Handling</h3>
+                            <span class="timeline-duration">Week 10</span>
+                            <p class="timeline-description">Learn file operations in C: opening, reading, writing, closing files. Work with text and binary files.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> File CRUD Operations</span>
+                                <span class="resource-tag"><i class="fas fa-save"></i> Data Persistence</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 11 -->
+                        <div class="timeline-item" data-step="10">
+                            <div class="timeline-marker">10</div>
+                            <h3 class="timeline-title">Advanced Concepts</h3>
+                            <span class="timeline-duration">Week 11</span>
+                            <p class="timeline-description">Explore preprocessor directives, macros, typedef, enumerations, bitwise operations, and command line arguments.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Macro Examples</span>
+                                <span class="resource-tag"><i class="fas fa-terminal"></i> CLI Programs</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 12 -->
+                        <div class="timeline-item" data-step="11">
+                            <div class="timeline-marker">11</div>
+                            <h3 class="timeline-title">Data Structures Introduction</h3>
+                            <span class="timeline-duration">Week 12</span>
+                            <p class="timeline-description">Implement basic data structures: linked lists, stacks, queues using C. Understand algorithms for sorting and searching.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Linked List Implementation</span>
+                                <span class="resource-tag"><i class="fas fa-stream"></i> Stack & Queue</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Project -->
+                        <div class="timeline-item" data-step="12">
+                            <div class="timeline-marker">12</div>
+                            <h3 class="timeline-title">Final Project & Review</h3>
+                            <span class="timeline-duration">Week 12+</span>
+                            <p class="timeline-description">Build a complete C project (e.g., student management system, library system) and review all concepts for mastery.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Project Ideas</span>
+                                <span class="resource-tag"><i class="fas fa-tasks"></i> Code Review</span>
+                                <span class="resource-tag"><i class="fas fa-certificate"></i> Certification Prep</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tips Section -->
+                <section class="tips-section">
+                    <h2 class="section-title"><i class="fas fa-lightbulb"></i> Learning Tips for C Language</h2>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Practice Daily</h4>
+                            <p>Code every day, even if it's just 30 minutes. Consistency is key to mastering C programming concepts.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Debug Systematically</h4>
+                            <p>Learn to use debugging tools (GDB) and practice reading error messages to understand what went wrong.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Build Projects</h4>
+                            <p>Apply your knowledge by building small projects. Start with simple programs and gradually increase complexity.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside>
+                <!-- Progress Section -->
+                <section class="progress-section">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Estimate Progress</h2>
+                    
+                    <div class="time-estimate">
+                        <h4><i class="fas fa-clock"></i> Time Estimate</h4>
+                        <p>Complete roadmap in 12 weeks with 6-8 hours/week study time.</p>
+                        
+                        <div class="time-breakdown">
+                            <div class="time-item">
+                                <span>Beginner Phase</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Intermediate Phase</span>
+                                <span>5 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Advanced Phase</span>
+                                <span>3 weeks</span>
+                            </div>
+                            <div class="time-item total">
+                                <span>Total Estimated Time</span>
+                                <span>72-96 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+               <section class="notes-section">
+                    <div class="notes-header">
+                        <h3 class="notes-title"><i class="fas fa-sticky-note"></i> Notes</h3>
+                        <span class="notes-count" id="notes-count">15 Notes</span>
+                    </div>
+                    
+                    <div class="notes-content">
+                        <p class="notes-summary">
+                            Keep track of important concepts, code snippets, and personal insights as you progress through the C language learning journey.
+                        </p>
+                        
+                        <div class="notes-stats">
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="recent-notes">3</div>
+                                <div class="note-stat-label">Recent</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="code-snippets">8</div>
+                                <div class="note-stat-label">Code Snippets</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="important-notes">4</div>
+                                <div class="note-stat-label">Important</div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-notes">
+                            <h4><i class="fas fa-history"></i> Recent Notes</h4>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Pointer Arithmetic Rules</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 2 days ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Memory Allocation Functions</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 5 days ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Common String Functions</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="learningpath.html" class="backbtn" style="background-color:#ef4444; padding: 1.5vw; border-radius: 10px; text-decoration: none; color: white; ">Back to Learning Paths </a>
+            <br>
+            <br>
+            <br>
+            <p>C Language Workflow • LearnSmart AI • Estimated completion: 12 weeks with consistent practice</p>
+            
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressCircle = document.querySelector('.progress-circle-fill');
+            const completedCount = document.getElementById('completed-count');
+            const markCompleteBtn = document.getElementById('mark-complete');
+            const nextStepBtn = document.getElementById('next-step');
+            const prevStepBtn = document.getElementById('prev-step');
+            const resetBtn = document.getElementById('reset-progress');
+            const backButton = document.getElementById('back-to-templates');
+            
+            // State management
+            let currentStep = 1;
+            let completedSteps = new Set([1, 2, 3]); // Initially mark first 3 as completed
+            
+            // Initialize
+            updateProgress();
+            
+            // Calculate circumference for progress circle
+            const radius = 90;
+            const circumference = 2 * Math.PI * radius;
+            progressCircle.style.strokeDasharray = `${circumference}`;
+            progressCircle.style.strokeDashoffset = `${circumference}`;
+            
+            // Update progress visualization
+            function updateProgress() {
+                const totalSteps = timelineItems.length;
+                const completed = completedSteps.size;
+                const percent = Math.round((completed / totalSteps) * 100);
+                
+                // Update progress percentage
+                progressPercent.textContent = `${percent}%`;
+                
+                // Update progress circle
+                const offset = circumference - (percent / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+                
+                // Update completed count
+                completedCount.textContent = `${completed}/${totalSteps} steps completed`;
+                
+                // Update timeline items UI
+                timelineItems.forEach(item => {
+                    const step = parseInt(item.getAttribute('data-step'));
+                    if (completedSteps.has(step)) {
+                        item.classList.add('completed');
+                    } else {
+                        item.classList.remove('completed');
+                    }
+                    
+                    // Highlight current step
+                    if (step === currentStep) {
+                        item.style.boxShadow = '0 5px 20px rgba(255, 107, 107, 0.2)';
+                        item.style.borderLeftWidth = '6px';
+                    } else {
+                        item.style.boxShadow = '';
+                        item.style.borderLeftWidth = '4px';
+                    }
+                });
+            }
+            
+            // Mark current step as complete/incomplete
+            markCompleteBtn.addEventListener('click', function() {
+                if (completedSteps.has(currentStep)) {
+                    completedSteps.delete(currentStep);
+                    this.innerHTML = '<i class="fas fa-check-circle"></i> Mark Current Step Complete';
+                    this.classList.remove('control-btn-secondary');
+                    this.classList.add('control-btn-primary');
+                } else {
+                    completedSteps.add(currentStep);
+                    this.innerHTML = '<i class="fas fa-times-circle"></i> Mark as Incomplete';
+                    this.classList.remove('control-btn-primary');
+                    this.classList.add('control-btn-secondary');
+                }
+                updateProgress();
+            });
+            
+            // Navigate to next step
+            nextStepBtn.addEventListener('click', function() {
+                if (currentStep < timelineItems.length) {
+                    currentStep++;
+                    updateStepButtons();
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else {
+                    alert('Congratulations! You have completed all steps!');
+                }
+            });
+            
+            // Navigate to previous step
+            prevStepBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateStepButtons();
+                    updateProgress();
+                    scrollToCurrentStep();
+                }
+            });
+            
+            // Reset all progress
+            resetBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset all progress?')) {
+                    completedSteps.clear();
+                    currentStep = 1;
+                    markCompleteBtn.innerHTML = '<i class="fas fa-check-circle"></i> Mark Current Step Complete';
+                    markCompleteBtn.classList.remove('control-btn-secondary');
+                    markCompleteBtn.classList.add('control-btn-primary');
+                    updateStepButtons();
+                    updateProgress();
+                    alert('Progress reset successfully!');
+                }
+            });
+            
+            // Update step navigation buttons state
+            function updateStepButtons() {
+                prevStepBtn.disabled = currentStep === 1;
+                nextStepBtn.disabled = currentStep === timelineItems.length;
+                
+                // Update mark complete button text
+                if (completedSteps.has(currentStep)) {
+                    markCompleteBtn.innerHTML = '<i class="fas fa-times-circle"></i> Mark as Incomplete';
+                    markCompleteBtn.classList.remove('control-btn-primary');
+                    markCompleteBtn.classList.add('control-btn-secondary');
+                } else {
+                    markCompleteBtn.innerHTML = '<i class="fas fa-check-circle"></i> Mark Current Step Complete';
+                    markCompleteBtn.classList.remove('control-btn-secondary');
+                    markCompleteBtn.classList.add('control-btn-primary');
+                }
+            }
+            
+            // Scroll to current step
+            function scrollToCurrentStep() {
+                const currentItem = document.querySelector(`.timeline-item[data-step="${currentStep}"]`);
+                if (currentItem) {
+                    currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Add pulse animation
+                    currentItem.style.animation = 'none';
+                    setTimeout(() => {
+                        currentItem.style.animation = 'pulse 1s';
+                    }, 10);
+                }
+            }
+            
+            // Click on timeline item to set as current
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    if (step !== currentStep) {
+                        currentStep = step;
+                        updateStepButtons();
+                        updateProgress();
+                    }
+                });
+            });
+            
+            // Back to templates button
+            backButton.addEventListener('click', function() {
+                if (confirm('Return to Learning Path Templates?')) {
+                    // In a real app, you would navigate back
+                    // For demo, we'll just show an alert
+                    alert('Navigating back to Learning Path Templates...');
+                    // window.location.href = 'learning-paths.html'; // Example navigation
+                }
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' && currentStep < timelineItems.length) {
+                    currentStep++;
+                    updateStepButtons();
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                    currentStep--;
+                    updateStepButtons();
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === ' ' || e.key === 'Enter') {
+                    // Mark complete with space/enter
+                    const focused = document.activeElement;
+                    if (!focused || focused.tagName === 'BODY') {
+                        markCompleteBtn.click();
+                    }
+                }
+            });
+            
+            // Initialize step buttons
+            updateStepButtons();
+            
+            // Add CSS animation for pulse effect
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.02); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Simulate some initial progress
+            setTimeout(() => {
+                // Mark step 4 as completed after a delay (simulating user progress)
+                if (!completedSteps.has(4)) {
+                    completedSteps.add(4);
+                    updateProgress();
+                }
+            }, 1000);
+        });
+
+
+        // notes
+        // View Notes Button functionality
+            viewNotesBtn.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Show notes modal/alert (in a real app, this would open a notes page)
+                alert('Opening Notes Manager...\n\nIn the full application, this would open a comprehensive notes interface where you can:\n\n1. View all your notes organized by topic\n2. Add new notes\n3. Edit existing notes\n4. Search through notes\n5. Export notes as PDF\n\nYour current notes: 15 total (3 recent, 8 code snippets, 4 important)');
+                
+                // Simulate loading
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Notes...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                }, 1000);
+            });
+            
+            // Simulate notes data updates
+            function updateNotesStats() {
+                // Simulate dynamic updates to notes stats
+                setTimeout(() => {
+                    // Randomly update notes counts (for demo purposes)
+                    const total = 15 + Math.floor(Math.random() * 5);
+                    const recent = 3 + Math.floor(Math.random() * 3);
+                    const snippets = 8 + Math.floor(Math.random() * 4);
+                    const important = 4 + Math.floor(Math.random() * 3);
+                    
+                    notesCount.textContent = `${total} Notes`;
+                    recentNotes.textContent = recent;
+                    codeSnippets.textContent = snippets;
+                    importantNotes.textContent = important;
+                    
+                    // Update again after a random interval
+                    setTimeout(updateNotesStats, 5000 + Math.random() * 10000);
+                }, 2000);
+            }
+            
+            // Initialize notes stats updates
+            updateNotesStats();
+    </script>
+</body>
+</html>

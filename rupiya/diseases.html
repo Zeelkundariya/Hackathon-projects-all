@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Management | rupiya.app</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --primary-green: #2C763B;
+            --light-green: #4CAF50;
+            --dark-green: #1B5E20;
+            --accent-yellow: #FFC107;
+            --accent-orange: #FF9800;
+            --light-bg: #F1F8E9;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .crop-management-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .crop-management-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M50,10 C70,10 90,25 90,50 C90,75 70,90 50,90 C30,90 10,75 10,50 C10,25 30,10 50,10 Z" fill="%231B5E20"/></svg>');
+            background-size: 150px;
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-bg);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .selection-counter {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .selection-counter span {
+            font-weight: 700;
+            color: var(--accent-yellow);
+            font-size: 1.4rem;
+        }
+
+        .crop-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 30px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-yellow);
+            color: var(--dark-green);
+        }
+
+        .crop-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .crop-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crop-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary-green);
+        }
+
+        .crop-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .crop-card.selected {
+            border-color: var(--primary-green);
+            background-color: #E8F5E9;
+        }
+
+        .crop-card.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .crop-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            border: 2px solid var(--light-green);
+            overflow: hidden;
+        }
+
+        .crop-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .crop-name {
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .crop-category {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            background: var(--light-bg);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .disease-info-section {
+            display: none;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 30px;
+            border: 2px solid var(--light-green);
+        }
+
+        .disease-info-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .selected-crops-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .selected-crops-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selected-crops-header h3 i {
+            color: var(--accent-yellow);
+        }
+
+        .reset-selection {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-selection:hover {
+            background: var(--dark-green);
+            transform: scale(1.05);
+        }
+
+        .crop-disease-tabs {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 25px;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+
+        .crop-tab {
+            padding: 12px 25px;
+            background: var(--light-bg);
+            border-radius: 30px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid transparent;
+        }
+
+        .crop-tab.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--dark-green);
+        }
+
+        .crop-tab i {
+            font-size: 1.2rem;
+        }
+
+        .disease-content {
+            display: none;
+        }
+
+        .disease-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .disease-item {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .disease-item:last-child {
+            border-bottom: none;
+        }
+
+        .disease-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .disease-icon {
+            width: 50px;
+            height: 50px;
+            background: #FFEAA7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #E17055;
+        }
+
+        .disease-name {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .disease-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .disease-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-card {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .detail-card h4 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-card h4 i {
+            color: var(--accent-orange);
+        }
+
+        .disease-images {
+            display: none;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .disease-image {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            border: 2px solid var(--light-green);
+        }
+
+        .disease-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .disease-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .placeholder-image i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+        }
+
+        .precaution-title, .pest-title {
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .precaution-title i, .pest-title i {
+            color: var(--accent-orange);
+        }
+
+        .precautions-list, .pests-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .precautions-list li, .pests-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .precautions-list li::before, .pests-list li::before {
+            content: "•";
+            color: var(--primary-green);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .save-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-3px);
+        }
+
+        .share-btn {
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+
+        .share-btn:hover {
+            background: #FFB300;
+            transform: translateY(-3px);
+        }
+
+        .print-btn {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--light-green);
+        }
+
+        .print-btn:hover {
+            background: #E8F5E9;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .crop-selection-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .crop-disease-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .selected-crops-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .disease-images {
+                justify-content: center;
+            }
+            
+            .disease-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .disease-image {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .tree-decoration {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            opacity: 0.2;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="crop-management-section" id="crop-management">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-seedling"></i> Crop Disease & Pest Management</h2>
+                <p>Select up to 8 crops to view common diseases, pests, and preventive measures. Protect your harvest with expert guidance.</p>
+            </div>
+            
+            <div class="selection-counter" id="selection-counter">
+                You've selected <span id="selected-count">0</span> out of 8 crops
+            </div>
+            
+            <div class="crop-filter">
+                <button class="filter-btn active" data-filter="all">All Crops</button>
+                <button class="filter-btn" data-filter="fruit">Fruits</button>
+                <button class="filter-btn" data-filter="vegetable">Vegetables</button>
+                <button class="filter-btn" data-filter="cereal">Cereals</button>
+                <button class="filter-btn" data-filter="cash">Cash Crops</button>
+            </div>
+            
+            <div class="crop-selection-grid" id="crop-grid">
+                <!-- Crop cards will be dynamically generated here -->
+            </div>
+            
+            <div class="disease-info-section" id="disease-info">
+                <div class="selected-crops-header">
+                    <h3><i class="fas fa-bug"></i> Disease & Pest Information</h3>
+                    <button class="reset-selection" id="reset-btn">
+                        <i class="fas fa-redo"></i> Reset Selection
+                    </button>
+                </div>
+                
+                <div class="crop-disease-tabs" id="crop-tabs">
+                    <!-- Crop tabs will be dynamically generated here -->
+                </div>
+                
+                <div class="disease-content-container" id="disease-content">
+                    <!-- Disease content will be dynamically generated here -->
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn save-btn">
+                        <i class="fas fa-bookmark"></i> Save This Information
+                    </button>
+                    <button class="action-btn share-btn">
+                        <i class="fas fa-share-alt"></i> Share with Other Farmers
+                    </button>
+                    <button class="action-btn print-btn">
+                        <i class="fas fa-print"></i> Print Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="tree-decoration">
+            <i class="fas fa-tree" style="font-size: 200px; color: var(--dark-green);"></i>
+        </div>
+        <div class="leaf-decoration">
+            <i class="fas fa-leaf" style="font-size: 100px; color: var(--light-green);"></i>
+        </div>
+    </section>
+
+    <script>
+        // Comprehensive crop data with diseases, precautions, and real images
+        const cropData = [
+            {
+                id: 1,
+                name: "Wheat",
+                category: "cereal",
+                image: "https://tiimg.tistatic.com/fp/1/007/419/export-quality-machine-cleaned-whole-weat-grain-for-human-consumption-857.jpg",
+                diseases: [
+                    {
+                        name: "Rust",
+                        description: "Fungal disease causing orange, yellow or white pustules on leaves and stems. Can significantly reduce yield if not controlled.",
+                        symptoms: "Small, round to oval pustules that break through the leaf surface. Orange-brown (leaf rust), dark red-brown (stem rust), or yellow-white (stripe rust) colored spores.",
+                        conditions: "Thrives in moderate temperatures (15-22°C) with high humidity or leaf wetness.",
+                        impact: "Can cause 20-50% yield loss in severe cases. Reduces grain quality and plant vigor.",
+                        precautions: [
+                            "Use resistant varieties like HD-2967 or HD-3086",
+                            "Apply fungicides like Propiconazole at first sign of disease",
+                            "Practice crop rotation with legumes for 2-3 years",
+                            "Remove volunteer wheat plants that can harbor the disease"
+                        ],
+                        pests: [
+                            "Aphids - Use insecticidal soap or neem oil spray",
+                            "Armyworms - Apply Chlorpyriphos when larvae are detected"
+                        ],
+                        images: [
+                            {label: "Leaf Rust Symptoms", url: "https://images.unsplash.com/photo-1613478882640-809c3b8d9cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Stem Rust Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    },
+                    {
+                        name: "Powdery Mildew",
+                        description: "White powdery growth on leaves, stems, and heads. Thrives in humid conditions with moderate temperatures.",
+                        symptoms: "White, powdery fungal growth on upper leaf surfaces that gradually turns grayish-brown.",
+                        conditions: "Favored by high humidity (50-70%), moderate temperatures (15-22°C), and dense crop canopies.",
+                        impact: "Reduces photosynthesis, leading to smaller grains and yield losses of 10-15%.",
+                        precautions: [
+                            "Ensure proper spacing (20-22 cm between rows) for air circulation",
+                            "Avoid excessive nitrogen fertilization",
+                            "Apply Sulfur-based fungicides as preventive measure",
+                            "Use bio-control agents like Trichoderma"
+                        ],
+                        pests: [
+                            "Hessian fly - Use resistant varieties and delayed planting",
+                            "Wheat stem sawfly - Practice crop rotation with mustard"
+                        ],
+                        images: [
+                            {label: "Powdery Mildew on Leaves", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Severe Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "Rice",
+                category: "cereal",
+                image: "https://www.health.com/thmb/a8GxwWgmB5KpQW8SfW6VA7UFwaI=/722x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1734160670-0157c2daf8e841d6a783b38aedc51aa8.jpg",
+                diseases: [
+                    {
+                        name: "Blast",
+                        description: "Fungal disease causing diamond-shaped lesions on leaves, nodes, and panicles. Can cause up to 50% yield loss.",
+                        symptoms: "Diamond-shaped lesions with gray centers and brown margins on leaves. Node infection causes blackening and breaking.",
+                        conditions: "Favored by high humidity, leaf wetness, and temperatures between 25-28°C.",
+                        impact: "Can cause complete crop failure in severe cases. Reduces grain quality and yield.",
+                        precautions: [
+                            "Use resistant varieties like IR-64 or Swarna",
+                            "Avoid excessive nitrogen application",
+                            "Ensure proper water management - avoid drought stress",
+                            "Apply Tricyclazole or Edifenphos during susceptible stages"
+                        ],
+                        pests: [
+                            "Brown planthopper - Use resistant varieties and proper water management",
+                            "Stem borer - Remove infected plants and use light traps"
+                        ],
+                        images: [
+                            {label: "Leaf Blast Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Node Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    },
+                    {
+                        name: "Bacterial Leaf Blight",
+                        description: "Bacterial disease causing yellowing and drying of leaves starting from the tip. Spreads through water and infected seeds.",
+                        symptoms: "Yellow to white stripes along leaf veins, starting from leaf tips. Milky bacterial ooze appears on cut leaves.",
+                        conditions: "Favored by high temperatures (25-30°C), high humidity, and rain splashes.",
+                        impact: "Yield losses of 20-30% in susceptible varieties. Reduces grain filling.",
+                        precautions: [
+                            "Use disease-free seeds from certified sources",
+                            "Avoid flooding the field",
+                            "Apply copper-based bactericides",
+                            "Grow resistant varieties like PR-106"
+                        ],
+                        pests: [
+                            "Rice leaf folder - Use neem-based pesticides",
+                            "Gall midge - Use resistant varieties"
+                        ],
+                        images: [
+                            {label: "Early Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Advanced Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "Tomato",
+                category: "vegetable",
+                image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                diseases: [
+                    {
+                        name: "Early Blight",
+                        description: "Fungal disease causing dark spots with concentric rings on leaves, stems, and fruits. Common in warm, humid conditions.",
+                        symptoms: "Small, dark spots with concentric rings that enlarge to form target-like patterns. Yellow halos surround lesions.",
+                        conditions: "Favored by warm temperatures (24-29°C), high humidity, and leaf wetness.",
+                        impact: "Reduces yield by 30-50% in severe cases. Causes fruit rot and defoliation.",
+                        precautions: [
+                            "Use disease-free seeds from certified sources",
+                            "Practice 3-year crop rotation with non-solanaceous crops",
+                            "Ensure proper spacing (60×45 cm)",
+                            "Apply Copper-based fungicides like Bordeaux mixture"
+                        ],
+                        pests: [
+                            "Tomato hornworm - Handpick or use Bt (Bacillus thuringiensis)",
+                            "Whiteflies - Use yellow sticky traps and insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    },
+                    {
+                        name: "Late Blight",
+                        description: "Devastating fungal disease that can destroy entire crops quickly. Famous for causing the Irish Potato Famine.",
+                        symptoms: "Water-soaked lesions on leaves that rapidly expand. White fungal growth appears on undersides of leaves under high humidity.",
+                        conditions: "Favored by cool, wet weather with temperatures of 15-21°C.",
+                        impact: "Can cause 100% crop loss if not controlled. Spreads rapidly in favorable conditions.",
+                        precautions: [
+                            "Use resistant varieties like Roma or San Marzano",
+                            "Apply fungicides containing Chlorothalonil or Mancozeb",
+                            "Avoid overhead irrigation",
+                            "Practice wide spacing for better air circulation"
+                        ],
+                        pests: [
+                            "Aphids - Use reflective mulches and insecticidal soap",
+                            "Spider mites - Maintain proper humidity and use miticides"
+                        ],
+                        images: [
+                            {label: "Leaf Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Stem Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: "Mango",
+                category: "fruit",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRJEFmJ4s3ue_d4ZJFLVtG8gInVCSyD05HSQ&s",
+                diseases: [
+                    {
+                        name: "Anthracnose",
+                        description: "Fungal disease causing dark, sunken lesions on fruits, flowers, and leaves. Spreads rapidly during rainy season.",
+                        symptoms: "Black, sunken spots on fruits that may ooze salmon-colored spore masses. Twig dieback and flower blight.",
+                        conditions: "Favored by cool, wet weather during flowering and fruit development.",
+                        impact: "Can cause 30-60% yield loss. Reduces fruit quality and market value.",
+                        precautions: [
+                            "Prune trees to improve air circulation within canopy",
+                            "Apply Copper oxychloride (0.3%) during flowering",
+                            "Remove and destroy infected plant parts",
+                            "Use resistant varieties like Dashehari or Langra"
+                        ],
+                        pests: [
+                            "Mango hopper - Apply Carbaryl (0.2%) during flowering",
+                            "Fruit fly - Use pheromone traps and bag fruits"
+                        ],
+                        images: [
+                            {label: "Fruit Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    },
+                    {
+                        name: "Powdery Mildew",
+                        description: "Fungal disease affecting inflorescence, leaves, and young fruits. Appears as white powdery growth.",
+                        symptoms: "White powdery coating on panicles, leaves, and young fruits. Infected flowers and fruits may drop prematurely.",
+                        conditions: "Favored by dry weather with high humidity and moderate temperatures.",
+                        impact: "Causes flower and fruit drop, reducing yield by 20-80%.",
+                        precautions: [
+                            "Apply Sulfur dust (300 mesh) during flowering",
+                            "Prune affected parts and improve air circulation",
+                            "Use resistant varieties when available",
+                            "Spray Wettable sulfur (0.2%) at 15-day intervals"
+                        ],
+                        pests: [
+                            "Mealybugs - Use soapy water spray or neem oil",
+                            "Shoot gall maker - Prune and destroy affected shoots"
+                        ],
+                        images: [
+                            {label: "Infected Panicles", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                name: "Cotton",
+                category: "cash",
+                image: "https://www.tricorp.com/Admin/Public/GetImage.ashx?Image=/Files/Images/Contentpagina/Over%20ons/Kennisbank/Kennisbank-katoen-1.png&Crop=7&Format=png&Quality=90&Compression=80&Width=1000",
+                diseases: [
+                    {
+                        name: "Boll Rot",
+                        description: "Fungal infection causing bolls to rot and fail to open. Common in high rainfall areas.",
+                        symptoms: "Water-soaked spots on bolls that enlarge and become covered with fungal growth. Bolls fail to open properly.",
+                        conditions: "Favored by high humidity, rainfall during boll development, and insect damage to bolls.",
+                        impact: "Can cause 10-30% yield loss. Reduces fiber quality.",
+                        precautions: [
+                            "Avoid excessive nitrogen fertilization",
+                            "Ensure proper plant spacing (90×60 cm)",
+                            "Apply Carbendazim (0.1%) during boll formation",
+                            "Use drip irrigation to avoid wetting foliage"
+                        ],
+                        pests: [
+                            "Bollworm - Use Bt cotton varieties or appropriate insecticides",
+                            "Aphids - Use Imidacloprid (0.01%) as foliar spray"
+                        ],
+                        images: [
+                            {label: "Infected Bolls", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Field View", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    },
+                    {
+                        name: "Leaf Curl Virus",
+                        description: "Viral disease transmitted by whiteflies. Causes severe curling and distortion of leaves.",
+                        symptoms: "Upward or downward curling of leaves, thickening of veins, and stunted growth. Plants may become sterile.",
+                        conditions: "Spread by whitefly populations. More severe in early sown crops.",
+                        impact: "Can cause complete crop failure in severe cases. Reduces boll formation.",
+                        precautions: [
+                            "Use resistant varieties",
+                            "Control whitefly populations with insecticides",
+                            "Rogue out infected plants early",
+                            "Use yellow sticky traps"
+                        ],
+                        pests: [
+                            "Whitefly - Use Acetamiprid or Thiamethoxam",
+                            "Aphids - Apply systemic insecticides"
+                        ],
+                        images: [
+                            {label: "Leaf Curling", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Severe Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 6,
+                name: "Potato",
+                category: "vegetable",
+                image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                diseases: [
+                    {
+                        name: "Late Blight",
+                        description: "The same disease that caused the Irish Potato Famine. Destroys leaves, stems, and tubers rapidly.",
+                        symptoms: "Dark, water-soaked spots on leaves that spread quickly. White fungal growth on underside of leaves in humid conditions.",
+                        conditions: "Cool, moist weather with temperatures between 10-20°C and high humidity.",
+                        impact: "Can destroy entire crop within days under favorable conditions.",
+                        precautions: [
+                            "Use certified disease-free seed potatoes",
+                            "Apply fungicides before infection occurs",
+                            "Hill plants to protect tubers",
+                            "Destroy infected plants and crop debris"
+                        ],
+                        pests: [
+                            "Colorado potato beetle - Handpick or use appropriate insecticides",
+                            "Aphids - Use insecticidal soap or neem oil"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Tuber Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 7,
+                name: "Sugarcane",
+                category: "cash",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZVEj5j1_k9wA2klty7hmJMjYEuPHVywAW3g&s",
+                diseases: [
+                    {
+                        name: "Red Rot",
+                        description: "Serious fungal disease affecting stalks, causing them to rot and dry up.",
+                        symptoms: "Reddish patches on the stalk with white spots. Affected canes give alcoholic smell when split open.",
+                        conditions: "High humidity and temperatures around 25-30°C favor disease development.",
+                        impact: "Can cause 30-50% yield loss. Reduces sugar recovery.",
+                        precautions: [
+                            "Use disease-free setts for planting",
+                            "Practice crop rotation with legumes",
+                            "Avoid waterlogging in fields",
+                            "Grow resistant varieties like Co-1148"
+                        ],
+                        pests: [
+                            "Sugarcane borers - Use light traps and biological control",
+                            "White grubs - Apply Chlorpyriphos in soil"
+                        ],
+                        images: [
+                            {label: "Stalk Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Field View", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 8,
+                name: "Apple",
+                category: "fruit",
+                image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                diseases: [
+                    {
+                        name: "Apple Scab",
+                        description: "Fungal disease causing dark, scaly lesions on leaves, fruits, and twigs.",
+                        symptoms: "Olive-green to black spots on leaves and fruits. Fruits may become cracked and deformed.",
+                        conditions: "Cool, wet springs with temperatures of 10-20°C favor disease development.",
+                        impact: "Reduces fruit quality and marketability. Can cause premature fruit drop.",
+                        precautions: [
+                            "Prune trees to improve air circulation",
+                            "Rake and destroy fallen leaves in autumn",
+                            "Apply fungicides during green tip through petal fall",
+                            "Plant resistant varieties like Liberty or Freedom"
+                        ],
+                        pests: [
+                            "Codling moth - Use pheromone traps and timely insecticides",
+                            "Aphids - Encourage natural predators like ladybugs"
+                        ],
+                        images: [
+                            {label: "Leaf Scab", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 9,
+                name: "Corn",
+                category: "cereal",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShoWdSHinHRGftyKlR-C9uRHH1Z3PaWOOa3g&s",
+                diseases: [
+                    {
+                        name: "Northern Corn Leaf Blight",
+                        description: "Fungal disease causing long, grayish-green lesions on leaves that turn tan as they mature.",
+                        symptoms: "Elliptical, grayish-green lesions that expand to several inches in length. Lesions may coalesce and kill entire leaves.",
+                        conditions: "Favored by cool, humid weather with temperatures of 18-27°C.",
+                        impact: "Can reduce yields by 30-50% if severe during grain fill.",
+                        precautions: [
+                            "Use resistant hybrids",
+                            "Practice crop rotation with soybeans",
+                            "Tillage to bury crop residue",
+                            "Apply fungicides when disease is detected early"
+                        ],
+                        pests: [
+                            "Corn earworm - Use Bt corn varieties",
+                            "European corn borer - Apply insecticides at egg hatch"
+                        ],
+                        images: [
+                            {label: "Leaf Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Field View", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 10,
+                name: "Banana",
+                category: "fruit",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY0P0cu_u94QjFc6jAIZEIILj2XZpUDMKO9g&s",
+                diseases: [
+                    {
+                        name: "Panama Disease",
+                        description: "Soil-borne fungal disease that causes wilting and death of banana plants.",
+                        symptoms: "Yellowing of older leaves, splitting of leaf bases, and eventual collapse of the entire plant.",
+                        conditions: "Favored by warm temperatures and acidic soils. Spreads through infected planting material and soil.",
+                        impact: "Can destroy entire plantations. No effective chemical control once established.",
+                        precautions: [
+                            "Use disease-free tissue culture plants",
+                            "Avoid movement of soil from infected areas",
+                            "Plant resistant varieties like GCTCV-119",
+                            "Practice strict sanitation in tools and equipment"
+                        ],
+                        pests: [
+                            "Banana weevil - Use pheromone traps and clean cultivation",
+                            "Nematodes - Apply nematicides and use resistant varieties"
+                        ],
+                        images: [
+                            {label: "Wilting Plant", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Internal Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 11,
+                name: "Grapes",
+                category: "fruit",
+                image: "https://images.unsplash.com/photo-1456295198429-05d2315cfebb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdyYXBlJTIwdmluZXN8ZW58MHx8MHx8fDA%3D",
+                diseases: [
+                    {
+                        name: "Downy Mildew",
+                        description: "Serious fungal disease affecting leaves, shoots, and berries of grapevines.",
+                        symptoms: "Yellow 'oil spots' on upper leaf surfaces with white downy growth on undersides. Berries turn brown and shrivel.",
+                        conditions: "Favored by warm, humid weather with temperatures of 20-25°C and leaf wetness.",
+                        impact: "Can cause complete crop loss if not controlled. Weakens vines for following seasons.",
+                        precautions: [
+                            "Ensure good air circulation through proper pruning",
+                            "Apply protective fungicides before infection periods",
+                            "Remove and destroy infected plant material",
+                            "Use drip irrigation to keep foliage dry"
+                        ],
+                        pests: [
+                            "Grape berry moth - Use mating disruption pheromones",
+                            "Japanese beetles - Handpick or use traps"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Berry Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 12,
+                name: "Soybean",
+                category: "cash",
+                image: "https://nagabazaar.com/cdn/shop/files/500-organic-yellow-soya-bean-whole-500gm-0-5-kg-rudra-original-imagpfp7begfhv6r.webp?v=1747522387",
+                diseases: [
+                    {
+                        name: "Soybean Rust",
+                        description: "Fungal disease that can cause significant yield loss if not managed properly.",
+                        symptoms: "Small, raised pustules on lower leaf surfaces that appear tan to dark brown. Leaves may yellow and drop prematurely.",
+                        conditions: "Favored by prolonged leaf wetness and temperatures of 15-25°C.",
+                        impact: "Can reduce yields by 10-80% depending on infection timing and severity.",
+                        precautions: [
+                            "Plant early-maturing varieties to avoid late-season disease",
+                            "Apply fungicides at first sign of disease",
+                            "Scout fields regularly, especially during flowering",
+                            "Use resistant varieties when available"
+                        ],
+                        pests: [
+                            "Soybean aphid - Use insecticidal soaps or oils",
+                            "Bean leaf beetle - Apply insecticides when thresholds are reached"
+                        ],
+                        images: [
+                            {label: "Leaf Pustules", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Field Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 13,
+                name: "Orange",
+                category: "fruit",
+                image: "https://cdn.wallpapersafari.com/66/19/qG9P0m.jpg",
+                diseases: [
+                    {
+                        name: "Citrus Canker",
+                        description: "Bacterial disease causing raised lesions on leaves, stems, and fruit.",
+                        symptoms: "Raised, corky lesions surrounded by yellow halos on leaves, twigs, and fruit. Causes premature fruit drop.",
+                        conditions: "Favored by warm, wet weather and windy conditions that spread the bacteria.",
+                        impact: "Reduces fruit quality and marketability. Can cause significant economic losses.",
+                        precautions: [
+                            "Use windbreaks to reduce spread",
+                            "Apply copper-based bactericides",
+                            "Remove and destroy infected trees",
+                            "Practice strict sanitation in pruning tools"
+                        ],
+                        pests: [
+                            "Asian citrus psyllid - Use systemic insecticides",
+                            "Citrus leafminer - Apply horticultural oils"
+                        ],
+                        images: [
+                            {label: "Leaf Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 14,
+                name: "Cabbage",
+                category: "vegetable",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Tkp_GtPEPVxpe9Wb2qfbqM-9mjFFnqsUBQ&s",
+                diseases: [
+                    {
+                        name: "Black Rot",
+                        description: "Bacterial disease causing V-shaped yellow lesions on leaf margins and blackening of veins.",
+                        symptoms: "Yellow V-shaped lesions extending inward from leaf margins. Veins turn black, and plants may wilt.",
+                        conditions: "Favored by warm, humid conditions and spread through infected seeds, transplants, or splashing water.",
+                        impact: "Can cause significant yield loss and reduce marketability of heads.",
+                        precautions: [
+                            "Use disease-free seeds and transplants",
+                            "Practice 3-year crop rotation",
+                            "Avoid overhead irrigation",
+                            "Remove and destroy crop debris after harvest"
+                        ],
+                        pests: [
+                            "Cabbage worm - Use Bt (Bacillus thuringiensis)",
+                            "Aphids - Apply insecticidal soap or neem oil"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Advanced Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 15,
+                name: "Strawberry",
+                category: "fruit",
+                image: "https://images.unsplash.com/photo-1464454709131-ffd692591ee5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                diseases: [
+                    {
+                        name: "Gray Mold",
+                        description: "Fungal disease that causes fruit rot and can destroy entire harvests.",
+                        symptoms: "Gray, fuzzy mold on fruits, flowers, and leaves. Fruits become soft and watery.",
+                        conditions: "Favored by cool, humid conditions and prolonged leaf wetness.",
+                        impact: "Can cause significant post-harvest losses and reduce marketable yield.",
+                        precautions: [
+                            "Use drip irrigation to keep foliage dry",
+                            "Apply fungicides during flowering and fruit development",
+                            "Remove infected plant material promptly",
+                            "Ensure good air circulation through proper spacing"
+                        ],
+                        pests: [
+                            "Spider mites - Use miticides or predatory mites",
+                            "Slugs - Use bait traps or barriers"
+                        ],
+                        images: [
+                            {label: "Fruit Rot", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Flower Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 16,
+                name: "Pepper",
+                category: "vegetable",
+                image: "https://www.ulamart.com/media/catalog/product/u/l/ula-pepper2.jpg",
+                diseases: [
+                    {
+                        name: "Bacterial Spot",
+                        description: "Bacterial disease causing spots on leaves, stems, and fruits.",
+                        symptoms: "Small, water-soaked spots on leaves that become brown with yellow halos. Fruits develop raised, scabby lesions.",
+                        conditions: "Favored by warm, wet weather and spread through splashing water.",
+                        impact: "Reduces fruit quality and yield. Can cause defoliation in severe cases.",
+                        precautions: [
+                            "Use disease-free seeds and transplants",
+                            "Apply copper-based bactericides preventively",
+                            "Avoid overhead irrigation",
+                            "Practice crop rotation with non-solanaceous crops"
+                        ],
+                        pests: [
+                            "Aphids - Use insecticidal soap or neem oil",
+                            "Thrips - Apply appropriate insecticides"
+                        ],
+                        images: [
+                            {label: "Leaf Spots", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 17,
+                name: "Pineapple",
+                category: "fruit",
+                image: "https://img.freepik.com/free-photo/pineapple-fruit_1203-7746.jpg?semt=ais_hybrid&w=740&q=80",
+                diseases: [
+                    {
+                        name: "Heart Rot",
+                        description: "Fungal disease that causes rotting of the central leaves and growing point.",
+                        symptoms: "Yellowing and wilting of central leaves, which can be easily pulled out. Base of leaves becomes soft and rotten.",
+                        conditions: "Favored by high humidity and poor drainage. Spread through infected planting material.",
+                        impact: "Can kill young plants and reduce yield in mature plants.",
+                        precautions: [
+                            "Use disease-free planting material",
+                            "Ensure good field drainage",
+                            "Apply fungicides to planting material before planting",
+                            "Avoid planting in low-lying, poorly drained areas"
+                        ],
+                        pests: [
+                            "Mealybugs - Use appropriate insecticides",
+                            "Scale insects - Apply horticultural oils"
+                        ],
+                        images: [
+                            {label: "Plant Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Internal Rot", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 18,
+                name: "Carrot",
+                category: "vegetable",
+                image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                diseases: [
+                    {
+                        name: "Alternaria Leaf Blight",
+                        description: "Fungal disease causing leaf spots and defoliation.",
+                        symptoms: "Dark brown to black spots with yellow halos on leaves. Spots may coalesce, causing leaves to wither and die.",
+                        conditions: "Favored by warm, humid weather and prolonged leaf wetness.",
+                        impact: "Reduces photosynthetic area, leading to smaller roots and yield loss.",
+                        precautions: [
+                            "Use disease-free seeds",
+                            "Practice 3-year crop rotation",
+                            "Apply fungicides when conditions favor disease",
+                            "Avoid overhead irrigation"
+                        ],
+                        pests: [
+                            "Carrot rust fly - Use row covers",
+                            "Aphids - Apply insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Spots", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Field View", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 19,
+                name: "Papaya",
+                category: "fruit",
+                image: "https://t4.ftcdn.net/jpg/04/40/64/07/360_F_440640767_8mKtOaL9YzCoO8tdt6UGrCHX6WkdlLpd.jpg",
+                diseases: [
+                    {
+                        name: "Papaya Ringspot Virus",
+                        description: "Viral disease that causes mosaic patterns on leaves and ring spots on fruits.",
+                        symptoms: "Yellow mosaic patterns on leaves, water-soaked streaks on petioles, and concentric rings on fruits.",
+                        conditions: "Spread by aphids. More severe in areas with high aphid populations.",
+                        impact: "Can kill plants within a few months. Reduces fruit quality and yield.",
+                        precautions: [
+                            "Use virus-free planting material",
+                            "Control aphid populations",
+                            "Rogue out infected plants immediately",
+                            "Plant resistant varieties when available"
+                        ],
+                        pests: [
+                            "Aphids - Use systemic insecticides",
+                            "Fruit flies - Use bait traps"
+                        ],
+                        images: [
+                            {label: "Leaf Mosaic", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Ringspots", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 20,
+                name: "Onion",
+                category: "vegetable",
+                image: "https://png.pngtree.com/background/20220723/original/pngtree-a-pile-of-onion-hd-photography-materials-picture-image_1725560.jpg",
+                diseases: [
+                    {
+                        name: "Purple Blotch",
+                        description: "Fungal disease causing purple lesions on leaves and bulbs.",
+                        symptoms: "Small, white sunken spots with purple centers on leaves. Lesions enlarge and may girdle leaves, causing them to collapse.",
+                        conditions: "Favored by warm, humid conditions and leaf wetness.",
+                        impact: "Reduces bulb size and quality. Can cause significant yield loss.",
+                        precautions: [
+                            "Use disease-free sets or transplants",
+                            "Practice 3-year crop rotation",
+                            "Apply fungicides when conditions favor disease",
+                            "Ensure good air circulation through proper spacing"
+                        ],
+                        pests: [
+                            "Onion thrips - Use appropriate insecticides",
+                            "Onion maggot - Use row covers"
+                        ],
+                        images: [
+                            {label: "Leaf Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Bulb Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 21,
+                name: "Watermelon",
+                category: "fruit",
+                image: "https://media.istockphoto.com/id/1142119394/photo/whole-and-slices-watermelon-fruit-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=A5XnLyeI_3mwkCNadv-QLU4jzgNux8kUPfIlDvwT0jo=",
+                diseases: [
+                    {
+                        name: "Fusarium Wilt",
+                        description: "Soil-borne fungal disease that causes wilting and death of plants.",
+                        symptoms: "Yellowing and wilting of leaves, starting with older leaves. Brown discoloration of vascular tissue in stems and roots.",
+                        conditions: "Favored by warm soil temperatures. Spread through infected soil, water, and equipment.",
+                        impact: "Can kill plants and significantly reduce yields.",
+                        precautions: [
+                            "Use resistant varieties",
+                            "Practice long crop rotations (5-7 years)",
+                            "Solarize soil before planting",
+                            "Use grafted plants on resistant rootstocks"
+                        ],
+                        pests: [
+                            "Aphids - Use insecticidal soap",
+                            "Cucumber beetles - Use row covers or insecticides"
+                        ],
+                        images: [
+                            {label: "Wilting Plant", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Vascular Discoloration", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 22,
+                name: "Cucumber",
+                category: "vegetable",
+                image: "https://media.istockphoto.com/id/180720295/photo/cucumbers-and-slices-on-wooden-table.jpg?s=612x612&w=0&k=20&c=a06rM-tFx-jtqMesOz9fnw6q3rxlYRjfMQmSRJutAkg=",
+                diseases: [
+                    {
+                        name: "Powdery Mildew",
+                        description: "Fungal disease causing white powdery growth on leaves.",
+                        symptoms: "White, powdery fungal growth on upper and lower leaf surfaces. Leaves may yellow and die prematurely.",
+                        conditions: "Favored by moderate temperatures and high humidity, but not free water on leaves.",
+                        impact: "Reduces photosynthesis, leading to smaller fruits and yield loss.",
+                        precautions: [
+                            "Plant resistant varieties",
+                            "Ensure good air circulation",
+                            "Apply sulfur or other fungicides preventively",
+                            "Remove and destroy infected plant material"
+                        ],
+                        pests: [
+                            "Cucumber beetles - Use row covers or insecticides",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Severe Infection", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 23,
+                name: "Pomegranate",
+                category: "fruit",
+                image: "https://t3.ftcdn.net/jpg/04/32/47/36/360_F_432473688_NBFaMH9L7Ls0kvAxnCZnRlvbCaSgxozB.jpg",
+                diseases: [
+                    {
+                        name: "Bacterial Blight",
+                        description: "Bacterial disease causing spots on leaves, fruits, and twigs.",
+                        symptoms: "Water-soaked spots on leaves that become dark and necrotic. Fruits develop black spots and may crack.",
+                        conditions: "Favored by warm, humid weather and spread through rain splashes.",
+                        impact: "Reduces fruit quality and marketability. Can cause defoliation.",
+                        precautions: [
+                            "Prune trees to improve air circulation",
+                            "Apply copper-based bactericides",
+                            "Remove and destroy infected plant parts",
+                            "Avoid overhead irrigation"
+                        ],
+                        pests: [
+                            "Fruit borer - Use appropriate insecticides",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Spots", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Fruit Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 24,
+                name: "Broccoli",
+                category: "vegetable",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxzxBUyIhP4Ax1xwSPjF_Eyhvngq1MKTaWNg&s",
+                diseases: [
+                    {
+                        name: "Downy Mildew",
+                        description: "Fungal disease causing yellow spots on upper leaf surfaces and white growth on undersides.",
+                        symptoms: "Yellow angular spots on upper leaf surfaces with white to grayish fungal growth on corresponding undersides.",
+                        conditions: "Favored by cool, moist conditions with high humidity.",
+                        impact: "Reduces photosynthetic area, leading to smaller heads and yield loss.",
+                        precautions: [
+                            "Use resistant varieties",
+                            "Ensure good air circulation",
+                            "Apply fungicides preventively",
+                            "Avoid overhead irrigation"
+                        ],
+                        pests: [
+                            "Cabbage worm - Use Bt (Bacillus thuringiensis)",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Underside Growth", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 25,
+                name: "Pear",
+                category: "fruit",
+                image: "https://www.chandigarhayurvedcentre.com/wp-content/uploads/2024/05/3341.png",
+                diseases: [
+                    {
+                        name: "Fire Blight",
+                        description: "Bacterial disease that causes wilting and blackening of blossoms, shoots, and branches.",
+                        symptoms: "Blossoms and shoots wilt, blacken, and appear scorched. Cankers form on branches, often with bacterial ooze.",
+                        conditions: "Favored by warm, humid weather during bloom. Spread by rain, insects, and pruning tools.",
+                        impact: "Can kill trees if not controlled. Reduces yield and fruit quality.",
+                        precautions: [
+                            "Prune out infected branches during dormancy",
+                            "Apply copper sprays during dormancy",
+                            "Use resistant varieties",
+                            "Avoid excessive nitrogen fertilization"
+                        ],
+                        pests: [
+                            "Pear psylla - Use appropriate insecticides",
+                            "Codling moth - Use pheromone traps"
+                        ],
+                        images: [
+                            {label: "Shoot Blight", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Canker", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 26,
+                name: "Cauliflower",
+                category: "vegetable",
+                image: "https://images.unsplash.com/photo-1692956706779-576c151ec712?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2F1bGlmbG93ZXJ8ZW58MHx8MHx8fDA%3D",
+                diseases: [
+                    {
+                        name: "Black Leg",
+                        description: "Fungal disease causing lesions on stems, leaves, and curds.",
+                        symptoms: "Gray lesions with black speckles on stems and leaves. Curds may develop dark spots and rot.",
+                        conditions: "Favored by cool, wet conditions. Spread through infected seeds and crop debris.",
+                        impact: "Reduces yield and quality of curds. Can cause plant death.",
+                        precautions: [
+                            "Use disease-free seeds",
+                            "Practice 3-year crop rotation",
+                            "Apply fungicides preventively",
+                            "Remove and destroy crop debris"
+                        ],
+                        pests: [
+                            "Cabbage worm - Use Bt (Bacillus thuringiensis)",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Stem Lesions", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Curd Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 27,
+                name: "Peach",
+                category: "fruit",
+                image: "https://t3.ftcdn.net/jpg/04/59/20/76/360_F_459207660_AoG2qjQkbMnwt61s0jKgkqOniacQa3X0.jpg",
+                diseases: [
+                    {
+                        name: "Brown Rot",
+                        description: "Fungal disease causing fruit rot and blossom blight.",
+                        symptoms: "Brown, firm rot on fruits that may develop tan to gray spore masses. Blossoms wilt and turn brown.",
+                        conditions: "Favored by warm, humid weather during bloom and fruit ripening.",
+                        impact: "Can cause significant pre- and post-harvest losses.",
+                        precautions: [
+                            "Prune trees to improve air circulation",
+                            "Remove and destroy mummified fruits",
+                            "Apply fungicides during bloom and before harvest",
+                            "Harvest fruits carefully to avoid bruises"
+                        ],
+                        pests: [
+                            "Peach tree borer - Use trunk sprays or pheromone traps",
+                            "Oriental fruit moth - Use mating disruption"
+                        ],
+                        images: [
+                            {label: "Fruit Rot", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Blossom Blight", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 28,
+                name: "Spinach",
+                category: "vegetable",
+                image: "https://media.istockphoto.com/id/1006196472/photo/bunch-of-spinach-leaves-on-isolated-white-background.jpg?s=612x612&w=0&k=20&c=OAIswtUC1aMNDwtMEFIaZv6fSIftsoAV-cgJZSGLJ7A=",
+                diseases: [
+                    {
+                        name: "Downy Mildew",
+                        description: "Fungal disease causing yellow spots on leaves and gray growth on undersides.",
+                        symptoms: "Yellow angular spots on upper leaf surfaces with gray to purple fungal growth on corresponding undersides.",
+                        conditions: "Favored by cool, moist conditions with high humidity.",
+                        impact: "Reduces leaf quality and yield. Can make leaves unmarketable.",
+                        precautions: [
+                            "Use resistant varieties",
+                            "Ensure good air circulation",
+                            "Apply fungicides preventively",
+                            "Avoid overhead irrigation"
+                        ],
+                        pests: [
+                            "Leafminers - Use appropriate insecticides",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Leaf Symptoms", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Underside Growth", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 29,
+                name: "Plum",
+                category: "fruit",
+                image: "https://t4.ftcdn.net/jpg/01/01/37/37/360_F_101373710_M7TBj7X8Su78CVjAQnsmPsULs8WTraq3.jpg",
+                diseases: [
+                    {
+                        name: "Black Knot",
+                        description: "Fungal disease causing black, rough galls on branches.",
+                        symptoms: "Olive-green to black, rough, elongated galls on twigs and branches. Galls may girdle and kill branches.",
+                        conditions: "Favored by wet weather during bloom. Spread by rain and wind.",
+                        impact: "Reduces tree vigor and yield. Can kill trees if severe.",
+                        precautions: [
+                            "Prune out infected branches during dormancy",
+                            "Remove galls at least 4 inches below visible symptoms",
+                            "Apply fungicides during bloom",
+                            "Plant resistant varieties"
+                        ],
+                        pests: [
+                            "Plum curculio - Use insecticides at petal fall",
+                            "Aphids - Use insecticidal soap"
+                        ],
+                        images: [
+                            {label: "Branch Galls", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Tree Damage", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 30,
+                name: "Lettuce",
+                category: "vegetable",
+                image: "https://img.freepik.com/premium-photo/green-oak-lettuce-white-background_403166-1772.jpg",
+                diseases: [
+                    {
+                        name: "Bottom Rot",
+                        description: "Fungal disease causing rot of lower leaves and base of the plant.",
+                        symptoms: "Brown, water-soaked lesions on lower leaves that spread upward. White fungal growth may be visible in advanced stages.",
+                        conditions: "Favored by warm, humid conditions and poor air circulation.",
+                        impact: "Reduces yield and quality. Can make heads unmarketable.",
+                        precautions: [
+                            "Use resistant varieties",
+                            "Ensure good air circulation",
+                            "Avoid overhead irrigation",
+                            "Practice crop rotation"
+                        ],
+                        pests: [
+                            "Aphids - Use insecticidal soap",
+                            "Slugs - Use bait traps"
+                        ],
+                        images: [
+                            {label: "Leaf Rot", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"},
+                            {label: "Plant Base", url: "https://images.unsplash.com/photo-1597848212624-e6d4bd7e1ed2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"}
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Initialize the crop selection feature
+        document.addEventListener('DOMContentLoaded', function() {
+            const cropGrid = document.getElementById('crop-grid');
+            const selectedCount = document.getElementById('selected-count');
+            const diseaseInfo = document.getElementById('disease-info');
+            const cropTabs = document.getElementById('crop-tabs');
+            const diseaseContent = document.getElementById('disease-content');
+            const resetBtn = document.getElementById('reset-btn');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            let selectedCrops = [];
+            let currentFilter = 'all';
+            
+            // Generate crop cards
+            function renderCrops() {
+                cropGrid.innerHTML = '';
+                
+                const filteredCrops = currentFilter === 'all' 
+                    ? cropData 
+                    : cropData.filter(crop => crop.category === currentFilter);
+                
+                filteredCrops.forEach(crop => {
+                    const cropCard = document.createElement('div');
+                    cropCard.className = `crop-card ${selectedCrops.some(c => c.id === crop.id) ? 'selected' : ''}`;
+                    cropCard.innerHTML = `
+                        <div class="crop-icon">
+                            <img src="${crop.image}" alt="${crop.name}">
+                        </div>
+                        <div class="crop-name">${crop.name}</div>
+                        <div class="crop-category">${crop.category}</div>
+                    `;
+                    
+                    cropCard.addEventListener('click', () => {
+                        toggleCropSelection(crop);
+                    });
+                    
+                    cropGrid.appendChild(cropCard);
+                });
+            }
+            
+            // Set up filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderCrops();
+                });
+            });
+            
+            // Toggle crop selection
+            function toggleCropSelection(crop) {
+                const index = selectedCrops.findIndex(c => c.id === crop.id);
+                
+                if (index === -1) {
+                    if (selectedCrops.length < 8) {
+                        selectedCrops.push(crop);
+                        updateSelectionDisplay();
+                    } else {
+                        alert('You can only select up to 8 crops. Please deselect one to select another.');
+                    }
+                } else {
+                    selectedCrops.splice(index, 1);
+                    updateSelectionDisplay();
+                }
+            }
+            
+            // Update the selection display
+            function updateSelectionDisplay() {
+                selectedCount.textContent = selectedCrops.length;
+                renderCrops();
+                
+                // Show/hide disease info section
+                if (selectedCrops.length > 0) {
+                    diseaseInfo.classList.add('active');
+                    updateDiseaseInfo();
+                } else {
+                    diseaseInfo.classList.remove('active');
+                }
+            }
+            
+            // Update disease information display
+            function updateDiseaseInfo() {
+                // Clear previous content
+                cropTabs.innerHTML = '';
+                diseaseContent.innerHTML = '';
+                
+                // Create tabs for each selected crop
+                selectedCrops.forEach((crop, index) => {
+                    const tab = document.createElement('div');
+                    tab.className = `crop-tab ${index === 0 ? 'active' : ''}`;
+                    tab.innerHTML = `<i class="fas fa-${getCropIcon(crop.category)}"></i> ${crop.name}`;
+                    tab.dataset.cropId = crop.id;
+                    
+                    tab.addEventListener('click', () => {
+                        // Remove active class from all tabs
+                        document.querySelectorAll('.crop-tab').forEach(t => t.classList.remove('active'));
+                        // Add active class to clicked tab
+                        tab.classList.add('active');
+                        // Show corresponding disease content
+                        showCropDiseases(crop.id);
+                    });
+                    
+                    cropTabs.appendChild(tab);
+                });
+                
+                // Show diseases for first crop by default
+                if (selectedCrops.length > 0) {
+                    showCropDiseases(selectedCrops[0].id);
+                }
+            }
+            
+            // Helper function to get category icons
+            function getCropIcon(category) {
+                const icons = {
+                    'fruit': 'apple-alt',
+                    'vegetable': 'carrot',
+                    'cereal': 'wheat',
+                    'cash': 'money-bill-wave'
+                };
+                return icons[category] || 'seedling';
+            }
+            
+            // Show diseases for a specific crop
+            function showCropDiseases(cropId) {
+                const crop = selectedCrops.find(c => c.id === cropId);
+                
+                // Clear previous content
+                diseaseContent.innerHTML = '';
+                
+                if (crop && crop.diseases) {
+                    crop.diseases.forEach(disease => {
+                        const diseaseItem = document.createElement('div');
+                        diseaseItem.className = 'disease-item';
+                        
+                        // Generate image HTML with real images
+                        let imagesHtml = '';
+                        if (disease.images && disease.images.length > 0) {
+                            imagesHtml = `
+                                <div class="disease-images">
+                                    ${disease.images.map(img => `
+                                        <div class="disease-image">
+                                            <img src="${img.url}" alt="${img.label}">
+                                            <div class="image-label">${img.label}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+                        }
+                        
+                        // Generate disease details HTML
+                        let detailsHtml = '';
+                        if (disease.symptoms || disease.conditions || disease.impact) {
+                            detailsHtml = `
+                                <div class="disease-details">
+                                    ${disease.symptoms ? `
+                                        <div class="detail-card">
+                                            <h4><i class="fas fa-eye"></i> Symptoms</h4>
+                                            <p>${disease.symptoms}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${disease.conditions ? `
+                                        <div class="detail-card">
+                                            <h4><i class="fas fa-cloud-sun"></i> Favorable Conditions</h4>
+                                            <p>${disease.conditions}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${disease.impact ? `
+                                        <div class="detail-card">
+                                            <h4><i class="fas fa-chart-line-down"></i> Impact</h4>
+                                            <p>${disease.impact}</p>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+                        }
+                        
+                        // Generate pests HTML if available
+                        let pestsHtml = '';
+                        if (disease.pests && disease.pests.length > 0) {
+                            pestsHtml = `
+                                
+                            `;
+                        }
+
+                        diseaseItem.innerHTML = `
+                            <div class="disease-header">
+                                <div class="disease-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="disease-name">${disease.name}</div>
+                            </div>
+                            <div class="disease-description">
+                                ${disease.description}
+                            </div>
+                            ${detailsHtml}
+                            ${imagesHtml}
+                            <div class="precaution-section">
+                                <span class="precaution-title"><i class="fas fa-shield-alt"></i> Prevention & Control</span>
+                                <ul class="precautions-list">
+                                    ${disease.precautions.map(precaution => `<li>${precaution}</li>`).join('')}
+                                </ul>
+                            </div>
+                            ${pestsHtml}
+                        `;
+                        
+                        diseaseContent.appendChild(diseaseItem);
+                    });
+                }
+            }
+            
+            // Reset selection functionality
+            resetBtn.addEventListener('click', () => {
+                selectedCrops = [];
+                updateSelectionDisplay();
+            });
+            
+            // Action buttons functionality
+            document.querySelector('.save-btn').addEventListener('click', () => {
+                alert('Information saved! You can access it later from your saved items.');
+            });
+            
+            document.querySelector('.share-btn').addEventListener('click', () => {
+                alert('Share functionality would open here. You can share this information with other farmers via WhatsApp, email, or other platforms.');
+            });
+            
+            document.querySelector('.print-btn').addEventListener('click', () => {
+                window.print();
+            });
+            
+            // Initialize the page
+            renderCrops();
+        });
+    </script>
+</body>
+</html>

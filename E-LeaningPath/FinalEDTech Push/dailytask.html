@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tasks | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --celebration-1: #ff6b6b;
+            --celebration-2: #4ecdc4;
+            --celebration-3: #ffd166;
+            --celebration-4: #06d6a0;
+            --celebration-5: #118ab2;
+            --celebration-6: #ff9a76;
+            --celebration-7: #9d4edd;
+            --celebration-8: #ff5d8f;
+            --celebration-9: #00bbf9;
+            --celebration-10: #f15bb5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Daily Tasks Page Styles */
+        .daily-tasks-container {
+            padding: 30px 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 25px rgba(67, 97, 238, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .date-display {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .current-date {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .day-progress {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content Layout */
+        .tasks-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .tasks-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Task Input Section */
+        .task-input-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .task-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #22c55e;
+        }
+
+        /* Tasks List Section */
+        .tasks-list-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .section-header h2 {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--light);
+            border: none;
+            border-radius: 6px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: var(--light-gray);
+        }
+
+        /* Tasks List */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .task-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .task-item.completed {
+            background: rgba(74, 222, 128, 0.1);
+            border-left-color: var(--success);
+            opacity: 0.9;
+        }
+
+        .task-item.high-priority {
+            border-left-color: var(--danger);
+        }
+
+        .task-item.medium-priority {
+            border-left-color: var(--warning);
+        }
+
+        .task-item.low-priority {
+            border-left-color: var(--success);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .task-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .task-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .task-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        .task-category {
+            padding: 4px 12px;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .task-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .task-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: var(--gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .edit-btn:hover {
+            color: var(--warning);
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Enhanced Statistics Sidebar */
+        .stats-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .stats-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--gray);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Perfect Circle Progress Ring */
+        .progress-circle-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+        }
+
+        .progress-circle-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: var(--light-gray);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 1s ease-in-out, stroke 0.5s;
+        }
+
+        .progress-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Progress levels with different colors */
+        .progress-level-excellent .progress-circle-fill {
+            stroke: var(--celebration-4);
+        }
+
+        .progress-level-excellent .progress-percent {
+            color: var(--celebration-4);
+        }
+
+        .progress-level-good .progress-circle-fill {
+            stroke: var(--success);
+        }
+
+        .progress-level-good .progress-percent {
+            color: var(--success);
+        }
+
+        .progress-level-average .progress-circle-fill {
+            stroke: var(--accent);
+        }
+
+        .progress-level-average .progress-percent {
+            color: var(--accent);
+        }
+
+        .progress-level-poor .progress-circle-fill {
+            stroke: var(--warning);
+        }
+
+        .progress-level-poor .progress-percent {
+            color: var(--warning);
+        }
+
+        /* Enhanced Priority Distribution */
+        .priority-distribution {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .priority-item:hover {
+            transform: translateX(5px);
+        }
+
+        .priority-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .priority-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .priority-high .priority-icon {
+            background: var(--danger);
+        }
+
+        .priority-medium .priority-icon {
+            background: var(--warning);
+        }
+
+        .priority-low .priority-icon {
+            background: var(--success);
+        }
+
+        /* Productivity Tips */
+        .productivity-tips {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .tip-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .tip-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Celebration Effects */
+        .celebration-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Celebration sparkles on completed tasks */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: gold;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            box-shadow: 0 0 8px gold;
+        }
+
+        .sparkle:nth-child(odd) {
+            background: var(--celebration-3);
+            box-shadow: 0 0 8px var(--celebration-3);
+        }
+
+        .sparkle:nth-child(even) {
+            background: var(--celebration-4);
+            box-shadow: 0 0 8px var(--celebration-4);
+        }
+
+        /* Enhanced celebration text */
+        .celebration-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 3rem;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg,
+                    var(--celebration-1),
+                    var(--celebration-3),
+                    var(--celebration-4));
+            background-clip: text;
+            -webkit-background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            z-index: 10000;
+            pointer-events: none;
+            white-space: nowrap;
+            display: none;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        /* Task completion animation */
+        .completion-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(74, 222, 128, 0.3), transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        /* Completion Badge */
+        .completion-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--success), var(--celebration-4));
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: badgePop 0.5s ease-out;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        /* Progress milestone celebration */
+        .milestone-celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            z-index: 10001;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            border: 3px solid var(--celebration-4);
+            max-width: 300px;
+        }
+
+        .milestone-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .milestone-icon {
+            font-size: 2.5rem;
+            color: var(--celebration-4);
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--gray);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .task-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .task-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .task-actions {
+                align-self: flex-end;
+            }
+
+            .progress-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .celebration-text {
+                font-size: 2rem;
+            }
+
+            .milestone-celebration {
+                padding: 15px 20px;
+                width: 90%;
+            }
+        }
+
+        /* Priority Badges */
+        .priority-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .priority-low {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--success);
+        }
+
+        /* Modal for Editing */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Updated confetti animation - falls to bottom and disappears */
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkleBurst {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textCelebration {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes milestonePopup {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: translate(-50%, -50%) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes badgePop {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.2) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: -100px;
+            }
+
+            100% {
+                background-position: 200px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        .slide-up {
+            animation: slideUp 0.3s ease;
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Celebration Containers -->
+    <div class="celebration-container" id="celebrationContainer"></div>
+    <div class="celebration-text" id="celebrationText">Great Job!</div>
+    <div class="milestone-celebration" id="milestoneCelebration">
+        <div class="milestone-content">
+            <div class="milestone-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2 id="milestoneTitle">Milestone Reached!</h2>
+            <p id="milestoneMessage">You've completed an important goal!</p>
+            <button class="btn btn-success" id="closeMilestoneBtn">
+                <i class="fas fa-check"></i> Awesome!
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>LearnSmart AI</span>
+                </div>
+
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="learningpath.html">Learning Path</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="dailytask.html">Daily Task</a></li>
+                        <li><a href="#" data-tab="assessments">Assessments</a></li>
+                    </ul>
+                </nav>
+
+                <div class="user-profile">
+                    <div class="avatar">SU</div>
+                    <div>
+                        <div class="user-name">Swaminarayan</div>
+                        <div class="user-level">Advanced Learner</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="daily-tasks-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <div class="header-text">
+                        <h1><i class="fas fa-tasks"></i> Daily Tasks Manager</h1>
+                        <p>Plan your day, track progress, and achieve your learning goals efficiently</p>
+                    </div>
+                    <div class="date-display">
+                        <div class="current-date" id="currentDate">Loading...</div>
+                        <div class="day-progress" id="dayProgress">0/0 tasks completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tasks-layout">
+                <!-- Left Column: Task Input and List -->
+                <div class="main-content">
+                    <!-- Task Input Form -->
+                    <section class="task-input-section">
+                        <h2><i class="fas fa-plus-circle"></i> Add New Task</h2>
+                        <form id="taskForm" class="task-form">
+                            <div class="form-group">
+                                <label for="taskTitle"><i class="fas fa-heading"></i> Task Title</label>
+                                <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="taskDescription"><i class="fas fa-align-left"></i> Description</label>
+                                <textarea id="taskDescription" placeholder="Add details about the task..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="taskCategory"><i class="fas fa-tag"></i> Category</label>
+                                    <select id="taskCategory">
+                                        <option value="study">Study</option>
+                                        <option value="assignment">Assignment</option>
+                                        <option value="project">Project</option>
+                                        <option value="review">Review</option>
+                                        <option value="practice">Practice</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="taskPriority"><i class="fas fa-exclamation-circle"></i> Priority</label>
+                                    <select id="taskPriority">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="taskDueTime"><i class="fas fa-clock"></i> Due Time</label>
+                                    <input type="time" id="taskDueTime" value="18:00">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="taskEstimate"><i class="fas fa-hourglass-half"></i> Estimated Time
+                                        (min)</label>
+                                    <input type="number" id="taskEstimate" min="5" max="480" value="60" step="5">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Tasks List -->
+                    <section class="tasks-list-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-list-check"></i> Today's Tasks</h2>
+                            <div class="filter-controls">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="pending">Pending</button>
+                                <button class="filter-btn" data-filter="completed">Completed</button>
+                                <button class="filter-btn" data-filter="high">High Priority</button>
+                            </div>
+                        </div>
+
+                        <div class="tasks-list" id="tasksList">
+                            <!-- Tasks will be dynamically added here -->
+                            <div class="empty-state" id="emptyState">
+                                <div class="empty-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <h3>No tasks yet</h3>
+                                <p>Add your first task to get started with your day!</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Statistics and Tips -->
+                <div class="stats-sidebar">
+                    <!-- Daily Statistics -->
+                    <div class="stats-card">
+                        <h3><i class="fas fa-chart-pie"></i> Daily Progress</h3>
+                        <div class="progress-circle-container">
+                            <div class="progress-circle" id="progressCircle">
+                                <svg class="progress-circle-svg">
+                                    <circle class="progress-circle-bg" cx="75" cy="75" r="70"></circle>
+                                    <circle class="progress-circle-fill" cx="75" cy="75" r="70"></circle>
+                                </svg>
+                                <div class="progress-circle-text">
+                                    <div class="progress-percent" id="progressPercent">0%</div>
+                                    <div class="progress-label">Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Tasks:</span>
+                            <span class="stat-value" id="totalTasks">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completed:</span>
+                            <span class="stat-value" id="completedTasks">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending:</span>
+                            <span class="stat-value" id="pendingTasks">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Time:</span>
+                            <span class="stat-value" id="totalTime">0 min</span>
+                        </div>
+                    </div>
+
+                    <!-- Priority Distribution -->
+                    <div class="stats-card">
+                        <h3><i class="fas fa-flag"></i> Priority Distribution</h3>
+                        <div class="priority-distribution">
+                            <div class="priority-item priority-high">
+                                <div class="priority-info">
+                                    <div class="priority-icon">
+                                        <i class="fas fa-exclamation"></i>
+                                    </div>
+                                    <span>High Priority</span>
+                                </div>
+                                <span class="stat-value" id="highPriorityCount">0</span>
+                            </div>
+                            <div class="priority-item priority-medium">
+                                <div class="priority-info">
+                                    <div class="priority-icon">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <span>Medium Priority</span>
+                                </div>
+                                <span class="stat-value" id="mediumPriorityCount">0</span>
+                            </div>
+                            <div class="priority-item priority-low">
+                                <div class="priority-info">
+                                    <div class="priority-icon">
+                                        <i class="fas fa-flag"></i>
+                                    </div>
+                                    <span>Low Priority</span>
+                                </div>
+                                <span class="stat-value" id="lowPriorityCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Productivity Tips -->
+                    <div class="productivity-tips">
+                        <h3><i class="fas fa-lightbulb"></i> Productivity Tips</h3>
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h4>Focus on MITs</h4>
+                                <p>Identify 1-3 Most Important Tasks each day and complete them first.</p>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h4>2-Minute Rule</h4>
+                                <p>If a task takes less than 2 minutes, do it immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Edit Task</h3>
+                <button class="modal-close" id="closeEditModal">&times;</button>
+            </div>
+            <form id="editTaskForm">
+                <div class="form-group">
+                    <label for="editTaskTitle">Task Title</label>
+                    <input type="text" id="editTaskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskDescription">Description</label>
+                    <textarea id="editTaskDescription"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTaskCategory">Category</label>
+                        <select id="editTaskCategory">
+                            <option value="study">Study</option>
+                            <option value="assignment">Assignment</option>
+                            <option value="project">Project</option>
+                            <option value="review">Review</option>
+                            <option value="practice">Practice</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTaskPriority">Priority</label>
+                        <select id="editTaskPriority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTaskDueTime">Due Time</label>
+                        <input type="time" id="editTaskDueTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="editTaskEstimate">Estimated Time (min)</label>
+                        <input type="number" id="editTaskEstimate" min="5" max="480">
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" id="cancelEditBtn" class="btn" style="flex: 1; background: var(--light);">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>LearnSmart AI &copy; 2023 - EdTech 2.0 Platform for Smarter Learning</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                Personalized Learning | Adaptive Assessment | Productivity Tools
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize tasks array - EMPTY from the start
+        let tasks = [];
+        let currentFilter = 'all';
+        let editingTaskId = null;
+        let lastProgress = 0;
+
+        // DOM Elements
+        const taskForm = document.getElementById('taskForm');
+        const tasksList = document.getElementById('tasksList');
+        const emptyState = document.getElementById('emptyState');
+        const editModal = document.getElementById('editModal');
+        const editTaskForm = document.getElementById('editTaskForm');
+        const closeEditModal = document.getElementById('closeEditModal');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const celebrationContainer = document.getElementById('celebrationContainer');
+        const celebrationText = document.getElementById('celebrationText');
+        const milestoneCelebration = document.getElementById('milestoneCelebration');
+        const closeMilestoneBtn = document.getElementById('closeMilestoneBtn');
+
+        // Celebration colors array
+        const celebrationColors = [
+            'var(--celebration-1)', 'var(--celebration-2)', 'var(--celebration-3)',
+            'var(--celebration-4)', 'var(--celebration-5)'
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            // Clear any existing data from localStorage
+            localStorage.removeItem('learnsmart-daily-tasks');
+
+            // Reset tasks array to empty
+            tasks = [];
+
+            updateDateDisplay();
+            renderTasks();
+            updateStatistics();
+            setupEventListeners();
+
+            // // Show welcome message instead of celebration
+            // showNotification('Welcome to your fresh Daily Tasks Manager! Start by adding your first task.', 'info');
+        });
+
+        // Update date display
+        function updateDateDisplay() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Task form submission
+            taskForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                addNewTask();
+            });
+
+            // Filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    renderTasks();
+                });
+            });
+
+            // Modal close events
+            closeEditModal.addEventListener('click', () => {
+                editModal.style.display = 'none';
+            });
+
+            cancelEditBtn.addEventListener('click', () => {
+                editModal.style.display = 'none';
+            });
+
+            editModal.addEventListener('click', (e) => {
+                if (e.target === editModal) {
+                    editModal.style.display = 'none';
+                }
+            });
+
+            // Edit form submission
+            editTaskForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                saveTaskChanges();
+            });
+
+            // Milestone close button
+            closeMilestoneBtn.addEventListener('click', () => {
+                milestoneCelebration.style.display = 'none';
+            });
+        }
+
+        // Add new task
+        function addNewTask() {
+            const task = {
+                id: Date.now(),
+                title: document.getElementById('taskTitle').value,
+                description: document.getElementById('taskDescription').value,
+                category: document.getElementById('taskCategory').value,
+                priority: document.getElementById('taskPriority').value,
+                dueTime: document.getElementById('taskDueTime').value,
+                estimate: parseInt(document.getElementById('taskEstimate').value),
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+
+            tasks.push(task);
+            saveTasks();
+            renderTasks();
+            updateStatistics();
+
+            // Reset form
+            taskForm.reset();
+            document.getElementById('taskCategory').value = 'study';
+            document.getElementById('taskPriority').value = 'medium';
+            document.getElementById('taskDueTime').value = '18:00';
+            document.getElementById('taskEstimate').value = '60';
+
+            // Show success message
+            showNotification('Task added successfully!', 'success');
+        }
+
+        // Render tasks based on current filter
+        function renderTasks() {
+            const filteredTasks = filterTasks();
+
+            if (filteredTasks.length === 0) {
+                emptyState.style.display = 'block';
+                tasksList.innerHTML = '';
+                tasksList.appendChild(emptyState);
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tasksList.innerHTML = '';
+
+            filteredTasks.forEach(task => {
+                const taskElement = createTaskElement(task);
+                tasksList.appendChild(taskElement);
+            });
+        }
+
+        // Filter tasks based on current filter
+        function filterTasks() {
+            switch (currentFilter) {
+                case 'pending':
+                    return tasks.filter(task => !task.completed);
+                case 'completed':
+                    return tasks.filter(task => task.completed);
+                case 'high':
+                    return tasks.filter(task => task.priority === 'high');
+                default:
+                    return tasks;
+            }
+        }
+
+        // Create task element
+        function createTaskElement(task) {
+            const div = document.createElement('div');
+            div.className = `task-item ${task.completed ? 'completed' : ''} ${task.priority}-priority slide-up`;
+            div.dataset.id = task.id;
+
+            const priorityClass = `priority-${task.priority}`;
+            const priorityText = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
+
+            div.innerHTML = `
+            ${task.completed ? '<div class="completion-badge">COMPLETED!</div>' : ''}
+            <div class="completion-animation"></div>
+            <div class="task-header">
+                <div class="task-title">
+                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" 
+                         onclick="toggleTaskCompletion(${task.id})">
+                        ${task.completed ? '<i class="fas fa-check"></i>' : ''}
+                    </div>
+                    <span>${task.title}</span>
+                </div>
+                <span class="task-category">${task.category}</span>
+            </div>
+            <div class="task-description">${task.description || 'No description'}</div>
+            <div class="task-footer">
+                <div class="task-meta">
+                    <div class="task-meta-item">
+                        <i class="fas fa-flag" style="color: ${getPriorityColor(task.priority)}"></i>
+                        <span class="priority-badge ${priorityClass}">${priorityText}</span>
+                    </div>
+                    <div class="task-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>${task.dueTime}</span>
+                    </div>
+                    <div class="task-meta-item">
+                        <i class="fas fa-hourglass-half"></i>
+                        <span>${task.estimate} min</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="action-btn edit-btn" onclick="editTask(${task.id})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteTask(${task.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+            // Add sparkles for completed tasks
+            if (task.completed) {
+                const taskElement = div;
+                setTimeout(() => {
+                    createSparkles(taskElement);
+                }, 100);
+
+                // Add shine effect for completed tasks
+                div.classList.add('shine-effect');
+            }
+
+            return div;
+        }
+
+        // Get priority color
+        function getPriorityColor(priority) {
+            const colors = {
+                high: '#ef4444',
+                medium: '#f59e0b',
+                low: '#4ade80'
+            };
+            return colors[priority] || '#64748b';
+        }
+
+        // Toggle task completion
+        function toggleTaskCompletion(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                const wasCompleted = task.completed;
+                task.completed = !task.completed;
+                saveTasks();
+                renderTasks();
+                updateStatistics();
+
+                // Show celebration if task was just completed
+                if (!wasCompleted && task.completed) {
+                    celebrateTaskCompletion(task);
+                }
+
+                const action = task.completed ? 'completed' : 'marked as pending';
+                showNotification(`Task "${task.title}" ${action}`, 'success');
+            }
+        }
+
+        // Enhanced celebration effects for task completion
+        function celebrateTaskCompletion(task) {
+            // Create confetti
+            createConfettiRain();
+
+            // Show celebration text
+            showCelebrationText();
+
+            // Play completion sound
+            playCompletionSound();
+
+            // Create local sparkles around the task
+            const taskElement = document.querySelector(`.task-item[data-id="${task.id}"]`);
+            if (taskElement) {
+                createTaskSparkles(taskElement);
+                showTaskCompletionAnimation(taskElement);
+            }
+
+            // Check for milestones
+            checkMilestones();
+        }
+
+        // Create confetti rain effect - REDUCED AMOUNT
+        function createConfettiRain() {
+            celebrationContainer.style.display = 'block';
+            celebrationContainer.innerHTML = '';
+
+            // Create only 50 confetti pieces (reduced from 300)
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+
+                // Random color
+                const color = celebrationColors[Math.floor(Math.random() * celebrationColors.length)];
+                confetti.style.background = color;
+
+                // Random position
+                confetti.style.left = Math.random() * 100 + 'vw';
+
+                // Random size
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+
+                // Random shape (square or circle)
+                if (Math.random() < 0.5) {
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.borderRadius = '0';
+                }
+
+                // Random rotation
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+                // Random animation - falls to bottom and disappears
+                const duration = Math.random() * 2 + 1.5; // 1.5-3.5 seconds
+                const delay = Math.random() * 0.5;
+                confetti.style.animation = `confettiFall ${duration}s ease-in ${delay}s forwards`;
+
+                celebrationContainer.appendChild(confetti);
+
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.remove();
+                    }
+                }, (duration + delay) * 1000 + 100);
+            }
+
+            // Hide container after all confetti is gone
+            setTimeout(() => {
+                celebrationContainer.style.display = 'none';
+                celebrationContainer.innerHTML = '';
+            }, 4000);
+        }
+
+        // Show celebration text
+        function showCelebrationText() {
+            const messages = [
+                "Great Job!",
+                "Task Completed!",
+                "Well Done!",
+                "Excellent!",
+                "You're Amazing!"
+            ];
+
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            celebrationText.textContent = randomMessage;
+            celebrationText.style.display = 'block';
+            celebrationText.style.animation = 'textCelebration 1s ease-out forwards';
+
+            setTimeout(() => {
+                celebrationText.style.display = 'none';
+            }, 2000);
+        }
+
+        // Play completion sound
+        function playCompletionSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+
+                gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log("Audio context not supported");
+            }
+        }
+
+        // Create sparkles around a task
+        function createTaskSparkles(taskElement) {
+            const rect = taskElement.getBoundingClientRect();
+
+            for (let i = 0; i < 15; i++) { // Reduced from 30
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+
+                // Random position around the task
+                const x = Math.random() * rect.width;
+                const y = Math.random() * rect.height;
+
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+
+                // Random size
+                const size = Math.random() * 6 + 3;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+
+                const duration = Math.random() * 0.6 + 0.3;
+                const delay = Math.random() * 0.2;
+                sparkle.style.animation = `sparkleBurst ${duration}s ease-out ${delay}s forwards`;
+
+                taskElement.appendChild(sparkle);
+
+                // Remove sparkle after animation
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.remove();
+                    }
+                }, (duration + delay) * 1000);
+            }
+        }
+
+        // Show task completion animation
+        function showTaskCompletionAnimation(taskElement) {
+            const animation = taskElement.querySelector('.completion-animation');
+            if (animation) {
+                animation.style.opacity = '1';
+                animation.style.transition = 'opacity 1s';
+
+                setTimeout(() => {
+                    animation.style.opacity = '0';
+                }, 1000);
+            }
+        }
+
+        // Create persistent sparkles for completed tasks
+        function createSparkles(taskElement) {
+            for (let i = 0; i < 6; i++) { // Reduced from 12
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+
+                sparkle.style.left = x + '%';
+                sparkle.style.top = y + '%';
+
+                // Random size
+                const size = Math.random() * 4 + 2;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+
+                // Random animation with infinite loop
+                const duration = Math.random() * 1 + 0.5;
+                const delay = Math.random() * 0.5;
+                sparkle.style.animation = `sparkleBurst ${duration}s ease-out ${delay}s infinite`;
+
+                taskElement.appendChild(sparkle);
+            }
+        }
+
+        // Check for progress milestones
+        function checkMilestones() {
+            const completedTasks = tasks.filter(t => t.completed).length;
+            const totalTasks = tasks.length;
+            const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+            // Check if we reached a milestone (25%, 50%, 75%, 100%)
+            const milestones = [25, 50, 75, 100];
+            milestones.forEach(milestone => {
+                if (progress >= milestone && lastProgress < milestone) {
+                    showMilestoneCelebration(milestone, progress);
+                }
+            });
+
+            lastProgress = progress;
+        }
+
+        // Show milestone celebration
+        function showMilestoneCelebration(milestone, progress) {
+            const milestoneTitles = {
+                25: "Great Start!",
+                50: "Halfway There!",
+                75: "Almost Done!",
+                100: "All Tasks Complete!"
+            };
+
+            const milestoneMessages = {
+                25: "You've completed 25% of your tasks for today!",
+                50: "Half of your tasks are done! Keep going!",
+                75: "You're at 75% completion! Almost there!",
+                100: "Amazing! You've completed all tasks for today!"
+            };
+
+            document.getElementById('milestoneTitle').textContent = milestoneTitles[milestone] || "Milestone Reached!";
+            document.getElementById('milestoneMessage').textContent = milestoneMessages[milestone] || `You've reached ${progress}% completion!`;
+
+            milestoneCelebration.style.display = 'block';
+            milestoneCelebration.style.animation = 'milestonePopup 0.5s ease-out forwards';
+
+            // Special celebration for 100%
+            if (milestone === 100) {
+                createVictoryCelebration();
+            }
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                milestoneCelebration.style.display = 'none';
+            }, 5000);
+        }
+
+        // Special victory celebration for 100% completion
+        function createVictoryCelebration() {
+            // Create confetti burst - reduced amount
+            for (let i = 0; i < 80; i++) { // Reduced from 500
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+
+                    // Random color
+                    confetti.style.background = celebrationColors[Math.floor(Math.random() * celebrationColors.length)];
+
+                    // Random position
+                    confetti.style.left = Math.random() * 100 + 'vw';
+
+                    // Random size
+                    const size = Math.random() * 12 + 5;
+                    confetti.style.width = size + 'px';
+                    confetti.style.height = size + 'px';
+
+                    // Random shape
+                    if (Math.random() < 0.5) {
+                        confetti.style.borderRadius = '50%';
+                    } else {
+                        confetti.style.borderRadius = '0';
+                    }
+
+                    // Random animation
+                    const duration = Math.random() * 3 + 2;
+                    const delay = Math.random() * 1;
+                    confetti.style.animation = `confettiFall ${duration}s ease-in ${delay}s forwards`;
+
+                    celebrationContainer.appendChild(confetti);
+
+                    // Remove after animation
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.remove();
+                        }
+                    }, (duration + delay) * 1000);
+                }, i * 20); // Stagger creation
+            }
+
+            // Play victory sound sequence
+            playVictorySound();
+        }
+
+        // Enhanced victory sound
+        function playVictorySound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+                // Play a victory fanfare
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+
+                        oscillator.frequency.value = freq;
+                        oscillator.type = 'sine';
+
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                    }, index * 150);
+                });
+            } catch (e) {
+                console.log("Audio context not supported");
+            }
+        }
+
+        // Edit task
+        function editTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                editingTaskId = taskId;
+
+                document.getElementById('editTaskTitle').value = task.title;
+                document.getElementById('editTaskDescription').value = task.description;
+                document.getElementById('editTaskCategory').value = task.category;
+                document.getElementById('editTaskPriority').value = task.priority;
+                document.getElementById('editTaskDueTime').value = task.dueTime;
+                document.getElementById('editTaskEstimate').value = task.estimate;
+
+                editModal.style.display = 'flex';
+            }
+        }
+
+        // Save task changes
+        function saveTaskChanges() {
+            if (!editingTaskId) return;
+
+            const task = tasks.find(t => t.id === editingTaskId);
+            if (task) {
+                task.title = document.getElementById('editTaskTitle').value;
+                task.description = document.getElementById('editTaskDescription').value;
+                task.category = document.getElementById('editTaskCategory').value;
+                task.priority = document.getElementById('editTaskPriority').value;
+                task.dueTime = document.getElementById('editTaskDueTime').value;
+                task.estimate = parseInt(document.getElementById('editTaskEstimate').value);
+
+                saveTasks();
+                renderTasks();
+                updateStatistics();
+                editModal.style.display = 'none';
+
+                showNotification('Task updated successfully!', 'success');
+            }
+        }
+
+        // Delete task
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => t.id !== taskId);
+                saveTasks();
+                renderTasks();
+                updateStatistics();
+                showNotification('Task deleted successfully!', 'success');
+            }
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(t => t.completed).length;
+            const pendingTasks = totalTasks - completedTasks;
+            const totalTime = tasks.reduce((sum, task) => sum + task.estimate, 0);
+
+            const highPriorityCount = tasks.filter(t => t.priority === 'high').length;
+            const mediumPriorityCount = tasks.filter(t => t.priority === 'medium').length;
+            const lowPriorityCount = tasks.filter(t => t.priority === 'low').length;
+
+            const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+            // Update DOM
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('pendingTasks').textContent = pendingTasks;
+            document.getElementById('totalTime').textContent = `${totalTime} min`;
+            document.getElementById('highPriorityCount').textContent = highPriorityCount;
+            document.getElementById('mediumPriorityCount').textContent = mediumPriorityCount;
+            document.getElementById('lowPriorityCount').textContent = lowPriorityCount;
+            document.getElementById('progressPercent').textContent = `${progress}%`;
+            document.getElementById('dayProgress').textContent = `${completedTasks}/${totalTasks} tasks completed`;
+
+            // Update progress circle
+            const progressCircle = document.querySelector('.progress-circle-fill');
+            const circumference = 2 * Math.PI * 70;
+            const offset = circumference - (progress / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+
+            // Update progress circle class based on progress level
+            const progressCircleContainer = document.getElementById('progressCircle');
+            progressCircleContainer.classList.remove('progress-level-excellent', 'progress-level-good', 'progress-level-average', 'progress-level-poor');
+
+            if (progress >= 80) {
+                progressCircleContainer.classList.add('progress-level-excellent');
+            } else if (progress >= 60) {
+                progressCircleContainer.classList.add('progress-level-good');
+            } else if (progress >= 30) {
+                progressCircleContainer.classList.add('progress-level-average');
+            } else {
+                progressCircleContainer.classList.add('progress-level-poor');
+            }
+
+            // Pulse animation when progress increases
+            if (progress > lastProgress) {
+                progressCircleContainer.classList.add('pulse');
+                setTimeout(() => {
+                    progressCircleContainer.classList.remove('pulse');
+                }, 500);
+            }
+
+            // Check for milestones
+            checkMilestones();
+        }
+
+        // Save tasks to localStorage
+        function saveTasks() {
+            localStorage.setItem('learnsmart-daily-tasks', JSON.stringify(tasks));
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification fade-in`;
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#4ade80' : '#4361ee'};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+
+            notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        `;
+
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease forwards';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Add CSS for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    `;
+        document.head.appendChild(style);
+
+        // Make functions available globally for onclick handlers
+        window.toggleTaskCompletion = toggleTaskCompletion;
+        window.editTask = editTask;
+        window.deleteTask = deleteTask;
+    </script>
+</body>
+
+</html>

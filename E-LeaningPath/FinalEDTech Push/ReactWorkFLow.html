@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React.js Learning Workflow | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap">
+    <style>
+        :root {
+            --react-primary: #61dafb;
+            --react-secondary: #087ea4;
+            --react-accent: #00d8ff;
+            --react-dark: #20232a;
+            --react-light: #282c34;
+            --react-card-bg: #ffffff;
+            --react-gradient: linear-gradient(135deg, #61dafb, #087ea4);
+            --react-timeline: #61dafb;
+            --react-notes: #61dafb;
+            --react-progress: #61dafb;
+            --react-success: #61dafb;
+            --react-warning: #f59e0b;
+            --react-danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--react-dark);
+            line-height: 1.6;
+            padding: 0;
+            background: linear-gradient(135deg, #fefefe 0%, #f8f9fa 100%);
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header with Circular Moving Logo */
+        .page-header {
+            background: var(--react-gradient);
+            color: white;
+            padding: 40px 0;
+            padding-left: 30px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(97, 218, 251, 0.25);
+            position: relative;
+            overflow: hidden;
+            min-height: 220px;
+        }
+
+        .page-header::before {
+            content: "React";
+            position: absolute;
+            top: -50px;
+            right: 30px;
+            font-size: 250px;
+            font-weight: 900;
+            opacity: 0.05;
+            font-family: 'JetBrains Mono', monospace;
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Main Logo Container for Circular Animation */
+        .main-logo-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Circular Path for Main Logo */
+        .circular-path {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        /* Main React Logo that Moves in Circle */
+        .main-react-logo {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 70px;
+            color: var(--react-primary);
+            filter: drop-shadow(0 0 20px rgba(97, 218, 251, 0.8));
+            animation: circularOrbit 25s linear infinite, logoSpin 15s linear infinite, logoGlow 3s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        /* Circular Orbit Animation */
+        @keyframes circularOrbit {
+            0% {
+                transform: rotate(0deg) translateX(175px) rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg) translateX(175px) rotate(-360deg);
+            }
+        }
+
+        /* Logo Spin Animation */
+        @keyframes logoSpin {
+            0% {
+                transform: rotate(0deg) translateX(175px) rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg) translateX(175px) rotate(-360deg);
+            }
+        }
+
+        /* Logo Glow Animation */
+        @keyframes logoGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 15px rgba(97, 218, 251, 0.8));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px rgba(97, 218, 251, 1));
+            }
+        }
+
+        /* Floating Effect */
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: rotate(0deg) translateX(175px) rotate(0deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(0deg) translateX(175px) rotate(0deg) translateY(-10px);
+            }
+        }
+
+        /* Add floating effect to main logo */
+        .main-react-logo {
+            animation: circularOrbit 25s linear infinite, logoSpin 15s linear infinite, logoGlow 3s ease-in-out infinite, logoFloat 5s ease-in-out infinite;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--react-secondary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--react-secondary);
+            font-weight: 500;
+        }
+
+        /* Main layout */
+        .workflow-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .workflow-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: var(--react-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(97, 218, 251, 0.3);
+        }
+
+        .section-title h2 {
+            color: var(--react-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--react-gradient);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(97, 218, 251, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--react-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(97, 218, 251, 0.15);
+            background: white;
+        }
+
+        .timeline-item.active {
+            border-left: 6px solid var(--react-primary);
+            background: linear-gradient(to right, rgba(97, 218, 251, 0.08), rgba(97, 218, 251, 0.02));
+            box-shadow: 0 5px 15px rgba(97, 218, 251, 0.15);
+        }
+
+        .timeline-item.completed {
+            border-left-color: var(--react-primary);
+            background-color: rgba(97, 218, 251, 0.1);
+        }
+
+        .timeline-item.completed .timeline-title::after {
+            color: var(--react-secondary);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -47.5px;
+            top: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--react-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--react-dark);
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.3);
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: var(--react-primary);
+            color: var(--react-dark);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--react-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-title i {
+            color: var(--react-primary);
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+        }
+
+        .timeline-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .timeline-resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .resource-tag {
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            transition: all 0.2s;
+        }
+
+        .resource-tag:hover {
+            background: rgba(97, 218, 251, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .resource-tag i {
+            font-size: 0.8rem;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--react-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: #e2e8f0;
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--react-primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--react-secondary);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .time-estimate {
+            background: rgba(97, 218, 251, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--react-primary);
+        }
+
+        .time-estimate h4 {
+            margin-bottom: 10px;
+            color: var(--react-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-breakdown {
+            margin-top: 15px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(97, 218, 251, 0.3);
+        }
+
+        .time-item:last-child {
+            border-bottom: none;
+        }
+
+        .time-item.total {
+            font-weight: 600;
+            color: var(--react-secondary);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(97, 218, 251, 0.3);
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: var(--react-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            background: rgba(97, 218, 251, 0.05);
+            border-radius: 12px;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .tip-item:hover {
+            transform: translateX(8px);
+            background: rgba(97, 218, 251, 0.1);
+            border-color: rgba(97, 218, 251, 0.3);
+        }
+
+        .tip-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--react-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--react-dark);
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(97, 218, 251, 0.3);
+        }
+
+        .tip-content h4 {
+            margin-bottom: 8px;
+            color: var(--react-secondary);
+            font-size: 1.1rem;
+        }
+
+        .tip-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(97, 218, 251, 0.2);
+            color: #666;
+            font-size: 0.9rem;
+            background: rgba(97, 218, 251, 0.03);
+            border-radius: 16px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--react-gradient);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(97, 218, 251, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-marker {
+                left: -32px;
+            }
+
+            .circular-path {
+                width: 250px;
+                height: 250px;
+            }
+
+            .main-react-logo {
+                font-size: 50px;
+                animation: circularOrbit 25s linear infinite, logoSpin 15s linear infinite, logoGlow 3s ease-in-out infinite, logoFloat 5s ease-in-out infinite;
+            }
+
+            @keyframes circularOrbit {
+                0% {
+                    transform: rotate(0deg) translateX(125px) rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg) translateX(125px) rotate(-360deg);
+                }
+            }
+
+            @keyframes logoSpin {
+                0% {
+                    transform: rotate(0deg) translateX(125px) rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg) translateX(125px) rotate(-360deg);
+                }
+            }
+
+            @keyframes logoFloat {
+
+                0%,
+                100% {
+                    transform: rotate(0deg) translateX(125px) rotate(0deg) translateY(0);
+                }
+
+                50% {
+                    transform: rotate(0deg) translateX(125px) rotate(0deg) translateY(-10px);
+                }
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section,
+            .progress-section,
+            .tips-section {
+                padding: 20px;
+            }
+
+            .circular-path {
+                width: 200px;
+                height: 200px;
+            }
+
+            .main-react-logo {
+                font-size: 40px;
+            }
+        }
+
+        /* Notes section */
+        .notes-section {
+            background: var(--react-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--react-primary);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .notes-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--react-gradient);
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .notes-title {
+            color: var(--react-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .notes-count {
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(97, 218, 251, 0.3);
+        }
+
+        .notes-content {
+            margin-bottom: 25px;
+        }
+
+        .notes-summary {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .notes-stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(97, 218, 251, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .note-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .note-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--react-secondary);
+            margin-bottom: 5px;
+        }
+
+        .note-stat-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Notes Button */
+        .notes-button {
+            position: relative;
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--react-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .notes-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(97, 218, 251, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .notes-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .notes-button:hover::before {
+            left: 100%;
+        }
+
+        .notes-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .notes-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .recent-notes {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(97, 218, 251, 0.2);
+        }
+
+        .recent-notes h4 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-preview {
+            background: rgba(97, 218, 251, 0.05);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--react-primary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(97, 218, 251, 0.1);
+        }
+
+        .note-preview:hover {
+            background: rgba(97, 218, 251, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(97, 218, 251, 0.3);
+        }
+
+        .note-preview-title {
+            font-weight: 600;
+            color: var(--react-secondary);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .note-preview-date {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Animation for active item */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(97, 218, 251, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0);
+            }
+        }
+
+        .timeline-item.active {
+            animation: pulse 2s infinite;
+        }
+
+        /* Progress animation */
+        @keyframes progressFill {
+            from {
+                stroke-dashoffset: 565;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Completed steps styling */
+        .timeline-item.completed .timeline-marker {
+            background: var(--react-primary);
+            color: var(--react-dark);
+        }
+
+        .completed-stats {
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(97, 218, 251, 0.3);
+        }
+
+        /* Difficulty badges */
+        .difficulty {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .difficulty.beginner {
+            background: rgba(97, 218, 251, 0.2);
+            color: var(--react-secondary);
+        }
+
+        .difficulty.intermediate {
+            background: rgba(245, 158, 11, 0.2);
+            color: #d97706;
+        }
+
+        .difficulty.advanced {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+        }
+
+        /* Logo Controls */
+        .logo-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .logo-control-btn {
+            background: var(--react-gradient);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(97, 218, 251, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .logo-control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(97, 218, 251, 0.4);
+        }
+
+        .logo-control-btn.secondary {
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            border: 1px solid rgba(97, 218, 251, 0.3);
+        }
+
+        .logo-speed-display {
+            background: white;
+            color: var(--react-secondary);
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --react-primary: #61dafb;
+            --react-secondary: #087ea4;
+            --react-dark: #20232a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .workflow-header {
+            background: linear-gradient(135deg, var(--react-dark) 0%, #2c3e50 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(32, 35, 42, 0.15);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workflow-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2361dafb' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-text h1 i {
+            color: var(--react-primary);
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .header-text p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            /* background: rgba(255, 255, 255, 0.1); */
+        }
+
+        .stat-item .number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--react-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-header h2 {
+            color: var(--react-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--light-gray);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--react-primary), #087ea4);
+            border-radius: 6px;
+            width: 25%;
+            transition: width 1s ease;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Workflow Steps */
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 5px solid var(--react-primary);
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(97, 218, 251, 0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--react-primary);
+            color: var(--react-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-header {
+            margin-bottom: 20px;
+        }
+
+        .step-header h3 {
+            color: var(--react-dark);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .step-level {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            margin-bottom: 25px;
+        }
+
+        .step-topic {
+            background: var(--light-gray);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step-topic:hover {
+            background: rgba(97, 218, 251, 0.1);
+            transform: translateX(5px);
+        }
+
+        .step-topic i {
+            color: var(--react-primary);
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--react-primary), var(--react-secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(97, 218, 251, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--react-primary);
+            border: 2px solid var(--react-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(97, 218, 251, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            color: var(--react-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--react-primary), var(--react-secondary));
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--react-primary);
+            box-shadow: 0 10px 30px rgba(97, 218, 251, 0.15);
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(97, 218, 251, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--react-primary);
+            font-size: 1.5rem;
+        }
+
+        .project-card h4 {
+            color: var(--react-dark);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .project-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-secondary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Certification Section */
+        .certification-section {
+            background: linear-gradient(135deg, var(--react-dark) 0%, #2c3e50 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certification-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2361dafb' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .cert-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cert-content h2 {
+            color: var(--react-primary);
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .cert-badge {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--react-primary), var(--react-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(97, 218, 251, 0.3);
+        }
+
+        /* Navigation */
+        .workflow-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-stats {
+                justify-content: center;
+            }
+
+            .progress-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .workflow-header {
+                padding: 25px;
+            }
+
+            .step-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .workflow-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header with Circular Moving Logo -->
+        <div class="workflow-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1><i class="fab fa-react"></i> React.js Development Workflow</h1>
+                    <p>Master modern React development with hooks, context API, Redux, and Next.js. Build real-world
+                        applications through this comprehensive learning path.</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="number">8</div>
+                        <div class="label">Modules</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">60+</div>
+                        <div class="label">Hours</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">5</div>
+                        <div class="label">Projects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workflow-container">
+            <!-- Main Content - Timeline -->
+            <main>
+                <section class="timeline-section">
+                    <div class="section-title">
+                        <h2><i class="fas fa-road"></i> React.js Learning Roadmap</h2>
+                    </div>
+
+                    <div class="timeline">
+                        <!-- Week 1 -->
+                        <div class="timeline-item active" data-step="1">
+                            <div class="timeline-marker">1</div>
+                            <h3 class="timeline-title"><i class="fas fa-code"></i> React Fundamentals & JSX
+                                <span class="difficulty beginner">Beginner</span>
+                            </h3>
+                            <span class="timeline-duration">Week 1-2</span>
+                            <p class="timeline-description">Learn React basics: components, JSX syntax, props, and
+                                state. Understand the virtual DOM and how React renders UI efficiently.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-play-circle"></i> Interactive
+                                    Tutorial</span>
+                                <span class="resource-tag"><i class="fas fa-file-code"></i> Component Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-question-circle"></i> Q&A Session</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 2 -->
+                        <div class="timeline-item completed" data-step="2">
+                            <div class="timeline-marker">2</div>
+                            <h3 class="timeline-title"><i class="fas fa-cogs"></i> Component Lifecycle & State
+                                Management
+                                <span class="difficulty beginner">Beginner</span>
+                            </h3>
+                            <span class="timeline-duration">Week 3</span>
+                            <p class="timeline-description">Master component lifecycle methods, state management with
+                                useState, and event handling in React components.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-puzzle-piece"></i> State Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-code"></i> Lifecycle Challenges</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 3 -->
+                        <div class="timeline-item completed" data-step="3">
+                            <div class="timeline-marker">3</div>
+                            <h3 class="timeline-title"><i class="fas fa-hook"></i> React Hooks
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 4</span>
+                            <p class="timeline-description">Learn React Hooks: useState, useEffect, useContext,
+                                useReducer, and custom hooks. Master modern React patterns.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-database"></i> useEffect Patterns</span>
+                                <span class="resource-tag"><i class="fas fa-list"></i> Custom Hooks</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 4 -->
+                        <div class="timeline-item completed" data-step="4">
+                            <div class="timeline-marker">4</div>
+                            <h3 class="timeline-title"><i class="fas fa-sitemap"></i> Component Architecture
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 5</span>
+                            <p class="timeline-description">Learn component composition, prop drilling, context API, and
+                                higher-order components for scalable React applications.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-project-diagram"></i> Context API</span>
+                                <span class="resource-tag"><i class="fas fa-window-restore"></i> HOC Patterns</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 5 -->
+                        <div class="timeline-item" data-step="5">
+                            <div class="timeline-marker">5</div>
+                            <h3 class="timeline-title"><i class="fas fa-store"></i> State Management with Redux
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 6</span>
+                            <p class="timeline-description">Master Redux for state management: actions, reducers, store,
+                                middleware, and Redux Toolkit for modern Redux development.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Redux Toolkit</span>
+                                <span class="resource-tag"><i class="fas fa-book"></i> State Patterns</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 6 -->
+                        <div class="timeline-item" data-step="6">
+                            <div class="timeline-marker">6</div>
+                            <h3 class="timeline-title"><i class="fas fa-route"></i> React Router & Navigation
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 7</span>
+                            <p class="timeline-description">Implement client-side routing with React Router, handle
+                                dynamic routes, nested routes, and navigation in React applications.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-sync-alt"></i> Route Patterns</span>
+                                <span class="resource-tag"><i class="fas fa-cloud-download-alt"></i> Lazy Loading</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 7 -->
+                        <div class="timeline-item" data-step="7">
+                            <div class="timeline-marker">7</div>
+                            <h3 class="timeline-title"><i class="fas fa-cloud"></i> API Integration & Async Operations
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 8</span>
+                            <p class="timeline-description">Learn to integrate APIs with React using fetch, axios, and
+                                React Query. Handle loading states, errors, and data caching.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> API Patterns</span>
+                                <span class="resource-tag"><i class="fas fa-project-diagram"></i> React Query</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 8 -->
+                        <div class="timeline-item" data-step="8">
+                            <div class="timeline-marker">8</div>
+                            <h3 class="timeline-title"><i class="fas fa-vial"></i> Testing React Applications
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </h3>
+                            <span class="timeline-duration">Week 9</span>
+                            <p class="timeline-description">Learn testing React components with Jest, React Testing
+                                Library, and Cypress for end-to-end testing.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-bug"></i> Unit Testing</span>
+                                <span class="resource-tag"><i class="fas fa-exclamation-triangle"></i> Integration
+                                    Testing</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 9 -->
+                        <div class="timeline-item" data-step="9">
+                            <div class="timeline-marker">9</div>
+                            <h3 class="timeline-title"><i class="fas fa-tools"></i> Build Tools & Performance
+                                <span class="difficulty advanced">Advanced</span>
+                            </h3>
+                            <span class="timeline-duration">Week 10</span>
+                            <p class="timeline-description">Master Webpack, Babel, code splitting, lazy loading, and
+                                performance optimization techniques for React applications.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-box-open"></i> Webpack Config</span>
+                                <span class="resource-tag"><i class="fas fa-cog"></i> Performance Tools</span>
+                            </div>
+                        </div>
+
+                        <!-- Week 10 -->
+                        <div class="timeline-item" data-step="10">
+                            <div class="timeline-marker">10</div>
+                            <h3 class="timeline-title"><i class="fas fa-server"></i> Server-Side Rendering with Next.js
+                                <span class="difficulty advanced">Advanced</span>
+                            </h3>
+                            <span class="timeline-duration">Week 11</span>
+                            <p class="timeline-description">Learn Next.js for server-side rendering, static site
+                                generation, and building full-stack React applications.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-vial"></i> SSR/SSG</span>
+                                <span class="resource-tag"><i class="fas fa-check-double"></i> Next.js Patterns</span>
+                            </div>
+                        </div>
+
+                        <!-- Project Week -->
+                        <div class="timeline-item" data-step="11">
+                            <div class="timeline-marker">11</div>
+                            <h3 class="timeline-title"><i class="fas fa-project-diagram"></i> Capstone Project
+                                <span class="difficulty advanced">Advanced</span>
+                            </h3>
+                            <span class="timeline-duration">Week 12</span>
+                            <p class="timeline-description">Build a complete React application: E-commerce platform,
+                                Social media dashboard, or Task management system with all concepts learned.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Project Templates</span>
+                                <span class="resource-tag"><i class="fas fa-tasks"></i> Step-by-Step Guide</span>
+                            </div>
+                        </div>
+
+                        <!-- Final Week -->
+                        <div class="timeline-item" data-step="12">
+                            <div class="timeline-marker">12</div>
+                            <h3 class="timeline-title"><i class="fas fa-trophy"></i> Review & Certification
+                                <span class="difficulty advanced">Advanced</span>
+                            </h3>
+                            <span class="timeline-duration">Week 12+</span>
+                            <p class="timeline-description">Review all concepts, complete final assessment, and earn
+                                your React.js certification. Prepare for React developer interviews.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-question"></i> Interview Prep</span>
+                                <span class="resource-tag"><i class="fas fa-certificate"></i> Certification</span>
+                                <span class="resource-tag"><i class="fas fa-clipboard-check"></i> Final Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tips Section -->
+                <section class="tips-section">
+                    <h2 class="section-title"><i class="fas fa-lightbulb"></i> React.js Learning Tips</h2>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Build Components Daily</h4>
+                            <p>Practice building small React components daily to understand props, state, and component
+                                lifecycle better.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Understand the Virtual DOM</h4>
+                            <p>Grasp how React's virtual DOM works and how reconciliation optimizes UI updates for
+                                better performance.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-hook"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Master Hooks Early</h4>
+                            <p>Focus on understanding React Hooks thoroughly as they're fundamental to modern React
+                                development.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Study Open Source Projects</h4>
+                            <p>Examine popular React projects on GitHub to learn best practices and advanced patterns.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Sidebar -->
+            <aside>
+                <!-- Progress Section -->
+                <section class="progress-section">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Learning Progress</h2>
+
+
+
+                    <div class="time-estimate">
+                        <h4><i class="fas fa-clock"></i> Time Estimate</h4>
+                        <p>Complete roadmap in 10-12 weeks with 10-12 hours/week study time.</p>
+
+                        <div class="time-breakdown">
+                            <div class="time-item">
+                                <span>Fundamentals</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Intermediate</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Advanced</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item total">
+                                <span>Total Estimated Time</span>
+                                <span>100-144 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notes Section -->
+                <section class="notes-section">
+                    <div class="notes-header">
+                        <h3 class="notes-title"><i class="fas fa-sticky-note"></i> React.js Notes</h3>
+                        <span class="notes-count" id="notes-count">22 Notes</span>
+                    </div>
+
+                    <div class="notes-content">
+                        <p class="notes-summary">
+                            Keep track of important React concepts, hooks patterns, component architectures, and
+                            personal insights as you progress.
+                        </p>
+
+                        <div class="notes-stats">
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="recent-notes">6</div>
+                                <div class="note-stat-label">Recent</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="code-snippets">11</div>
+                                <div class="note-stat-label">Code Snippets</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="important-notes">5</div>
+                                <div class="note-stat-label">Important</div>
+                            </div>
+                        </div>
+
+                        <div class="recent-notes">
+                            <h4><i class="fas fa-history"></i> Recent Notes</h4>
+                            <div class="note-preview">
+                                <div class="note-preview-title">useEffect Dependency Array Patterns</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 day ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Custom Hooks for API Calls</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 3 days ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">React Router v6 Patterns</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="learningpath.html" class="backbtn" style="background-color:#087ea4; padding: 1.5vw; border-radius: 10px; text-decoration: none; color: white; ">Back to Learning Paths </a>
+            <br>
+            <br>
+            <br>
+            <p>C Language Workflow • LearnSmart AI • Estimated completion: 12 weeks with consistent practice</p>
+        </footer>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM Elements
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressCircle = document.querySelector('.progress-circle-fill');
+            const completedCount = document.getElementById('completed-count');
+            const completedStats = document.getElementById('completed-stats');
+            const backButton = document.getElementById('back-to-templates');
+            const viewNotesBtn = document.getElementById('view-notes-btn');
+            const notesCount = document.getElementById('notes-count');
+            const recentNotes = document.getElementById('recent-notes');
+            const codeSnippets = document.getElementById('code-snippets');
+            const importantNotes = document.getElementById('important-notes');
+            const mainReactLogo = document.querySelector('.main-react-logo');
+            const speedDisplay = document.getElementById('logo-speed-display');
+
+            // Logo Control Elements
+            const speedUpBtn = document.getElementById('speed-up-logo');
+            const speedDownBtn = document.getElementById('speed-down-logo');
+            const pauseBtn = document.getElementById('pause-logo');
+            const reverseBtn = document.getElementById('reverse-logo');
+
+            // State management
+            let currentStep = 1;
+            let completedSteps = new Set([2, 3, 4]); // Initially mark steps 2,3,4 as completed
+            let totalNotes = 22;
+
+            // Logo Animation State
+            let logoSpeed = 1;
+            let isLogoPaused = false;
+            let isLogoReversed = false;
+            let originalAnimation = '';
+
+            // Initialize
+            updateProgress();
+            updateNotesStats();
+
+            // Calculate circumference for progress circle
+            const radius = 90;
+            const circumference = 2 * Math.PI * radius;
+            progressCircle.style.strokeDasharray = `${circumference}`;
+
+            // Update progress visualization
+            function updateProgress() {
+                const totalSteps = timelineItems.length;
+                const completed = completedSteps.size;
+                const percent = Math.round((completed / totalSteps) * 100);
+
+                // Update progress percentage
+                progressPercent.textContent = `${percent}%`;
+
+                // Update progress circle
+                const offset = circumference - (percent / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+
+                // Update completed count
+                completedCount.textContent = `${completed}/${totalSteps} Steps`;
+                completedStats.textContent = `${completed}/${totalSteps} Completed`;
+
+                // Update timeline items UI
+                timelineItems.forEach(item => {
+                    const step = parseInt(item.getAttribute('data-step'));
+
+                    // Remove all state classes
+                    item.classList.remove('active', 'completed');
+
+                    // Add appropriate classes
+                    if (completedSteps.has(step)) {
+                        item.classList.add('completed');
+                    } else if (step === currentStep) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            // Scroll to current step
+            function scrollToCurrentStep() {
+                const currentItem = document.querySelector(`.timeline-item[data-step="${currentStep}"]`);
+                if (currentItem) {
+                    currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Add pulse animation
+                    currentItem.style.animation = 'none';
+                    setTimeout(() => {
+                        currentItem.style.animation = 'pulse 2s infinite';
+                    }, 10);
+                }
+            }
+
+            // Click on timeline item to set as current
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    if (!completedSteps.has(step) && step !== currentStep) {
+                        currentStep = step;
+                        updateProgress();
+                        scrollToCurrentStep();
+                        showNotification(`Now focusing on: ${this.querySelector('.timeline-title').textContent}`, 'info');
+                    } else if (completedSteps.has(step)) {
+                        showNotification('This step is already completed!', 'info');
+                    }
+                });
+            });
+
+            // Back to templates button
+            backButton.addEventListener('click', function () {
+                if (confirm('Return to Learning Path Templates?')) {
+                    showNotification('Navigating back to Learning Path Templates...', 'info');
+                    // In a real app: window.location.href = 'learning-paths.html';
+                }
+            });
+
+            // View Notes Button functionality
+            viewNotesBtn.addEventListener('click', function () {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+
+                // Show notes modal
+                const stepTitles = [
+                    'React Fundamentals & JSX',
+                    'Component Lifecycle & State Management',
+                    'React Hooks',
+                    'Component Architecture',
+                    'State Management with Redux',
+                    'React Router & Navigation',
+                    'API Integration & Async Operations',
+                    'Testing React Applications',
+                    'Build Tools & Performance',
+                    'Server-Side Rendering with Next.js',
+                    'Capstone Project',
+                    'Review & Certification'
+                ];
+
+                const currentTitle = stepTitles[currentStep - 1] || 'React.js Learning';
+                showNotesModal(currentTitle);
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight' && currentStep < timelineItems.length) {
+                    if (!completedSteps.has(currentStep)) {
+                        completedSteps.add(currentStep);
+                    }
+                    currentStep++;
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                    currentStep--;
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === 'c' || e.key === 'C') {
+                    // Mark current step as completed
+                    if (!completedSteps.has(currentStep)) {
+                        completedSteps.add(currentStep);
+                        updateProgress();
+                        showNotification(`Step ${currentStep} marked as completed!`, 'success');
+                    }
+                }
+            });
+
+            // Add auto-note when clicking on note previews
+            document.querySelectorAll('.note-preview').forEach((note, index) => {
+                note.addEventListener('click', function () {
+                    const noteTitles = [
+                        'useEffect Dependency Array Patterns',
+                        'Custom Hooks for API Calls',
+                        'React Router v6 Patterns'
+                    ];
+
+                    if (index < noteTitles.length) {
+                        showNotification(`Opening note: ${noteTitles[index]}`, 'info');
+                    }
+                });
+            });
+
+            // Update notes statistics
+            function updateNotesStats() {
+                notesCount.textContent = `${totalNotes} Notes`;
+                recentNotes.textContent = Math.min(6, Math.floor(totalNotes / 3));
+                codeSnippets.textContent = Math.floor(totalNotes / 2);
+                importantNotes.textContent = Math.floor(totalNotes / 4);
+            }
+
+            // Show completion message
+            function showCompletionMessage() {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 40px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 500px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border: 5px solid var(--react-primary);
+                    ">
+                        <div style="font-size: 4rem; color: var(--react-primary); margin-bottom: 20px;">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 style="color: var(--react-secondary); margin-bottom: 15px;">React Mastery Achieved!</h2>
+                        <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">
+                            Congratulations! You've completed all steps in the React.js Learning Workflow. You're now equipped to build modern React applications.
+                        </p>
+                        <button id="close-modal" style="
+                            background: var(--react-gradient);
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            font-size: 1rem;
+                            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.3);
+                        ">
+                            Continue Learning
+                        </button>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                document.getElementById('close-modal').addEventListener('click', function () {
+                    document.body.removeChild(modal);
+                });
+            }
+
+            // Show notes modal
+            function showNotesModal(currentTitle) {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 30px;
+                        border-radius: 16px;
+                        max-width: 600px;
+                        max-height: 80vh;
+                        overflow-y: auto;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border-top: 5px solid var(--react-primary);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--react-secondary); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-book-open"></i> React.js Notes
+                            </h3>
+                            <button id="close-notes-modal" style="
+                                background: none;
+                                border: none;
+                                font-size: 1.5rem;
+                                color: #666;
+                                cursor: pointer;
+                            ">&times;</button>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--react-secondary); margin-bottom: 10px;">Current Step: ${currentTitle}</h4>
+                            <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
+                                Take notes for React concepts, hooks patterns, component architectures, and best practices. Notes are automatically saved.
+                            </p>
+                        </div>
+                        <div style="background: rgba(97, 218, 251, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(97, 218, 251, 0.1);">
+                            <h5 style="color: var(--react-secondary); margin-bottom: 10px;">Add New Note</h5>
+                            <textarea id="new-note" placeholder="Type your React note here..." style="
+                                width: 100%;
+                                height: 100px;
+                                padding: 12px;
+                                border: 1px solid rgba(97, 218, 251, 0.3);
+                                border-radius: 8px;
+                                font-family: inherit;
+                                margin-bottom: 10px;
+                                resize: vertical;
+                                background: white;
+                            "></textarea>
+                            <div style="display: flex; gap: 10px;">
+                                <button id="save-note" style="
+                                    background: var(--react-gradient);
+                                    color: white;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    border-radius: 8px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    box-shadow: 0 4px 10px rgba(97, 218, 251, 0.2);
+                                ">
+                                    <i class="fas fa-save"></i> Save Note
+                                </button>
+                                <button id="add-snippet" style="
+                                    background: rgba(97, 218, 251, 0.1);
+                                    color: var(--react-secondary);
+                                    border: 1px solid rgba(97, 218, 251, 0.3);
+                                    padding: 10px 20px;
+                                    border-radius: 8px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                ">
+                                    <i class="fas fa-code"></i> Add Code Snippet
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--react-secondary); margin-bottom: 15px;">Recent Notes (${totalNotes} total)</h5>
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                ${generateNotesList()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                document.getElementById('close-notes-modal').addEventListener('click', function () {
+                    document.body.removeChild(modal);
+                });
+
+                document.getElementById('save-note').addEventListener('click', function () {
+                    const noteText = document.getElementById('new-note').value;
+                    if (noteText.trim()) {
+                        totalNotes++;
+                        updateNotesStats();
+                        document.getElementById('new-note').value = '';
+                        showNotification('React note saved successfully!', 'success');
+                    }
+                });
+
+                document.getElementById('add-snippet').addEventListener('click', function () {
+                    const noteText = document.getElementById('new-note').value;
+                    if (noteText.trim()) {
+                        totalNotes++;
+                        updateNotesStats();
+                        document.getElementById('new-note').value = '';
+                        showNotification('React code snippet added to notes!', 'success');
+                    } else {
+                        showNotification('Please enter some React code or notes first', 'warning');
+                    }
+                });
+            }
+
+            // Generate sample notes list
+            function generateNotesList() {
+                const notes = [
+                    { title: 'useEffect Dependency Array Patterns', date: '1 day ago', content: 'Empty array runs once, with dependencies runs when deps change' },
+                    { title: 'Custom Hooks for API Calls', date: '3 days ago', content: 'Create reusable hooks for loading, error, and data states' },
+                    { title: 'React Router v6 Patterns', date: '1 week ago', content: 'UseRoutes hook, nested routes, and route guards' },
+                    { title: 'Context API vs Redux', date: '2 weeks ago', content: 'Context for simple state, Redux for complex applications' },
+                    { title: 'React Performance Optimization', date: '2 weeks ago', content: 'Memo, useCallback, useMemo, and code splitting' }
+                ];
+
+                return notes.map(note => `
+                    <div style="
+                        background: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        margin-bottom: 10px;
+                        border-left: 3px solid var(--react-primary);
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                        border: 1px solid rgba(97, 218, 251, 0.1);
+                    ">
+                        <div style="font-weight: 600; color: var(--react-secondary); margin-bottom: 5px;">
+                            ${note.title}
+                        </div>
+                        <div style="color: #666; font-size: 0.9rem; margin-bottom: 8px;">
+                            ${note.content}
+                        </div>
+                        <div style="color: #999; font-size: 0.8rem;">
+                            <i class="far fa-calendar"></i> ${note.date}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Logo Control Functions
+            function updateLogoSpeed() {
+                // Save original animation if not saved
+                if (!originalAnimation) {
+                    originalAnimation = mainReactLogo.style.animation;
+                }
+
+                // Update speed display
+                speedDisplay.textContent = `Speed: ${logoSpeed}x`;
+
+                if (isLogoPaused) {
+                    mainReactLogo.style.animationPlayState = 'paused';
+                } else {
+                    mainReactLogo.style.animationPlayState = 'running';
+
+                    // Calculate new animation durations based on speed
+                    const orbitDuration = 25 / logoSpeed;
+                    const spinDuration = 15 / logoSpeed;
+                    const glowDuration = 3 / logoSpeed;
+                    const floatDuration = 5 / logoSpeed;
+
+                    // Set new animation with direction
+                    const direction = isLogoReversed ? 'reverse' : 'normal';
+
+                    mainReactLogo.style.animation =
+                        `circularOrbit ${orbitDuration}s linear infinite ${direction}, 
+                         logoSpin ${spinDuration}s linear infinite ${direction}, 
+                         logoGlow ${glowDuration}s ease-in-out infinite, 
+                         logoFloat ${floatDuration}s ease-in-out infinite`;
+                }
+            }
+
+            // Speed Up Logo
+            speedUpBtn.addEventListener('click', function () {
+                logoSpeed = Math.min(logoSpeed + 0.5, 3);
+                updateLogoSpeed();
+                showNotification(`Logo speed increased to ${logoSpeed}x`, 'info');
+
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+
+            // Speed Down Logo
+            speedDownBtn.addEventListener('click', function () {
+                logoSpeed = Math.max(logoSpeed - 0.5, 0.5);
+                updateLogoSpeed();
+                showNotification(`Logo speed decreased to ${logoSpeed}x`, 'info');
+
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+
+            // Pause/Resume Logo
+            pauseBtn.addEventListener('click', function () {
+                isLogoPaused = !isLogoPaused;
+
+                if (isLogoPaused) {
+                    this.innerHTML = '<i class="fas fa-play"></i> Resume';
+                    showNotification('Logo animation paused', 'info');
+                } else {
+                    this.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                    showNotification('Logo animation resumed', 'info');
+                }
+
+                updateLogoSpeed();
+
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+
+            // Reverse Logo Direction
+            reverseBtn.addEventListener('click', function () {
+                isLogoReversed = !isLogoReversed;
+
+                if (isLogoReversed) {
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Forward';
+                    showNotification('Logo animation reversed', 'info');
+                } else {
+                    this.innerHTML = '<i class="fas fa-retweet"></i> Reverse';
+                    showNotification('Logo animation forward', 'info');
+                }
+
+                updateLogoSpeed();
+
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+
+            // Interactive logo on hover
+            mainReactLogo.addEventListener('mouseenter', function () {
+                // Store current speed
+                const currentSpeed = logoSpeed;
+                // Speed up on hover
+                logoSpeed = Math.min(currentSpeed * 1.5, 3);
+                updateLogoSpeed();
+                showNotification('Logo spinning faster!', 'info');
+            });
+
+            mainReactLogo.addEventListener('mouseleave', function () {
+                // Restore original speed
+                logoSpeed = logoSpeed / 1.5;
+                updateLogoSpeed();
+            });
+
+            // Show notification
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'info' ? '#3b82f6' : type === 'error' ? '#ef4444' : type === 'success' ? '#61dafb' : '#f59e0b'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 1001;
+                    animation: slideIn 0.3s ease;
+                    max-width: 300px;
+                `;
+
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'info' ? 'info-circle' : type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+
+                // Add CSS animations if not already added
+                if (!document.querySelector('#notification-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'notification-styles';
+                    style.textContent = `
+                        @keyframes slideIn {
+                            from { transform: translateX(100%); opacity: 0; }
+                            to { transform: translateX(0); opacity: 1; }
+                        }
+                        @keyframes slideOut {
+                            from { transform: translateX(0); opacity: 1; }
+                            to { transform: translateX(100%); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+
+            // Check if all steps are completed
+            function checkCompletion() {
+                if (completedSteps.size === timelineItems.length) {
+                    setTimeout(() => {
+                        showCompletionMessage();
+                    }, 500);
+                }
+            }
+
+            // Initialize logo controls
+            updateLogoSpeed();
+
+            // Initialize with a welcome message
+            setTimeout(() => {
+                showNotification('Welcome to React.js Learning Workflow! The React logo is orbiting around the header. Try the controls!', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

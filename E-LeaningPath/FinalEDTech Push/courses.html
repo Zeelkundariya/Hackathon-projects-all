@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .back-to-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .back-to-dashboard:hover {
+            background: rgba(67, 97, 238, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Courses Container */
+        .courses-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .courses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .courses-header h2 {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Courses Grid - Fixed to 2 columns */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .course-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .course-card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .course-level {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .level-beginner {
+            background: rgba(74, 222, 128, 0.2);
+            color: #16a34a;
+        }
+
+        .level-intermediate {
+            background: rgba(250, 204, 21, 0.2);
+            color: #ca8a04;
+        }
+
+        .level-advanced {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+        }
+
+        /* Improved Video Player Container */
+        .video-player-container {
+            width: 100%;
+            height: 280px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-frame-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .video-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .video-placeholder:hover {
+            background: linear-gradient(rgba(67, 97, 238, 0.8), rgba(58, 12, 163, 0.8)), linear-gradient(45deg, var(--primary), var(--secondary));
+            background-size: cover;
+            background-position: center;
+        }
+
+        .play-button-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 5;
+        }
+
+        .play-button-overlay:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Video Selection Grid */
+        .video-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Custom scrollbar */
+        .video-selection-grid::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .video-selection-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .video-selection-grid::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .video-selection-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        .video-select-btn {
+            background: rgba(67, 97, 238, 0.1);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-height: 70px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-select-btn:hover {
+            background: rgba(67, 97, 238, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .video-select-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .video-select-btn.completed {
+            border-left: 4px solid var(--success);
+        }
+
+        .video-select-btn i {
+            font-size: 1rem;
+        }
+
+        .video-select-btn span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .video-thumbnail-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .video-select-btn-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .completion-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-description {
+            margin: 15px 0;
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        /* Video Info Section */
+        .video-info-section {
+            background: rgba(67, 97, 238, 0.08);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-info-section i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .video-info-section span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .video-info-section small {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Progress Bar */
+        .course-progress {
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Improved Video Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .video-controls-left, .video-controls-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .video-control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .video-control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #22c55e;
+        }
+
+        /* Current Video Info */
+        .current-video-info {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 5;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .current-video-info .video-title {
+            font-weight: 500;
+            max-width: 70%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .current-video-info .video-duration {
+            color: #ccc;
+            font-size: 0.8rem;
+        }
+
+        /* Fullscreen Modal */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            flex-direction: column;
+        }
+
+        .fullscreen-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .fullscreen-video-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .fullscreen-video-frame {
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+        }
+
+        .close-fullscreen {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .close-fullscreen:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-selection-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .video-selection-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .courses-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .video-selection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .video-player-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .courses-container {
+                padding: 20px;
+            }
+            
+            .course-card-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .video-selection-grid {
+                grid-template-columns: 1fr;
+                max-height: 200px;
+            }
+            
+            .video-player-container {
+                height: 220px;
+            }
+            
+            .video-controls {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .video-controls-left, .video-controls-right {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Feedback Notification */
+        .feedback-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10001;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        .error-notification {
+            background: var(--danger);
+        }
+
+        .info-notification {
+            background: var(--warning);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>LearnSmart AI</span>
+                </a>
+                
+                <a href="index.html" class="back-to-dashboard">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </header>
+
+        <!-- Courses Container -->
+        <div class="courses-container">
+            <div class="courses-header">
+                <h2><i class="fas fa-graduation-cap"></i> My Courses</h2>
+                
+            </div>
+
+            <p>Continue your learning journey with these personalized courses. Each course includes video lessons, assignments, and assessments.</p>
+
+            <!-- Main 8 Subjects Grid -->
+            <div class="courses-grid" id="coursesGrid">
+                <!-- All 8 course cards will be generated by JavaScript -->
+            </div>
+
+            <!-- Fullscreen Video Modal -->
+            <div class="fullscreen-modal" id="fullscreenModal">
+                <div class="fullscreen-header">
+                    <div class="fullscreen-title" id="fullscreenTitle">Fullscreen Video</div>
+                    <button class="close-fullscreen" id="closeFullscreen">
+                        <i class="fas fa-times"></i> Exit Fullscreen
+                    </button>
+                </div>
+                <div class="fullscreen-video-container">
+                    <iframe class="fullscreen-video-frame" id="fullscreenVideoFrame" 
+                            src="" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced playlist data structure with all 8 subjects
+        const playlists = {
+            javascript: {
+                title: "JavaScript Mastery",
+                description: "Modern JavaScript from Basics to Advanced",
+                icon: "fab fa-js",
+                level: "intermediate",
+                duration: 8,
+                videos: [
+                    {
+                        id: "js_1",
+                        title: "Basics",
+                        fullTitle: "JavaScript Basics & Variables",
+                        embedUrl: "https://www.youtube.com/embed/W6NZfCO5SIk",
+                        duration: 420,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/W6NZfCO5SIk/hqdefault.jpg"
+                    },
+                    {
+                        id: "js_2",
+                        title: "Functions",
+                        fullTitle: "Functions & Scope in JavaScript",
+                        embedUrl: "https://www.youtube.com/embed/ajdRvxDWH4w",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/ajdRvxDWH4w/hqdefault.jpg"
+                    },
+                    {
+                        id: "js_3",
+                        title: "DOM",
+                        fullTitle: "DOM Manipulation Basics",
+                        embedUrl: "https://www.youtube.com/embed/5fb2aPlgoys",
+                        duration: 600,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/5fb2aPlgoys/hqdefault.jpg"
+                    },
+                    {
+                        id: "js_4",
+                        title: "ES6+",
+                        fullTitle: "ES6+ Features: Arrow Functions",
+                        embedUrl: "https://www.youtube.com/embed/iY8LlFRLpXQ?si=KaV12Pg90yXSHKsP",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/UBCPtXXMAWs/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAmcQr1Kc6l5-b31zLX1YyrUx_4RQ"
+                    },
+                    {
+                        id: "js_5",
+                        title: "Async",
+                        fullTitle: "Async JavaScript & Promises",
+                        embedUrl: "https://www.youtube.com/embed/d3jXofmQm44?si=yqpS83embQeXb3GS",
+                        duration: 900,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/d3jXofmQm44/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDmAKYWHR1l8ON0HMSFSi8_PJ67Dw"
+                    }
+                ]
+            },
+            python: {
+                title: "Python Programming",
+                description: "Data Science & Automation with Python",
+                icon: "fab fa-python",
+                level: "beginner",
+                duration: 7,
+                videos: [
+                    {
+                        id: "py_1",
+                        title: "Setup",
+                        fullTitle: "Python Installation & Setup",
+                        embedUrl: "https://www.youtube.com/embed/UrsmFxEIp5k",
+                        duration: 360,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/UrsmFxEIp5k/hqdefault.jpg"
+                    },
+                    {
+                        id: "py_2",
+                        title: "Variables",
+                        fullTitle: "Python Variables & Data Types",
+                        embedUrl: "https://www.youtube.com/embed/kqtD5dpn9C8",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/kqtD5dpn9C8/hqdefault.jpg"
+                    },
+                    {
+                        id: "py_3",
+                        title: "Functions",
+                        fullTitle: "Python Functions & Modules",
+                        embedUrl: "https://www.youtube.com/embed/OvTH-7ESoRA?si=k5SI43JxXqxjL5Ld",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/OvTH-7ESoRA/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDMXJLcIsnwFBzJ0RheUZPOogftTQ"
+                    },
+                    {
+                        id: "py_4",
+                        title: "Files",
+                        fullTitle: "Working with Files in Python",
+                        embedUrl: "https://www.youtube.com/embed/Uh2ebFW8OYM",
+                        duration: 600,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/Uh2ebFW8OYM/hqdefault.jpg"
+                    },
+                    {
+                        id: "py_5",
+                        title: "Analysis",
+                        fullTitle: "Python for Data Analysis",
+                        embedUrl: "https://www.youtube.com/embed/r-uOLxNrNk8",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/r-uOLxNrNk8/hqdefault.jpg"
+                    }
+                ]
+            },
+            html: {
+                title: "HTML & CSS Fundamentals",
+                description: "Build Beautiful, Responsive Websites",
+                icon: "fab fa-html5",
+                level: "beginner",
+                duration: 6,
+                videos: [
+                    {
+                        id: "html_1",
+                        title: "HTML Basics",
+                        fullTitle: "HTML Basics & Structure",
+                        embedUrl: "https://www.youtube.com/embed/HBqWsrqK89U",
+                        duration: 420,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/HBqWsrqK89U/hqdefault.jpg"
+                    },
+                    {
+                        id: "html_2",
+                        title: "CSS Basics",
+                        fullTitle: "CSS Selectors & Properties",
+                        embedUrl: "https://www.youtube.com/embed/1Rs2ND1ryYc",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/1Rs2ND1ryYc/hqdefault.jpg"
+                    },
+                    {
+                        id: "html_3",
+                        title: "Flexbox",
+                        fullTitle: "CSS Flexbox Layout",
+                        embedUrl: "https://www.youtube.com/embed/JJSoEo8JSnc",
+                        duration: 600,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/JJSoEo8JSnc/hqdefault.jpg"
+                    },
+                    {
+                        id: "html_4",
+                        title: "CSS Grid",
+                        fullTitle: "CSS Grid Layout",
+                        embedUrl: "https://www.youtube.com/embed/9zBsdzdE4sM",
+                        duration: 660,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/9zBsdzdE4sM/hqdefault.jpg"
+                    },
+                    {
+                        id: "html_5",
+                        title: "Responsive",
+                        fullTitle: "Responsive Web Design",
+                        embedUrl: "https://www.youtube.com/embed/srvUrASNj0s",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/srvUrASNj0s/hqdefault.jpg"
+                    }
+                ]
+            },
+            react: {
+                title: "React Development",
+                description: "Build Modern Web Applications",
+                icon: "fab fa-react",
+                level: "intermediate",
+                duration: 9,
+                videos: [
+                    {
+                        id: "react_1",
+                        title: "Intro",
+                        fullTitle: "React Introduction & Setup",
+                        embedUrl: "https://www.youtube.com/embed/FxgM9k1rg0Q",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/FxgM9k1rg0Q/hqdefault.jpg"
+                    },
+                    {
+                        id: "react_2",
+                        title: "Components",
+                        fullTitle: "React Components & Props",
+                        embedUrl: "https://www.youtube.com/embed/4UZrsTqkcW4",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/4UZrsTqkcW4/hqdefault.jpg"
+                    },
+                    {
+                        id: "react_3",
+                        title: "State",
+                        fullTitle: "React State & Hooks",
+                        embedUrl: "https://www.youtube.com/embed/9xhKH43llhU",
+                        duration: 600,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/9xhKH43llhU/hqdefault.jpg"
+                    },
+                    {
+                        id: "react_4",
+                        title: "Routing",
+                        fullTitle: "React Router & Navigation",
+                        embedUrl: "https://www.youtube.com/embed/Law7wfdg_ls",
+                        duration: 660,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/Law7wfdg_ls/hqdefault.jpg"
+                    },
+                    {
+                        id: "react_5",
+                        title: "Context",
+                        fullTitle: "React Context API",
+                        embedUrl: "https://www.youtube.com/embed/5LrDIWkK_Bc",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/5LrDIWkK_Bc/hqdefault.jpg"
+                    }
+                ]
+            },
+            algorithms: {
+                title: "Algorithms & Complexity",
+                description: "Master Problem Solving Techniques",
+                icon: "fas fa-sitemap",
+                level: "advanced",
+                duration: 10,
+                videos: [
+                    {
+                        id: "algo_1",
+                        title: "Basics",
+                        fullTitle: "Algorithm Basics & Complexity",
+                        embedUrl: "https://www.youtube.com/embed/u8JZ9gU5o4g",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/u8JZ9gU5o4g/hqdefault.jpg"
+                    },
+                    {
+                        id: "algo_2",
+                        title: "Sorting",
+                        fullTitle: "Sorting Algorithms Explained",
+                        embedUrl: "https://www.youtube.com/embed/WaNLJf8xzC4",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/WaNLJf8xzC4/hqdefault.jpg"
+                    },
+                    {
+                        id: "algo_3",
+                        title: "Searching",
+                        fullTitle: "Searching Algorithms",
+                        embedUrl: "https://www.youtube.com/embed/T98PIp4omUA",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/T98PIp4omUA/hqdefault.jpg"
+                    },
+                    {
+                        id: "algo_4",
+                        title: "DP",
+                        fullTitle: "Dynamic Programming",
+                        embedUrl: "https://www.youtube.com/embed/oBt53YbR9Kk",
+                        duration: 900,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/oBt53YbR9Kk/hqdefault.jpg"
+                    },
+                    {
+                        id: "algo_5",
+                        title: "Greedy",
+                        fullTitle: "Greedy Algorithms",
+                        embedUrl: "https://www.youtube.com/embed/HzeK7g8cD0Y",
+                        duration: 660,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/HzeK7g8cD0Y/hqdefault.jpg"
+                    }
+                ]
+            },
+            datastructures: {
+                title: "Data Structures",
+                description: "Master Linked Lists, Trees, Graphs & More",
+                icon: "fas fa-project-diagram",
+                level: "intermediate",
+                duration: 8,
+                videos: [
+                    {
+                        id: "ds_1",
+                        title: "Arrays",
+                        fullTitle: "Arrays & Linked Lists",
+                        embedUrl: "https://www.youtube.com/embed/VTLCoHnyACE",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/VTLCoHnyACE/hqdefault.jpg"
+                    },
+                    {
+                        id: "ds_2",
+                        title: "Stacks",
+                        fullTitle: "Stacks & Queues",
+                        embedUrl: "https://www.youtube.com/embed/wjI1WNcIntg",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/wjI1WNcIntg/hqdefault.jpg"
+                    },
+                    {
+                        id: "ds_3",
+                        title: "Trees",
+                        fullTitle: "Trees & Binary Search Trees",
+                        embedUrl: "https://www.youtube.com/embed/fAAZixBzIAI",
+                        duration: 660,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/fAAZixBzIAI/hqdefault.jpg"
+                    },
+                    {
+                        id: "ds_4",
+                        title: "Heaps",
+                        fullTitle: "Heaps & Priority Queues",
+                        embedUrl: "https://www.youtube.com/embed/t0Cq6tVNRBA",
+                        duration: 600,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/t0Cq6tVNRBA/hqdefault.jpg"
+                    },
+                    {
+                        id: "ds_5",
+                        title: "Graphs",
+                        fullTitle: "Graphs & Graph Algorithms",
+                        embedUrl: "https://www.youtube.com/embed/tWVWeAqZ0WU",
+                        duration: 720,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/tWVWeAqZ0WU/hqdefault.jpg"
+                    }
+                ]
+            },
+            c: {
+                title: "C Programming",
+                description: "Fundamentals of Systems Programming",
+                icon: "fas fa-c",
+                level: "intermediate",
+                duration: 7,
+                videos: [
+                    {
+                        id: "c_1",
+                        title: "Basics",
+                        fullTitle: "C Basics & Setup",
+                        embedUrl: "https://www.youtube.com/embed/irqbmMNs2Bo",
+                        duration: 450,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/irqbmMNs2Bo/hqdefault.jpg"
+                    },
+                    {
+                        id: "c_2",
+                        title: "Variables",
+                        fullTitle: "C Variables & Data Types",
+                        embedUrl: "https://www.youtube.com/embed/EcUGDTs4RyY?si=IFD57Qro_sNKcy19",
+                        duration: 480,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/EcUGDTs4RyY/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDugabTxZWpmiDbCJ6KOaV0aGWzuA"
+                    },
+                    {
+                        id: "c_3",
+                        title: "Functions",
+                        fullTitle: "C Functions & Recursion",
+                        embedUrl: "https://www.youtube.com/embed/Bd-1YM8taBc?si=XEVcOpI-FD0-q0d2",
+                        duration: 540,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/Bd-1YM8taBc/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAoVhFnmVbEOM4R_zPH5ltsKJaGRA"
+                    },
+                    {
+                        id: "c_4",
+                        title: "Pointers",
+                        fullTitle: "Pointers in C",
+                        embedUrl: "https://www.youtube.com/embed/mw1qsMieK5c",
+                        duration: 660,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://img.youtube.com/vi/mw1qsMieK5c/hqdefault.jpg"
+                    },
+                    {
+                        id: "c_5",
+                        title: "Arrays",
+                        fullTitle: "Arrays & Strings in C",
+                        embedUrl: "https://www.youtube.com/embed/aWKJ5lRgI3U?si=VjbRpqFIKSY_PGON",
+                        duration: 570,
+                        completed: false,
+                        watched: 0,
+                        thumbnail: "https://i.ytimg.com/vi/aWKJ5lRgI3U/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDDDsLrWNeD0W6RL_Qw27s0ri_SXA"
+                    }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const enrollNewBtn = document.getElementById('enrollNewBtn');
+        const coursesGrid = document.getElementById('coursesGrid');
+        const fullscreenModal = document.getElementById('fullscreenModal');
+        const closeFullscreen = document.getElementById('closeFullscreen');
+        const fullscreenVideoFrame = document.getElementById('fullscreenVideoFrame');
+        const fullscreenTitle = document.getElementById('fullscreenTitle');
+
+        // Current state
+        let currentCourses = {};
+        let videoProgressInterval = null;
+        let currentFullscreenCourse = null;
+        let currentFullscreenVideoIndex = null;
+        let isPlaying = {};
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+            // Clear localStorage to start fresh - REMOVE THIS LINE AFTER TESTING
+            // localStorage.removeItem('playlistProgress');
+            
+            // Load saved progress from localStorage
+            loadPlaylistProgress();
+            
+            // Generate all 8 course cards
+            generateCourseCards();
+            
+            // Initialize all course sections
+            initializeAllCourses();
+            
+            // Setup enroll new course button
+            enrollNewBtn.addEventListener('click', function() {
+                showNotification('Browse all available courses. Coming soon!', 'info');
+            });
+            
+            // Setup fullscreen modal close button
+            closeFullscreen.addEventListener('click', closeFullscreenVideo);
+            
+            // Close modal when clicking outside
+            fullscreenModal.addEventListener('click', function(e) {
+                if (e.target === fullscreenModal) {
+                    closeFullscreenVideo();
+                }
+            });
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && fullscreenModal.style.display === 'flex') {
+                    closeFullscreenVideo();
+                }
+            });
+            
+            console.log("Enhanced Courses page with 8 subjects initialized!");
+        });
+
+        function generateCourseCards() {
+            coursesGrid.innerHTML = '';
+            
+            Object.keys(playlists).forEach(courseName => {
+                const playlist = playlists[courseName];
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.id = `${courseName}CourseCard`;
+                
+                // Determine level class
+                let levelClass = 'level-intermediate';
+                if (playlist.level === 'beginner') levelClass = 'level-beginner';
+                if (playlist.level === 'advanced') levelClass = 'level-advanced';
+                
+                courseCard.innerHTML = `
+                    <div class="course-card-header">
+                        <div class="course-icon">
+                            <i class="${playlist.icon}"></i>
+                        </div>
+                        <div>
+                            <h3>${playlist.title}</h3>
+                            <p>${playlist.description}</p>
+                        </div>
+                    </div>
+                    <div class="course-card-body">
+                        <div class="course-meta">
+                            <span class="course-level ${levelClass}">${playlist.level.charAt(0).toUpperCase() + playlist.level.slice(1)}</span>
+                            <span><i class="far fa-clock"></i> ${playlist.duration} hours</span>
+                        </div>
+
+                        <!-- Video Player -->
+                        <div class="video-player-container">
+                            <div class="current-video-info">
+                                <div class="video-title" id="${courseName}CurrentVideoTitle">Select a video to start learning</div>
+                                <div class="video-duration" id="${courseName}CurrentVideoDuration">--:--</div>
+                            </div>
+                            <div class="video-player" id="${courseName}VideoPlayer">
+                                <!-- Video placeholder will be filled dynamically -->
+                            </div>
+                            
+                            <!-- Video Controls -->
+                            <div class="video-controls" id="${courseName}VideoControls" style="display: none;">
+                                <div class="video-controls-left">
+                                    // 
+                                </div>
+                                <div class="video-controls-right">
+                                    <button class="video-control-btn" id="${courseName}FullscreenBtn">
+                                        <i class="fas fa-expand"></i> Fullscreen
+                                    </button>
+                                    <button class="video-control-btn btn-success" id="${courseName}NextVideoBtn">
+                                        <i class="fas fa-forward"></i> Next
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+
+                        <!-- 5 Video Selection Buttons -->
+                        <div class="video-selection-grid" id="${courseName}VideoSelection">
+                            <!-- Videos will be loaded here -->
+                        </div>
+
+                        <div class="video-info-section">
+                            <i class="fas fa-list-ol"></i>
+                            <div>
+                                <span>Complete Playlist</span>
+                                <small>5 videos</small>
+                            </div>
+                        </div>
+
+                        <div class="course-description">
+                            ${playlist.description}
+                        </div>
+
+                        
+                    </div>
+                `;
+                
+                coursesGrid.appendChild(courseCard);
+            });
+        }
+
+        function loadPlaylistProgress() {
+            try {
+                const savedProgress = localStorage.getItem('playlistProgress');
+                if (savedProgress) {
+                    const progress = JSON.parse(savedProgress);
+                    Object.keys(progress).forEach(playlistName => {
+                        if (playlists[playlistName]) {
+                            playlists[playlistName].videos.forEach((video, index) => {
+                                if (progress[playlistName] && progress[playlistName][video.id]) {
+                                    playlists[playlistName].videos[index].watched = progress[playlistName][video.id].watched || 0;
+                                    playlists[playlistName].videos[index].completed = progress[playlistName][video.id].completed || false;
+                                }
+                            });
+                        }
+                    });
+                    console.log("Loaded playlist progress from localStorage");
+                } else {
+                    console.log("No saved progress found, starting fresh");
+                }
+            } catch (e) {
+                console.error("Error loading playlist progress:", e);
+            }
+        }
+
+        function savePlaylistProgress() {
+            try {
+                const progress = {};
+                Object.keys(playlists).forEach(playlistName => {
+                    progress[playlistName] = {};
+                    playlists[playlistName].videos.forEach(video => {
+                        progress[playlistName][video.id] = {
+                            watched: video.watched,
+                            completed: video.completed
+                        };
+                    });
+                });
+                localStorage.setItem('playlistProgress', JSON.stringify(progress));
+                console.log("Saved playlist progress to localStorage");
+            } catch (e) {
+                console.error("Error saving playlist progress:", e);
+            }
+        }
+
+        function initializeAllCourses() {
+            Object.keys(playlists).forEach(courseName => {
+                initializeCourseSection(courseName);
+                isPlaying[courseName] = false;
+            });
+        }
+
+        function initializeCourseSection(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            // Create video selection buttons with thumbnails
+            const videoSelectionContainer = document.getElementById(`${courseName}VideoSelection`);
+            if (!videoSelectionContainer) return;
+            
+            videoSelectionContainer.innerHTML = '';
+            
+            playlist.videos.forEach((video, index) => {
+                const videoBtn = document.createElement('button');
+                videoBtn.className = `video-select-btn ${video.completed ? 'completed' : ''}`;
+                videoBtn.dataset.videoIndex = index;
+                videoBtn.dataset.course = courseName;
+                
+                let icon = 'fas fa-play-circle';
+                if (video.completed) {
+                    icon = 'fas fa-check-circle';
+                }
+                
+                videoBtn.innerHTML = `
+                    <div class="video-thumbnail-overlay" style="background-image: url('${video.thumbnail}')"></div>
+                    <div class="video-select-btn-content">
+                        <i class="${icon}"></i>
+                        <span>${video.title}</span>
+                    </div>
+                `;
+                
+                videoBtn.addEventListener('click', () => {
+                    selectVideo(courseName, index);
+                });
+                
+                videoSelectionContainer.appendChild(videoBtn);
+            });
+            
+            // Initialize video placeholder
+            const videoPlayer = document.getElementById(`${courseName}VideoPlayer`);
+            if (videoPlayer) {
+                videoPlayer.innerHTML = `
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <p>Click play to start the video</p>
+                        <div class="play-button-overlay" id="${courseName}PlayButton">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                `;
+                
+                // Set up play button
+                const playButton = document.getElementById(`${courseName}PlayButton`);
+                if (playButton) {
+                    playButton.addEventListener('click', () => {
+                        const currentIndex = currentCourses[courseName]?.currentVideo || 0;
+                        playVideo(courseName, currentIndex);
+                    });
+                }
+            }
+            
+            // Set up mark complete button
+            const markCompleteBtn = document.getElementById(`${courseName}MarkCompleteBtn`);
+            if (markCompleteBtn) {
+                markCompleteBtn.addEventListener('click', () => {
+                    markCurrentVideoComplete(courseName);
+                });
+            }
+            
+            // Set up fullscreen button
+            const fullscreenBtn = document.getElementById(`${courseName}FullscreenBtn`);
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                    openFullscreenVideo(courseName);
+                });
+            }
+            
+            // Set up next video button
+            const nextVideoBtn = document.getElementById(`${courseName}NextVideoBtn`);
+            if (nextVideoBtn) {
+                nextVideoBtn.addEventListener('click', () => {
+                    playNextVideo(courseName);
+                });
+            }
+            
+            // Set up course mark complete button
+            const courseMarkCompleteBtn = document.getElementById(`${courseName}CourseMarkCompleteBtn`);
+            if (courseMarkCompleteBtn) {
+                courseMarkCompleteBtn.addEventListener('click', () => {
+                    markEntireCourseComplete(courseName);
+                });
+            }
+            
+            // Initialize current video to first video
+            currentCourses[courseName] = {
+                currentVideo: 0
+            };
+            
+            // Update progress display
+            updateCourseProgress(courseName);
+            
+            // Select first video (but don't play it)
+            selectVideo(courseName, 0, false);
+        }
+
+        function selectVideo(courseName, videoIndex, autoPlay = false) {
+            const playlist = playlists[courseName];
+            if (!playlist || videoIndex < 0 || videoIndex >= playlist.videos.length) {
+                return;
+            }
+            
+            const video = playlist.videos[videoIndex];
+            const videoPlayer = document.getElementById(`${courseName}VideoPlayer`);
+            const videoTitle = document.getElementById(`${courseName}CurrentVideoTitle`);
+            const videoDuration = document.getElementById(`${courseName}CurrentVideoDuration`);
+            
+            if (!videoPlayer || !videoTitle || !videoDuration) return;
+            
+            // Update current video index
+            currentCourses[courseName].currentVideo = videoIndex;
+            
+            // Update video info display
+            videoTitle.textContent = video.fullTitle;
+            videoDuration.textContent = formatDuration(video.duration);
+            
+            // Clear previous video and show placeholder with thumbnail
+            videoPlayer.innerHTML = `
+                <div class="video-placeholder" style="background-image: url('${video.thumbnail}')">
+                    <i class="fas fa-play-circle"></i>
+                    <div class="play-button-overlay" id="${courseName}PlayButton">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            `;
+            
+            // Re-attach play button event
+            const newPlayButton = document.getElementById(`${courseName}PlayButton`);
+            if (newPlayButton) {
+                newPlayButton.addEventListener('click', () => {
+                    playVideo(courseName, videoIndex);
+                });
+            }
+            
+            // Hide video controls initially
+            const videoControls = document.getElementById(`${courseName}VideoControls`);
+            if (videoControls) {
+                videoControls.style.display = 'none';
+            }
+            
+            // Update active state of video selection buttons
+            updateVideoSelectionButtons(courseName, videoIndex);
+            
+            // Auto-play if requested
+            if (autoPlay) {
+                playVideo(courseName, videoIndex);
+            }
+            
+            // Reset playing state
+            isPlaying[courseName] = false;
+        }
+
+        function playVideo(courseName, videoIndex) {
+            const playlist = playlists[courseName];
+            if (!playlist || videoIndex < 0 || videoIndex >= playlist.videos.length) {
+                return;
+            }
+            
+            const video = playlist.videos[videoIndex];
+            const videoPlayer = document.getElementById(`${courseName}VideoPlayer`);
+            const videoControls = document.getElementById(`${courseName}VideoControls`);
+            const videoTitle = document.getElementById(`${courseName}CurrentVideoTitle`);
+            const videoDuration = document.getElementById(`${courseName}CurrentVideoDuration`);
+            
+            if (!videoPlayer || !videoTitle || !videoDuration) return;
+            
+            // Update current video index
+            currentCourses[courseName].currentVideo = videoIndex;
+            
+            // Create iframe for YouTube video - START FROM BEGINNING (no start parameter)
+            const iframe = document.createElement('iframe');
+            iframe.src = `${video.embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1&showinfo=0`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            iframe.title = video.fullTitle;
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.frameBorder = "0";
+            iframe.className = "video-iframe";
+            
+            // Clear previous video and add new iframe
+            videoPlayer.innerHTML = '';
+            videoPlayer.appendChild(iframe);
+            
+            // Show video controls
+            if (videoControls) {
+                videoControls.style.display = 'flex';
+            }
+            
+            // Set playing state
+            isPlaying[courseName] = true;
+            
+            // Update active state of video selection buttons
+            updateVideoSelectionButtons(courseName, videoIndex);
+            
+            // Start progress tracking
+            startProgressTracking(courseName, videoIndex);
+        }
+
+        function openFullscreenVideo(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            const currentIndex = currentCourses[courseName].currentVideo;
+            const video = playlist.videos[currentIndex];
+            
+            currentFullscreenCourse = courseName;
+            currentFullscreenVideoIndex = currentIndex;
+            
+            // Set fullscreen video - START FROM BEGINNING
+            fullscreenVideoFrame.src = `${video.embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1&showinfo=0`;
+            fullscreenTitle.textContent = `${playlist.title} - ${video.fullTitle}`;
+            
+            // Show fullscreen modal
+            fullscreenModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFullscreenVideo() {
+            fullscreenModal.style.display = 'none';
+            fullscreenVideoFrame.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        function playNextVideo(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            const currentIndex = currentCourses[courseName].currentVideo;
+            const nextIndex = currentIndex + 1;
+            
+            if (nextIndex < playlist.videos.length) {
+                playVideo(courseName, nextIndex);
+            } else {
+                showNotification('This is the last video in the course!', 'info');
+            }
+        }
+
+        function updateVideoSelectionButtons(courseName, activeIndex) {
+            const buttons = document.querySelectorAll(`#${courseName}VideoSelection .video-select-btn`);
+            buttons.forEach((btn, index) => {
+                const video = playlists[courseName].videos[index];
+                btn.classList.remove('active');
+                
+                // Update completed status
+                if (video.completed) {
+                    btn.classList.add('completed');
+                    btn.innerHTML = `
+                        <div class="video-thumbnail-overlay" style="background-image: url('${video.thumbnail}')"></div>
+                        <div class="video-select-btn-content">
+                            <i class="fas fa-check-circle"></i>
+                            <span>${video.title}</span>
+                        </div>
+                    `;
+                } else {
+                    btn.classList.remove('completed');
+                    btn.innerHTML = `
+                        <div class="video-thumbnail-overlay" style="background-image: url('${video.thumbnail}')"></div>
+                        <div class="video-select-btn-content">
+                            <i class="fas fa-play-circle"></i>
+                            <span>${video.title}</span>
+                        </div>
+                    `;
+                }
+                
+                // Set active
+                if (index === activeIndex) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function markCurrentVideoComplete(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            const currentIndex = currentCourses[courseName].currentVideo;
+            const video = playlist.videos[currentIndex];
+            
+            if (!video.completed) {
+                video.watched = video.duration;
+                video.completed = true;
+                
+                console.log(`Marked video as complete: ${video.fullTitle}`);
+                
+                // Save progress
+                savePlaylistProgress();
+                
+                // Update displays
+                updateCourseProgress(courseName);
+                updateVideoSelectionButtons(courseName, currentIndex);
+                
+                // Show feedback
+                showNotification('Video marked as complete!', 'success');
+                
+                // Auto-play next video if available
+                const nextIndex = currentIndex + 1;
+                if (nextIndex < playlist.videos.length) {
+                    setTimeout(() => {
+                        playVideo(courseName, nextIndex);
+                    }, 1500);
+                }
+            } else {
+                showNotification('Video is already marked as complete!', 'info');
+            }
+        }
+
+        function markEntireCourseComplete(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            let completedCount = 0;
+            
+            playlist.videos.forEach(video => {
+                if (!video.completed) {
+                    video.watched = video.duration;
+                    video.completed = true;
+                    completedCount++;
+                }
+            });
+            
+            if (completedCount > 0) {
+                // Save progress
+                savePlaylistProgress();
+                
+                // Update displays
+                updateCourseProgress(courseName);
+                updateVideoSelectionButtons(courseName, currentCourses[courseName].currentVideo);
+                
+                // Show feedback
+                showNotification(`${completedCount} videos marked as complete! Course completed!`, 'success');
+            } else {
+                showNotification('Course is already complete!', 'info');
+            }
+        }
+
+        function startProgressTracking(courseName, videoIndex) {
+            // Clear any existing interval
+            if (videoProgressInterval) {
+                clearInterval(videoProgressInterval);
+            }
+            
+            const playlist = playlists[courseName];
+            const video = playlist.videos[videoIndex];
+            
+            // Only start tracking if video is not already completed
+            if (video && !video.completed && isPlaying[courseName]) {
+                videoProgressInterval = setInterval(() => {
+                    if (!video.completed && isPlaying[courseName]) {
+                        // Add 5 seconds of progress (only when video is playing)
+                        const oldWatched = video.watched;
+                        video.watched = Math.min(video.watched + 5, video.duration);
+                        
+                        // Check if completed
+                        if (video.watched >= video.duration) {
+                            video.completed = true;
+                            console.log("Video completed!");
+                            showNotification('Congratulations! You have completed this video!', 'success');
+                            updateCourseProgress(courseName);
+                            updateVideoSelectionButtons(courseName, videoIndex);
+                            
+                            // Stop tracking
+                            clearInterval(videoProgressInterval);
+                        }
+                        
+                        // Save progress
+                        savePlaylistProgress();
+                        
+                        // Update progress bar for this specific video
+                        updateVideoProgress(courseName, videoIndex);
+                    }
+                }, 5000); // Every 5 seconds when video is playing
+            }
+        }
+
+        function updateVideoProgress(courseName, videoIndex) {
+            const playlist = playlists[courseName];
+            const video = playlist.videos[videoIndex];
+            
+            if (!video) return;
+            
+            // Calculate progress percentage for this specific video
+            const videoProgressPercent = Math.round((video.watched / video.duration) * 100);
+            
+            // You could update a visual indicator here if needed
+            // For now, we just log it
+            console.log(`${courseName} - ${video.title}: ${videoProgressPercent}% watched`);
+        }
+
+        function updateCourseProgress(courseName) {
+            const playlist = playlists[courseName];
+            if (!playlist) return;
+            
+            const totalVideos = playlist.videos.length;
+            const completedVideos = playlist.videos.filter(v => v.completed).length;
+            const progressPercent = Math.round((completedVideos / totalVideos) * 100);
+            
+            // Update progress bar
+            const progressBar = document.getElementById(`${courseName}CourseProgress`);
+            if (progressBar) {
+                progressBar.style.width = `${progressPercent}%`;
+            }
+            
+            // Update completion stat
+            const completionStat = document.getElementById(`${courseName}CompletionStat`);
+            if (completionStat) {
+                completionStat.textContent = `${progressPercent}% completed`;
+            }
+            
+            // Show/hide completion badge
+            const completionBadge = document.getElementById(`${courseName}CompletionBadge`);
+            if (completionBadge) {
+                if (progressPercent === 100) {
+                    completionBadge.style.display = 'block';
+                } else {
+                    completionBadge.style.display = 'none';
+                }
+            }
+        }
+
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `feedback-notification ${type === 'error' ? 'error-notification' : type === 'info' ? 'info-notification' : ''}`;
+            
+            let icon = 'fas fa-check-circle';
+            if (type === 'error') icon = 'fas fa-exclamation-circle';
+            if (type === 'info') icon = 'fas fa-info-circle';
+            
+            notification.innerHTML = `
+                <i class="${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after animation
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

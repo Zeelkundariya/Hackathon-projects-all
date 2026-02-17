@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning Workflow | LearnSmart AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap">
+    <style>
+        :root {
+            --python-primary: #3776ab;
+            --python-secondary: #306998;
+            --python-accent: #ffd343;
+            --python-light: #f8f9fa;
+            --python-dark: #1a1a1a;
+            --python-gray: #5a5a5a;
+            --python-light-gray: #f5f5f5;
+            --python-card-bg: #ffffff;
+            --python-timeline: #306998;
+            --python-notes: #3776ab;
+            --python-progress: #3776ab;
+            --python-success: #4ade80;
+            --python-warning: #f59e0b;
+            --python-danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--python-dark);
+            line-height: 1.6;
+            padding: 0;
+            background: linear-gradient(135deg, #fefefe 0%, #f8f9fa 100%);
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--python-primary), #2e6395);
+            color: white;
+            padding: 40px 0;
+            padding-left: 30px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(55, 118, 171, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "PY";
+            position: absolute;
+            top: -50px;
+            right: 30px;
+            font-size: 250px;
+            font-weight: 900;
+            opacity: 0.1;
+            font-family: 'JetBrains Mono', monospace;
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 25px;
+            margin-right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--python-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--python-gray);
+            font-weight: 500;
+        }
+
+        /* Main layout */
+        .workflow-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .workflow-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: var(--python-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(55, 118, 171, 0.3);
+        }
+
+        .section-title h2 {
+            color: var(--python-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--python-primary), #2e6395);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--python-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--python-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(55, 118, 171, 0.15);
+            background: white;
+        }
+
+        .timeline-item.active {
+            border-left: 6px solid var(--python-primary);
+            background: linear-gradient(to right, rgba(55, 118, 171, 0.08), rgba(55, 118, 171, 0.02));
+            box-shadow: 0 5px 15px rgba(55, 118, 171, 0.15);
+        }
+
+        .timeline-item.completed {
+            border-left-color: var(--python-primary);
+            background-color: rgba(55, 118, 171, 0.1);
+        }
+
+        .timeline-item.completed .timeline-title::after {
+            color: var(--python-primary);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -47.5px;
+            top: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--python-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(55, 118, 171, 0.3);
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: var(--python-primary);
+            color: white;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--python-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-title i {
+            color: var(--python-primary);
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: rgba(55, 118, 171, 0.1);
+            color: var(--python-primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            border: 1px solid rgba(55, 118, 171, 0.2);
+        }
+
+        .timeline-description {
+            color: var(--python-gray);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .timeline-resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .resource-tag {
+            background: rgba(55, 118, 171, 0.1);
+            color: var(--python-primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(55, 118, 171, 0.2);
+            transition: all 0.2s;
+        }
+
+        .resource-tag:hover {
+            background: rgba(55, 118, 171, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .resource-tag i {
+            font-size: 0.8rem;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--python-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: var(--python-light-gray);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--python-primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--python-primary);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--python-gray);
+        }
+
+        .time-estimate {
+            background: rgba(55, 118, 171, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--python-primary);
+        }
+
+        .time-estimate h4 {
+            margin-bottom: 10px;
+            color: var(--python-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-breakdown {
+            margin-top: 15px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(55, 118, 171, 0.3);
+        }
+
+        .time-item:last-child {
+            border-bottom: none;
+        }
+
+        .time-item.total {
+            font-weight: 600;
+            color: var(--python-primary);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(55, 118, 171, 0.3);
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: var(--python-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            background: rgba(55, 118, 171, 0.05);
+            border-radius: 12px;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .tip-item:hover {
+            transform: translateX(8px);
+            background: rgba(55, 118, 171, 0.1);
+            border-color: rgba(55, 118, 171, 0.3);
+        }
+
+        .tip-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--python-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(55, 118, 171, 0.3);
+        }
+
+        .tip-content h4 {
+            margin-bottom: 8px;
+            color: var(--python-primary);
+            font-size: 1.1rem;
+        }
+
+        .tip-content p {
+            color: var(--python-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(55, 118, 171, 0.2);
+            color: var(--python-gray);
+            font-size: 0.9rem;
+            background: rgba(55, 118, 171, 0.03);
+            border-radius: 16px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--python-primary), #2e6395);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(55, 118, 171, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(55, 118, 171, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-marker {
+                left: -32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section, .progress-section, .tips-section {
+                padding: 20px;
+            }
+        }
+
+        /* Notes section */
+        .notes-section {
+            background: var(--python-card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--python-primary);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .notes-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--python-primary), #2e6395);
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .notes-title {
+            color: var(--python-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .notes-count {
+            background: rgba(55, 118, 171, 0.1);
+            color: var(--python-primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(55, 118, 171, 0.3);
+        }
+
+        .notes-content {
+            margin-bottom: 25px;
+        }
+
+        .notes-summary {
+            color: var(--python-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .notes-stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(55, 118, 171, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .note-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .note-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--python-primary);
+            margin-bottom: 5px;
+        }
+
+        .note-stat-label {
+            font-size: 0.85rem;
+            color: var(--python-gray);
+        }
+
+        /* Notes Button */
+        .notes-button {
+            position: relative;
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--python-primary), #2e6395);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(55, 118, 171, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .notes-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(55, 118, 171, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .notes-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .notes-button:hover::before {
+            left: 100%;
+        }
+
+        .notes-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .notes-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .recent-notes {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(55, 118, 171, 0.2);
+        }
+
+        .recent-notes h4 {
+            color: var(--python-gray);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-preview {
+            background: rgba(55, 118, 171, 0.05);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--python-primary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(55, 118, 171, 0.1);
+        }
+
+        .note-preview:hover {
+            background: rgba(55, 118, 171, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(55, 118, 171, 0.3);
+        }
+
+        .note-preview-title {
+            font-weight: 600;
+            color: var(--python-dark);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .note-preview-date {
+            font-size: 0.8rem;
+            color: var(--python-gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Animation for active item */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(55, 118, 171, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(55, 118, 171, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(55, 118, 171, 0); }
+        }
+
+        .timeline-item.active {
+            animation: pulse 2s infinite;
+        }
+
+        /* Progress animation */
+        @keyframes progressFill {
+            from { stroke-dashoffset: 565; }
+            to { stroke-dashoffset: 0; }
+        }
+        
+        /* Completed steps styling */
+        .timeline-item.completed .timeline-marker {
+            background: var(--python-primary);
+            color: white;
+        }
+        
+        .completed-stats {
+            background: rgba(55, 118, 171, 0.1);
+            color: var(--python-primary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(55, 118, 171, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1><i class="fab fa-python"></i> Python Programming Mastery</h1>
+                    <p>A comprehensive step-by-step guide to master Python from fundamentals to advanced concepts with timeline and progress tracking</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-weeks">12</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-lessons">60</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-projects">8</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="workflow-container">
+            <!-- Main Content - Timeline -->
+            <main>
+                <section class="timeline-section">
+                    <div class="section-title">
+                        <h2><i class="fas fa-road"></i> Python Learning Roadmap</h2>
+                    </div>
+                    
+                    <div class="timeline">
+                        <!-- Week 1 -->
+                        <div class="timeline-item active" data-step="1">
+                            <div class="timeline-marker">1</div>
+                            <h3 class="timeline-title"><i class="fas fa-code"></i> Python Fundamentals</h3>
+                            <span class="timeline-duration">Week 1-2</span>
+                            <p class="timeline-description">Learn Python basics: variables, data types, operators, and basic syntax. Understand Python's philosophy and set up development environment.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-play-circle"></i> Interactive Tutorial</span>
+                                <span class="resource-tag"><i class="fas fa-file-code"></i> Code Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-question-circle"></i> Q&A Session</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 2 -->
+                        <div class="timeline-item completed" data-step="2">
+                            <div class="timeline-marker">2</div>
+                            <h3 class="timeline-title"><i class="fas fa-sitemap"></i> Control Structures</h3>
+                            <span class="timeline-duration">Week 3</span>
+                            <p class="timeline-description">Master conditional statements, loops, and functions. Learn about function definitions, parameters, return values, and scope.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-puzzle-piece"></i> Logic Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-code"></i> Function Challenges</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 3 -->
+                        <div class="timeline-item completed" data-step="3">
+                            <div class="timeline-marker">3</div>
+                            <h3 class="timeline-title"><i class="fas fa-cube"></i> Data Structures</h3>
+                            <span class="timeline-duration">Week 4</span>
+                            <p class="timeline-description">Work with lists, tuples, dictionaries, and sets. Learn list comprehensions, dictionary methods, and efficient data manipulation.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-database"></i> Data Manipulation</span>
+                                <span class="resource-tag"><i class="fas fa-list"></i> List Methods</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 4 -->
+                        <div class="timeline-item completed" data-step="4">
+                            <div class="timeline-marker">4</div>
+                            <h3 class="timeline-title"><i class="fas fa-bolt"></i> File Handling</h3>
+                            <span class="timeline-duration">Week 5</span>
+                            <p class="timeline-description">Learn to read and write files in Python. Work with CSV, JSON, and text files. Handle file exceptions and context managers.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-file-alt"></i> File Operations</span>
+                                <span class="resource-tag"><i class="fas fa-window-restore"></i> Context Managers</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 5 -->
+                        <div class="timeline-item" data-step="5">
+                            <div class="timeline-marker">5</div>
+                            <h3 class="timeline-title"><i class="fas fa-rocket"></i> Object-Oriented Programming</h3>
+                            <span class="timeline-duration">Week 6</span>
+                            <p class="timeline-description">Master classes, objects, inheritance, polymorphism, and encapsulation. Design Pythonic classes with properties and methods.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> OOP Exercises</span>
+                                <span class="resource-tag"><i class="fas fa-book"></i> Design Patterns</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 6 -->
+                        <div class="timeline-item" data-step="6">
+                            <div class="timeline-marker">6</div>
+                            <h3 class="timeline-title"><i class="fas fa-cogs"></i> Error Handling</h3>
+                            <span class="timeline-duration">Week 7</span>
+                            <p class="timeline-description">Understand exception handling with try-except blocks. Create custom exceptions and implement proper error handling strategies.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-exclamation-triangle"></i> Exception Handling</span>
+                                <span class="resource-tag"><i class="fas fa-shield-alt"></i> Robust Code</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 7 -->
+                        <div class="timeline-item" data-step="7">
+                            <div class="timeline-marker">7</div>
+                            <h3 class="timeline-title"><i class="fas fa-brain"></i> Modules & Packages</h3>
+                            <span class="timeline-duration">Week 8</span>
+                            <p class="timeline-description">Create and use Python modules and packages. Work with pip and virtual environments. Understand Python's module system.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-box-open"></i> Module Systems</span>
+                                <span class="resource-tag"><i class="fas fa-project-diagram"></i> Package Management</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 8 -->
+                        <div class="timeline-item" data-step="8">
+                            <div class="timeline-marker">8</div>
+                            <h3 class="timeline-title"><i class="fas fa-tools"></i> Web Development with Flask</h3>
+                            <span class="timeline-duration">Week 9</span>
+                            <p class="timeline-description">Build web applications with Flask. Learn routing, templates, forms, and database integration. Create RESTful APIs.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-globe"></i> Web Applications</span>
+                                <span class="resource-tag"><i class="fas fa-server"></i> REST APIs</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 9 -->
+                        <div class="timeline-item" data-step="9">
+                            <div class="timeline-marker">9</div>
+                            <h3 class="timeline-title"><i class="fas fa-shield-alt"></i> Data Analysis with Pandas</h3>
+                            <span class="timeline-duration">Week 10</span>
+                            <p class="timeline-description">Analyze data with Pandas DataFrames. Clean, transform, and visualize data. Work with NumPy for numerical computing.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-chart-line"></i> Data Analysis</span>
+                                <span class="resource-tag"><i class="fas fa-cog"></i> Pandas & NumPy</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 10 -->
+                        <div class="timeline-item" data-step="10">
+                            <div class="timeline-marker">10</div>
+                            <h3 class="timeline-title"><i class="fas fa-vial"></i> Testing & Debugging</h3>
+                            <span class="timeline-duration">Week 11</span>
+                            <p class="timeline-description">Learn testing frameworks (pytest), write unit tests, and debug Python code effectively. Implement test-driven development.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-vial"></i> Testing</span>
+                                <span class="resource-tag"><i class="fas fa-bug"></i> Debugging</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 11 -->
+                        <div class="timeline-item" data-step="11">
+                            <div class="timeline-marker">11</div>
+                            <h3 class="timeline-title"><i class="fas fa-project-diagram"></i> Automation & Scripting</h3>
+                            <span class="timeline-duration">Week 12</span>
+                            <p class="timeline-description">Create automation scripts for file management, web scraping, and system administration tasks. Use libraries like requests and BeautifulSoup.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-robot"></i> Automation</span>
+                                <span class="resource-tag"><i class="fas fa-tasks"></i> Scripting</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Week 12 -->
+                        <div class="timeline-item" data-step="12">
+                            <div class="timeline-marker">12</div>
+                            <h3 class="timeline-title"><i class="fas fa-database"></i> Database Integration</h3>
+                            <span class="timeline-duration">Week 13</span>
+                            <p class="timeline-description">Connect Python to databases (SQLite, PostgreSQL). Use SQLAlchemy ORM for database operations and manage database connections.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-database"></i> Database Operations</span>
+                                <span class="resource-tag"><i class="fas fa-sync-alt"></i> ORM</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Week -->
+                        <div class="timeline-item" data-step="13">
+                            <div class="timeline-marker">13</div>
+                            <h3 class="timeline-title"><i class="fas fa-project-diagram"></i> Capstone Project</h3>
+                            <span class="timeline-duration">Week 14</span>
+                            <p class="timeline-description">Build a complete Python application integrating all concepts learned. Choose from: Web App, Data Analysis Tool, Automation Script, or API Service.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-code"></i> Project Templates</span>
+                                <span class="resource-tag"><i class="fas fa-tasks"></i> Step-by-Step Guide</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Final Week -->
+                        <div class="timeline-item" data-step="14">
+                            <div class="timeline-marker">14</div>
+                            <h3 class="timeline-title"><i class="fas fa-trophy"></i> Review & Certification</h3>
+                            <span class="timeline-duration">Week 14+</span>
+                            <p class="timeline-description">Review all concepts, complete final assessment, and earn your Python certification. Prepare for job interviews with common Python questions.</p>
+                            <div class="timeline-resources">
+                                <span class="resource-tag"><i class="fas fa-question"></i> Interview Prep</span>
+                                <span class="resource-tag"><i class="fas fa-certificate"></i> Certification</span>
+                                <span class="resource-tag"><i class="fas fa-clipboard-check"></i> Final Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tips Section -->
+                <section class="tips-section">
+                    <h2 class="section-title"><i class="fas fa-lightbulb"></i> Python Learning Tips</h2>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Practice Daily</h4>
+                            <p>Consistency is key to mastering Python. Write code every day, even if it's just small exercises or solving problems on platforms like LeetCode or HackerRank.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Read Pythonic Code</h4>
+                            <p>Study open-source Python projects on GitHub. Learn to write Pythonic code by following PEP 8 guidelines and understanding Python's philosophy.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Build Real Projects</h4>
+                            <p>Apply concepts by building projects. Start with simple scripts, then move to web apps, data analysis tools, or automation scripts. Projects solidify learning better than tutorials.</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Join Python Community</h4>
+                            <p>Participate in Python communities like Stack Overflow, Reddit (r/Python), and local meetups. Learning from others accelerates your growth and exposes you to different approaches.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside>
+                <!-- Progress Section -->
+                <section class="progress-section">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Learning Progress</h2>
+                    
+                    
+                    
+                    <div class="time-estimate">
+                        <h4><i class="fas fa-clock"></i> Time Estimate</h4>
+                        <p>Complete roadmap in 12-14 weeks with 8-10 hours/week study time.</p>
+                        
+                        <div class="time-breakdown">
+                            <div class="time-item">
+                                <span>Fundamentals</span>
+                                <span>5 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Intermediate</span>
+                                <span>5 weeks</span>
+                            </div>
+                            <div class="time-item">
+                                <span>Advanced</span>
+                                <span>4 weeks</span>
+                            </div>
+                            <div class="time-item total">
+                                <span>Total Estimated Time</span>
+                                <span>96-140 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Notes Section -->
+                <section class="notes-section">
+                    <div class="notes-header">
+                        <h3 class="notes-title"><i class="fas fa-sticky-note"></i> Learning Notes</h3>
+                        <span class="notes-count" id="notes-count">24 Notes</span>
+                    </div>
+                    
+                    <div class="notes-content">
+                        <p class="notes-summary">
+                            Keep track of important concepts, code snippets, and personal insights as you progress through your Python learning journey.
+                        </p>
+                        
+                        <div class="notes-stats">
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="recent-notes">6</div>
+                                <div class="note-stat-label">Recent</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="code-snippets">12</div>
+                                <div class="note-stat-label">Code Snippets</div>
+                            </div>
+                            <div class="note-stat">
+                                <div class="note-stat-value" id="important-notes">6</div>
+                                <div class="note-stat-label">Important</div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-notes">
+                            <h4><i class="fas fa-history"></i> Recent Notes</h4>
+                            <div class="note-preview">
+                                <div class="note-preview-title">List Comprehensions vs For Loops</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 day ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">Dictionary Methods and Use Cases</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 3 days ago</div>
+                            </div>
+                            <div class="note-preview">
+                                <div class="note-preview-title">File Handling with Context Managers</div>
+                                <div class="note-preview-date"><i class="far fa-calendar"></i> 1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="learningpath.html" class="backbtn" style="background-color :rgba(55, 118, 171, 1); padding: 1.5vw; border-radius: 10px; text-decoration: none; color: white; ">Back to Learning Paths </a>
+            <br>
+            <br>
+            <br>
+            <p>C Language Workflow • LearnSmart AI • Estimated completion: 12 weeks with consistent practice</p>
+            
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressCircle = document.querySelector('.progress-circle-fill');
+            const completedCount = document.getElementById('completed-count');
+            const completedStats = document.getElementById('completed-stats');
+            const backButton = document.getElementById('back-to-templates');
+            const viewNotesBtn = document.getElementById('view-notes-btn');
+            const notesCount = document.getElementById('notes-count');
+            const recentNotes = document.getElementById('recent-notes');
+            const codeSnippets = document.getElementById('code-snippets');
+            const importantNotes = document.getElementById('important-notes');
+            
+            // State management
+            let currentStep = 1;
+            let completedSteps = new Set([2, 3, 4]); // Initially mark steps 2,3,4 as completed
+            let totalNotes = 24;
+            
+            // Initialize
+            updateProgress();
+            updateNotesStats();
+            
+            // Calculate circumference for progress circle
+            const radius = 90;
+            const circumference = 2 * Math.PI * radius;
+            progressCircle.style.strokeDasharray = `${circumference}`;
+            
+            // Update progress visualization
+            function updateProgress() {
+                const totalSteps = timelineItems.length;
+                const completed = completedSteps.size;
+                const percent = Math.round((completed / totalSteps) * 100);
+                
+                // Update progress percentage
+                progressPercent.textContent = `${percent}%`;
+                
+                // Update progress circle
+                const offset = circumference - (percent / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+                
+                // Update completed count
+                completedCount.textContent = `${completed}/${totalSteps} Steps`;
+                completedStats.textContent = `${completed}/${totalSteps} Completed`;
+                
+                // Update timeline items UI
+                timelineItems.forEach(item => {
+                    const step = parseInt(item.getAttribute('data-step'));
+                    
+                    // Remove all state classes
+                    item.classList.remove('active', 'completed');
+                    
+                    // Add appropriate classes
+                    if (completedSteps.has(step)) {
+                        item.classList.add('completed');
+                    } else if (step === currentStep) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Scroll to current step
+            function scrollToCurrentStep() {
+                const currentItem = document.querySelector(`.timeline-item[data-step="${currentStep}"]`);
+                if (currentItem) {
+                    currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Add pulse animation
+                    currentItem.style.animation = 'none';
+                    setTimeout(() => {
+                        currentItem.style.animation = 'pulse 2s infinite';
+                    }, 10);
+                }
+            }
+            
+            // Click on timeline item to set as current
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    if (step !== currentStep) {
+                        currentStep = step;
+                        updateProgress();
+                        scrollToCurrentStep();
+                    }
+                });
+            });
+            
+            // Back to templates button
+            backButton.addEventListener('click', function() {
+                if (confirm('Return to Learning Path Templates?')) {
+                    showNotification('Navigating back to Learning Path Templates...', 'info');
+                }
+            });
+            
+            // View Notes Button functionality
+            viewNotesBtn.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Show notes modal/alert
+                const stepTitles = [
+                    'Python Fundamentals',
+                    'Control Structures',
+                    'Data Structures',
+                    'File Handling',
+                    'Object-Oriented Programming',
+                    'Error Handling',
+                    'Modules & Packages',
+                    'Web Development with Flask',
+                    'Data Analysis with Pandas',
+                    'Testing & Debugging',
+                    'Automation & Scripting',
+                    'Database Integration',
+                    'Capstone Project',
+                    'Review & Certification'
+                ];
+                
+                const currentTitle = stepTitles[currentStep - 1] || 'Python Learning';
+                
+                showNotesModal(currentTitle);
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' && currentStep < timelineItems.length) {
+                    currentStep++;
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                    currentStep--;
+                    updateProgress();
+                    scrollToCurrentStep();
+                } else if (e.key === ' ') {
+                    // Space toggles completion
+                    if (!completedSteps.has(currentStep)) {
+                        completedSteps.add(currentStep);
+                        updateProgress();
+                    } else {
+                        completedSteps.delete(currentStep);
+                        updateProgress();
+                    }
+                }
+            });
+            
+            // Add auto-note when clicking on note previews
+            document.querySelectorAll('.note-preview').forEach((note, index) => {
+                note.addEventListener('click', function() {
+                    const noteTitles = [
+                        'List Comprehensions vs For Loops',
+                        'Dictionary Methods and Use Cases',
+                        'File Handling with Context Managers'
+                    ];
+                    
+                    if (index < noteTitles.length) {
+                        showNotification(`Opening note: ${noteTitles[index]}`, 'info');
+                    }
+                });
+            });
+            
+            // Update notes statistics
+            function updateNotesStats() {
+                notesCount.textContent = `${totalNotes} Notes`;
+                recentNotes.textContent = Math.min(6, Math.floor(totalNotes/4));
+                codeSnippets.textContent = Math.floor(totalNotes/2);
+                importantNotes.textContent = Math.floor(totalNotes/4);
+            }
+            
+            // Show completion message
+            function showCompletionMessage() {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 40px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 500px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border: 5px solid var(--python-primary);
+                    ">
+                        <div style="font-size: 4rem; color: var(--python-primary); margin-bottom: 20px;">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 style="color: var(--python-primary); margin-bottom: 15px;">Congratulations!</h2>
+                        <p style="color: var(--python-gray); margin-bottom: 25px; line-height: 1.6;">
+                            You've completed all steps in the Python Learning Workflow! You've mastered Python from fundamentals to advanced concepts.
+                        </p>
+                        <button id="close-modal" style="
+                            background: linear-gradient(135deg, var(--python-primary), #2e6395);
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            font-size: 1rem;
+                            box-shadow: 0 4px 15px rgba(55, 118, 171, 0.3);
+                        ">
+                            Continue Learning
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                document.getElementById('close-modal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+            }
+            
+            // Show notes modal
+            function showNotesModal(currentTitle) {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                modal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 30px;
+                        border-radius: 16px;
+                        max-width: 600px;
+                        max-height: 80vh;
+                        overflow-y: auto;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        border-top: 5px solid var(--python-primary);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--python-primary); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-book-open"></i> Python Notes
+                            </h3>
+                            <button id="close-notes-modal" style="
+                                background: none;
+                                border: none;
+                                font-size: 1.5rem;
+                                color: var(--python-gray);
+                                cursor: pointer;
+                            ">&times;</button>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--python-primary); margin-bottom: 10px;">Current Step: ${currentTitle}</h4>
+                            <p style="color: var(--python-gray); line-height: 1.6; margin-bottom: 20px;">
+                                Take notes for the current step or review your previous notes. Notes are automatically saved to your learning profile.
+                            </p>
+                        </div>
+                        <div style="background: rgba(55, 118, 171, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(55, 118, 171, 0.1);">
+                            <h5 style="color: var(--python-primary); margin-bottom: 10px;">Add New Note</h5>
+                            <textarea id="new-note" placeholder="Type your note here..." style="
+                                width: 100%;
+                                height: 100px;
+                                padding: 12px;
+                                border: 1px solid rgba(55, 118, 171, 0.3);
+                                border-radius: 8px;
+                                font-family: inherit;
+                                margin-bottom: 10px;
+                                resize: vertical;
+                                background: white;
+                            "></textarea>
+                            <button id="save-note" style="
+                                background: linear-gradient(135deg, var(--python-primary), #2e6395);
+                                color: white;
+                                border: none;
+                                padding: 10px 20px;
+                                border-radius: 8px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                box-shadow: 0 4px 10px rgba(55, 118, 171, 0.2);
+                            ">
+                                <i class="fas fa-save"></i> Save Note
+                            </button>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--python-primary); margin-bottom: 15px;">Recent Notes (${totalNotes} total)</h5>
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                ${generateNotesList()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                document.getElementById('close-notes-modal').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+                
+                document.getElementById('save-note').addEventListener('click', function() {
+                    const noteText = document.getElementById('new-note').value;
+                    if (noteText.trim()) {
+                        totalNotes++;
+                        updateNotesStats();
+                        document.getElementById('new-note').value = '';
+                        showNotification('Note saved successfully!', 'success');
+                    }
+                });
+            }
+            
+            // Generate sample notes list
+            function generateNotesList() {
+                const notes = [
+                    {title: 'List Comprehensions vs For Loops', date: '1 day ago', content: 'List comprehensions are more Pythonic and often faster for simple transformations.'},
+                    {title: 'Dictionary Methods and Use Cases', date: '3 days ago', content: 'Use .get() to avoid KeyError, .items() for iteration, and .setdefault() for default values.'},
+                    {title: 'File Handling with Context Managers', date: '1 week ago', content: 'Always use "with" statement for file operations to ensure proper resource cleanup.'},
+                    {title: 'Python Decorators', date: '2 weeks ago', content: 'Functions that modify other functions. Useful for logging, timing, and authentication.'},
+                    {title: 'Virtual Environments', date: '2 weeks ago', content: 'Use venv or conda to isolate project dependencies and avoid version conflicts.'}
+                ];
+                
+                return notes.map(note => `
+                    <div style="
+                        background: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        margin-bottom: 10px;
+                        border-left: 3px solid var(--python-primary);
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                        border: 1px solid rgba(55, 118, 171, 0.1);
+                    ">
+                        <div style="font-weight: 600; color: var(--python-dark); margin-bottom: 5px;">
+                            ${note.title}
+                        </div>
+                        <div style="color: var(--python-gray); font-size: 0.9rem; margin-bottom: 8px;">
+                            ${note.content}
+                        </div>
+                        <div style="color: #999; font-size: 0.8rem;">
+                            <i class="far fa-calendar"></i> ${note.date}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Show notification
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3776ab'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 1001;
+                    animation: slideIn 0.3s ease;
+                    max-width: 300px;
+                `;
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+                
+                // Add CSS animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Add CSS animation for pulse effect
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(55, 118, 171, 0.4); }
+                    70% { box-shadow: 0 0 0 10px rgba(55, 118, 171, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(55, 118, 171, 0); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Check if all steps are completed
+            function checkCompletion() {
+                if (completedSteps.size === timelineItems.length) {
+                    setTimeout(showCompletionMessage, 500);
+                }
+            }
+            
+            // Initialize with current step active
+            scrollToCurrentStep();
+        });
+    </script>
+</body>
+</html>

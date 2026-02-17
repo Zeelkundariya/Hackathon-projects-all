@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .search-section {
+            padding: 25px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .location-btn {
+            width: 100%;
+            padding: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .location-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .location-btn:active {
+            transform: translateY(0);
+        }
+
+        .location-status {
+            text-align: center;
+            padding: 15px;
+            background: #e6f7ff;
+            color: #1890ff;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .weather-result {
+            padding: 30px 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .location {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .coordinates {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .temperature {
+            font-size: 4rem;
+            font-weight: 300;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .weather-icon {
+            font-size: 5rem;
+            margin: 10px 0;
+            color: #667eea;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-transform: capitalize;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .detail-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #718096;
+            font-size: 0.8rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .last-updated {
+            color: #a0aec0;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .temperature {
+                font-size: 3rem;
+            }
+            
+            .weather-icon {
+                font-size: 4rem;
+            }
+            
+            .weather-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-map-marker-alt"></i> Live Weather</h1>
+            <p>Get real-time weather for your exact location</p>
+        </div>
+        
+        <div class="search-section">
+            <button class="location-btn" onclick="getLiveLocationWeather()">
+                <i class="fas fa-location-arrow"></i> 
+                GET MY LIVE LOCATION WEATHER
+            </button>
+            
+            <div class="location-status" id="locationStatus">
+                <i class="fas fa-map-marker-alt"></i> 
+                <span id="statusText">Finding your location...</span>
+            </div>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Getting your live weather data...</p>
+        </div>
+        
+        <div class="weather-result" id="weatherResult">
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="locationName">Your Location</span>
+            </div>
+            <div class="coordinates" id="coordinates">
+                Latitude: 0.0000, Longitude: 0.0000
+            </div>
+            
+            <div class="weather-icon" id="weatherIcon">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="temperature" id="temperature">--°C</div>
+            <div class="description" id="description">--</div>
+            
+            <div class="weather-details">
+                <div class="detail-card">
+                    <div class="detail-value" id="feelsLike">--</div>
+                    <div class="detail-label">Feels Like</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-value" id="humidity">--%</div>
+                    <div class="detail-label">Humidity</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-value" id="windSpeed">-- km/h</div>
+                    <div class="detail-label">Wind Speed</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-value" id="pressure">-- hPa</div>
+                    <div class="detail-label">Pressure</div>
+                </div>
+            </div>
+            
+            <div class="last-updated" id="lastUpdated">
+                Last updated: --
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Powered by Open-Meteo API • 100% Free & Unlimited</p>
+        </div>
+    </div>
+
+    <script>
+        // FREE APIs we're using:
+        // 1. Browser Geolocation API - Gets your live coordinates
+        // 2. Open-Meteo Weather API - Gets weather data (FREE, no key needed)
+        // 3. Open-Meteo Geocoding API - Converts coordinates to location name
+
+        async function getLiveLocationWeather() {
+            console.log("🚀 Starting live location weather detection...");
+            
+            // Reset UI
+            hideError();
+            hideWeatherResult();
+            showLoading();
+            updateLocationStatus("Finding your location...");
+            
+            // Step 1: Check if browser supports geolocation
+            if (!navigator.geolocation) {
+                showError("Your browser doesn't support geolocation. Please update your browser.");
+                return;
+            }
+
+            try {
+                // Step 2: Get user's current position
+                updateLocationStatus("Getting your precise location...");
+                
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        enableHighAccuracy: true,  // Get precise location
+                        timeout: 10000,           // 10 seconds timeout
+                        maximumAge: 0             // Don't use cached location
+                    });
+                });
+
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const accuracy = position.coords.accuracy;
+                
+                console.log(`📍 Location found: ${latitude}, ${longitude} (Accuracy: ${accuracy}m)`);
+                updateLocationStatus(`Location found! Accuracy: ${Math.round(accuracy)} meters`);
+
+                // Step 3: Get weather data using coordinates
+                updateLocationStatus("Fetching live weather data...");
+                await getWeatherData(latitude, longitude);
+
+            } catch (error) {
+                console.error("❌ Location error:", error);
+                handleLocationError(error);
+            }
+        }
+
+        async function getWeatherData(latitude, longitude) {
+            try {
+                console.log("🌤️ Getting weather data from API...");
+                
+                // FIXED: Correct API parameters to get all needed data
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,surface_pressure,wind_speed_10m,weather_code&hourly=&daily=&timezone=auto`;
+                
+                console.log("🌐 Calling Weather API:", weatherUrl);
+                
+                const weatherResponse = await fetch(weatherUrl);
+                
+                if (!weatherResponse.ok) {
+                    throw new Error(`Weather API error: ${weatherResponse.status}`);
+                }
+                
+                const weatherData = await weatherResponse.json();
+                console.log("✅ Weather data received:", weatherData);
+                
+                // Step 4: Get location name from coordinates
+                const locationName = await getLocationName(latitude, longitude);
+                
+                // Step 5: Display everything
+                displayWeatherData(locationName, latitude, longitude, weatherData);
+                
+            } catch (error) {
+                console.error("❌ Weather API error:", error);
+                showError(`Failed to get weather data: ${error.message}`);
+            }
+        }
+
+        async function getLocationName(latitude, longitude) {
+            try {
+                console.log("🏙️ Getting location name from coordinates...");
+                
+                // FREE GEOCODING API - No key needed!
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${latitude}&longitude=${longitude}&language=en&format=json`;
+                
+                console.log("🌐 Calling Geocoding API:", geoUrl);
+                
+                const geoResponse = await fetch(geoUrl);
+                
+                if (!geoResponse.ok) {
+                    return "Your Location";
+                }
+                
+                const geoData = await geoResponse.json();
+                console.log("📍 Geocoding response:", geoData);
+                
+                if (geoData.results && geoData.results.length > 0) {
+                    const location = geoData.results[0];
+                    let name = location.name || "";
+                    
+                    // Build location name hierarchy
+                    if (location.admin1 && location.admin1 !== location.name) {
+                        name += name ? `, ${location.admin1}` : location.admin1;
+                    }
+                    if (location.country && location.country !== location.name) {
+                        name += name ? `, ${location.country}` : location.country;
+                    }
+                    
+                    // If we still don't have a name, use coordinates
+                    if (!name.trim()) {
+                        name = `Location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`;
+                    }
+                    
+                    console.log("✅ Location name found:", name);
+                    return name;
+                }
+                
+                return `Location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`;
+                
+            } catch (error) {
+                console.error("❌ Geocoding error:", error);
+                return `Location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`;
+            }
+        }
+
+        function displayWeatherData(locationName, latitude, longitude, weatherData) {
+            console.log("🎨 Displaying weather data...");
+            
+            const current = weatherData.current;
+            
+            // Update location information
+            document.getElementById('locationName').textContent = locationName;
+            document.getElementById('coordinates').textContent = 
+                `Latitude: ${latitude.toFixed(4)}, Longitude: ${longitude.toFixed(4)}`;
+            
+            // Update weather information
+            document.getElementById('temperature').textContent = `${Math.round(current.temperature_2m)}°C`;
+            
+            const weatherInfo = getWeatherDescriptionAndIcon(current.weather_code);
+            document.getElementById('description').textContent = weatherInfo.description;
+            document.getElementById('weatherIcon').innerHTML = `<i class="fas fa-${weatherInfo.icon}"></i>`;
+            
+            // Get humidity, pressure, and feels like from current data
+            const humidity = current.relative_humidity_2m ? `${current.relative_humidity_2m}%` : '--%';
+            const pressure = current.surface_pressure ? `${Math.round(current.surface_pressure)} hPa` : '-- hPa';
+            
+            // FIXED: Get descriptive "Feels Like" term
+            const feelsLikeDescription = getFeelsLikeDescription(current.temperature_2m, current.relative_humidity_2m, current.wind_speed_10m);
+            
+            // Update detailed weather information
+            document.getElementById('feelsLike').textContent = feelsLikeDescription;
+            document.getElementById('humidity').textContent = humidity;
+            document.getElementById('windSpeed').textContent = `${current.wind_speed_10m} km/h`;
+            document.getElementById('pressure').textContent = pressure;
+            
+            // Update last updated time
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent = 
+                `Last updated: ${now.toLocaleTimeString()}`;
+            
+            // Show results
+            hideLoading();
+            hideLocationStatus();
+            showWeatherResult();
+            
+            console.log("✅ Weather display completed!");
+            console.log("📈 Final data - Humidity:", humidity, "Pressure:", pressure, "Feels Like:", feelsLikeDescription);
+        }
+
+        function getFeelsLikeDescription(temperature, humidity, windSpeed) {
+            // Calculate heat index for hot conditions
+            let feelsLikeTemp = temperature;
+            
+            if (temperature >= 27 && humidity >= 40) {
+                // Simplified heat index calculation
+                feelsLikeTemp = temperature + 0.1 * humidity;
+            }
+            
+            // Adjust for wind chill in cold conditions
+            if (temperature <= 10 && windSpeed > 5) {
+                // Simplified wind chill calculation
+                feelsLikeTemp = temperature - (windSpeed * 0.2);
+            }
+            
+            // Determine descriptive term based on feels like temperature
+            if (feelsLikeTemp >= 35) return "Scorching";
+            if (feelsLikeTemp >= 30) return "Very Hot";
+            if (feelsLikeTemp >= 27) return "Hot";
+            if (feelsLikeTemp >= 24) return "Warm";
+            if (feelsLikeTemp >= 21) return "Pleasant";
+            if (feelsLikeTemp >= 18) return "Mild";
+            if (feelsLikeTemp >= 15) return "Cool";
+            if (feelsLikeTemp >= 10) return "Chilly";
+            if (feelsLikeTemp >= 5) return "Cold";
+            if (feelsLikeTemp >= 0) return "Very Cold";
+            return "Freezing";
+        }
+
+        function getWeatherDescriptionAndIcon(weatherCode) {
+            const weatherMap = {
+                0: { description: "Clear sky", icon: "sun" },
+                1: { description: "Mainly clear", icon: "sun" },
+                2: { description: "Partly cloudy", icon: "cloud-sun" },
+                3: { description: "Overcast", icon: "cloud" },
+                45: { description: "Fog", icon: "smog" },
+                48: { description: "Fog", icon: "smog" },
+                51: { description: "Light drizzle", icon: "cloud-rain" },
+                53: { description: "Moderate drizzle", icon: "cloud-rain" },
+                55: { description: "Dense drizzle", icon: "cloud-rain" },
+                61: { description: "Slight rain", icon: "cloud-rain" },
+                63: { description: "Moderate rain", icon: "cloud-rain" },
+                65: { description: "Heavy rain", icon: "cloud-showers-heavy" },
+                80: { description: "Rain showers", icon: "cloud-rain" },
+                81: { description: "Moderate rain showers", icon: "cloud-rain" },
+                82: { description: "Violent rain showers", icon: "cloud-showers-heavy" },
+                95: { description: "Thunderstorm", icon: "bolt" }
+            };
+            
+            return weatherMap[weatherCode] || { description: "Unknown", icon: "question" };
+        }
+
+        function handleLocationError(error) {
+            let errorMessage = "Unable to get your location.";
+            
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "Location access denied. Please allow location access in your browser settings.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information unavailable. Please check your GPS/internet connection.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "Location request timed out. Please try again.";
+                    break;
+            }
+            
+            showError(errorMessage);
+            hideLoading();
+            hideLocationStatus();
+        }
+
+        // UI Helper Functions
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showError(message) {
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error').textContent = message;
+        }
+
+        function hideError() {
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function showWeatherResult() {
+            document.getElementById('weatherResult').style.display = 'block';
+        }
+
+        function hideWeatherResult() {
+            document.getElementById('weatherResult').style.display = 'none';
+        }
+
+        function updateLocationStatus(message) {
+            const statusElement = document.getElementById('locationStatus');
+            const statusText = document.getElementById('statusText');
+            
+            statusText.textContent = message;
+            statusElement.style.display = 'block';
+        }
+
+        function hideLocationStatus() {
+            document.getElementById('locationStatus').style.display = 'none';
+        }
+
+        // Auto-refresh weather every 5 minutes
+        setInterval(() => {
+            if (document.getElementById('weatherResult').style.display === 'block') {
+                console.log("🔄 Auto-refreshing weather data...");
+                getLiveLocationWeather();
+            }
+        }, 300000); // 5 minutes
+
+        // Initialize
+        console.log("🌤️ Live Location Weather App Ready!");
+        console.log("Click the button to get your live location weather!");
+    </script>
+</body>
+</html>

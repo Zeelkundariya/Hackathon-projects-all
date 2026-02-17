@@ -1,0 +1,67 @@
+[dotenv@17.2.4] injecting env (3) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+🚀 Starting server initialization...
+📦 Dependencies loaded...
+🛠️ Middleware configured (Logging + Nuclear CORS)...
+🛠️ Middleware configured (with Private Network Support)...
+📁 Storage initialized...
+📡 Attempting to listen on 127.0.0.1:3001...
+
+🎯 AI Contract Risk Scanner Backend
+✅ Server running on http://localhost:3001
+❌ OpenAI Status Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+
+📊 Available Endpoints:
+   POST /api/analyze      - Analyze contract
+   POST /api/analyze/file - AI OCR Analysis
+   POST /api/detect/realtime - Real-time scanning
+   GET  /api/health       - Health check
+   GET  /api/history      - Analysis history
+   GET  /api/standards/:industry - Industry standards
+
+💡 Tip: To use real AI, add your OpenAI API key to .env file
+[REQUEST] POST /api/analyze - Origin: chrome-extension://ijcjipjlpbbfjpfgkghddjloebkcpikn
+🔍 Analyzing contract for individual...
+🤖 Using smart mock analysis for role: individual
+[REQUEST] POST /api/analyze - Origin: chrome-extension://ijcjipjlpbbfjpfgkghddjloebkcpikn
+🔍 Analyzing contract for individual...
+🤖 Using smart mock analysis for role: individual
+[REQUEST] POST /api/chat - Origin: chrome-extension://ijcjipjlpbbfjpfgkghddjloebkcpikn
+💬 AI Chat requested (Message length: 39)
+❌ Chat API error: RateLimitError: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at APIError.generate (C:\Users\zeelk\OneDrive\Desktop\Al Risk Scanner\contract-scanner\backend\node_modules\openai\core\error.js:63:20)
+    at OpenAI.makeStatusError (C:\Users\zeelk\OneDrive\Desktop\Al Risk Scanner\contract-scanner\backend\node_modules\openai\client.js:165:32)
+    at OpenAI.makeRequest (C:\Users\zeelk\OneDrive\Desktop\Al Risk Scanner\contract-scanner\backend\node_modules\openai\client.js:333:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async C:\Users\zeelk\OneDrive\Desktop\Al Risk Scanner\contract-scanner\backend\server.js:236:24 {
+  status: 429,
+  headers: Headers {
+    date: 'Wed, 11 Feb 2026 14:22:49 GMT',
+    'content-type': 'application/json; charset=utf-8',
+    'content-length': '337',
+    connection: 'keep-alive',
+    vary: 'Origin',
+    'x-request-id': 'req_26c70a0c186644f8aac6865e3855bf7d',
+    'x-openai-proxy-wasm': 'v0.1',
+    server: 'cloudflare',
+    'cf-cache-status': 'DYNAMIC',
+    'set-cookie': '__cf_bm=K9RtcIK9CRD4gFdYK9pAivR2ZH82IKtiJEf_xp3l98c-1770819769.1709588-1.0.1.1-ptfx5o5gbxVT.hKwf2zO3yDGF36Psh10rYfrvyivzOO.SwQMCPeClWeZeYPQM2lfLtRqWcP.ae6mpwduENL0u32a_RkH2xOFeMHgGtDaOYBe_98Tn4peVSDjd1FwMUGv; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 11 Feb 2026 14:52:49 GMT, _cfuvid=vCnwrVnISkmsdCxsHlms5XBZHh1lMJaD8svWJ82EiHs-1770819769.1709588-1.0.1.1-EbNsfJa8x5WXMxOvyWahwVwZ.XwH1_0lTipBIzPwaHg; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com',
+    'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
+    'x-content-type-options': 'nosniff',
+    'cf-ray': '9cc4802548279a87-NAG',
+    'alt-svc': 'h3=":443"; ma=86400'
+  },
+  requestID: 'req_26c70a0c186644f8aac6865e3855bf7d',
+  error: {
+    message: 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.',
+    type: 'insufficient_quota',
+    param: null,
+    code: 'insufficient_quota'
+  },
+  code: 'insufficient_quota',
+  param: null,
+  type: 'insufficient_quota'
+}
+[REQUEST] OPTIONS /api/analyze - Origin: http://localhost:3000
+[REQUEST] POST /api/analyze - Origin: http://localhost:3000
+🔍 Analyzing contract for individual...
+🤖 Using smart mock analysis for role: individual

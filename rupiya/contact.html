@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - rupiya.app</title>
+    <link rel="stylesheet" href="contact.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    <style>
+        /* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden; /* Prevents scrollbars from animations */
+}
+
+/* --- NEW: Animation Styles --- */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-section {
+    /* Set initial state for animation */
+    opacity: 0; 
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+    /* Add spacing between sections */
+    margin-top: 3rem;
+}
+.page-section:first-child {
+    margin-top: 0;
+}
+
+/* Stagger the animations */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+
+
+/* --- 1. Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4%; /* Padding top/bottom and left/right */
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+}
+
+.nav-menu ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2.5rem; /* Space between links */
+}
+
+.nav-menu li {
+    transition: transform 0.2s ease-out;
+}
+.nav-menu li:hover:not(.dropdown) {
+    transform: translateY(-2px); /* Lift animation */
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #3d8c40; /* Green on hover */
+}
+
+.login-btn {
+    background-color: #3d8c40;
+    color: white !important; /* Force white text */
+    padding: 10px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #2a632c;
+    color: white !important;
+    transform: translateY(-2px); /* Lift animation */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Resources Dropdown Styles --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /* top: 100%; */
+    /* left: 500px; */
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1001;
+}
+
+.dropdown-content li {
+    list-style: none;
+}
+.dropdown-content li:hover {
+    transform: none; /* Disable lift for dropdown items */
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    white-space: nowrap;
+}
+
+/* This is the green hover effect you requested */
+.dropdown-content a:hover {
+    background-color: #d4e8d8; /* Light green background */
+    color: #3d8c40; /* Dark green text */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* --- 2. Main Content Section (Form + Map) --- */
+.contact-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap on mobile */
+    justify-content: center;
+    align-items: flex-start; /* Aligns items to the top */
+    gap: 2rem;
+    padding: 3rem 4%; /* Padding top/bottom and left/right */
+    /* This overrides the .page-section margin-top */
+    margin-top: 3rem !important;
+}
+
+/* --- Left Column: Form --- */
+.contact-form-container {
+    flex: 1; /* Allows it to grow */
+    min-width: 300px;
+    max-width: 550px;
+    background-color: #b9d986; /* Light green background */
+    padding: 2.5rem;
+    border-radius: 20px;
+}
+
+.contact-form-container h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.contact-form-container input {
+    width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 1rem;
+    border: 1px solid #d4e5b3; /* Lighter green border */
+    background-color: #f0f7e6; /* Very light green input bg */
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    transition: box-shadow 0.3s;
+}
+
+.contact-form-container input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(61, 140, 64, 0.3); /* Focus animation */
+}
+
+.contact-form-container input::placeholder {
+    color: #555;
+    font-weight: 500;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-row input {
+    margin-bottom: 0; /* Remove double margin */
+}
+
+.send-btn {
+    display: block;
+    margin: 1.5rem auto 0; /* Center the button */
+    background-color: #3d8c40;
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.send-btn:hover {
+    background-color: #2a632c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Right Column: Map --- */
+.map-container {
+    flex: 1; /* Allows it to grow */
+    min-width: 300px;
+    max-width: 450px;
+    height: 480px;
+    border-radius: 20px;
+    overflow: hidden; /* Clips the iframe to the rounded corners */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out, box-shadow 0.3s;
+}
+
+.map-container:hover {
+    transform: scale(1.02); /* Slight zoom on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- 3. "Only One App" Banner --- */
+.app-banner {
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center; /* Horizontally centers the two items */
+    gap: 3rem; /* Space between the image and the text */
+    background-color: #b0d37d; /* Light green from image */
+    width: 100%;
+    padding: 1.5rem 5%; /* Padding top/bottom and left/right */
+    overflow: hidden; 
+}
+
+.banner-image {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+}
+
+.banner-image img {
+    height: 280px; /* Set a fixed height */
+    width: auto;
+    display: block; /* Removes any extra bottom space */
+    transform: translateY(15px); 
+    transition: transform 0.3s ease-out;
+}
+.app-banner:hover .banner-image img {
+    transform: translateY(10px) scale(1.05); /* Slight lift on hover */
+}
+
+.banner-content {
+    flex-grow: 1; /* Allows the text block to take up remaining space */
+    max-width: 500px; /* Constrains the text width */
+    z-index: 2; /* Ensures text is on top */
+}
+
+.banner-content h1,
+.banner-content h2 {
+    color: #ffffff;
+    font-size: 2.75rem; /* Large font size */
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.banner-content h2 {
+    margin-bottom: 1.5rem; /* Space between text and button */
+}
+
+.download-btn {
+    background-color: #3d8c40; /* Dark green */
+    color: white;
+    padding: 12px 28px;
+    border-radius: 25px; /* Pill shape */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    display: inline-block; /* Allows padding and margin */
+    transition: all 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #2a632c; /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- 4. Footer --- */
+.footer-container {
+    width: 100%;
+    background-color: #f7f7f5; /* Light beige background */
+    padding-top: 4rem;
+    border-top: 1px solid #eee; /* Light border */
+}
+
+.footer-main {
+    display: flex;
+    flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    gap: 2rem; 
+}
+
+.footer-column {
+    flex: 1; 
+    min-width: 250px; 
+}
+
+.footer-column.about p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.policy-links {
+    margin-bottom: 1.5rem;
+}
+
+.policy-links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 1.5rem;
+    transition: color 0.3s;
+}
+
+.policy-links a:hover {
+    color: #3d8c40; 
+}
+
+.app-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.app-buttons img {
+    height: 40px; 
+    transition: transform 0.3s;
+}
+.app-buttons img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.footer-column.links h3 {
+    color: #3d8c40; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-column.links ul {
+    list-style: none;
+}
+
+.footer-column.links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-column.links a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-column.links a:hover {
+    color: #3d8c40;
+}
+
+.footer-logo img {
+    height: 45px; 
+    margin-bottom: 1.5rem;
+}
+
+.contact-info {
+    list-style: none;
+}
+
+.contact-info li {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info i {
+    color: #3d8c40;
+    margin-right: 10px;
+    margin-top: 4px; 
+    width: 20px; 
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #3d8c40;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: #2a632c; 
+    transform: translateY(-3px); /* Lift on hover */
+}
+
+.footer-bottom {
+    background-color: #3d8c40;
+    color: white;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+}
+
+.footer-bottom .copyright,
+.footer-bottom .designer {
+    margin: 5px 0;
+}
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 900px) {
+    .nav-menu {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .contact-section {
+        padding: 2rem 1rem;
+        flex-direction: column-reverse; /* Stack map on top of form */
+    }
+    .contact-form-container {
+        padding: 2rem 1.5rem;
+    }
+    .map-container {
+        width: 100%;
+        max-width: 100%;
+        height: 300px; /* Adjust height for mobile */
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .app-banner {
+        flex-direction: column-reverse; 
+        padding-top: 2rem;
+        padding-bottom: 0;
+        text-align: center;
+    }
+    .banner-image img {
+        height: 200px; 
+        transform: translateY(10px); 
+    }
+    .banner-content {
+        max-width: 100%;
+    }
+    .banner-content h1,
+    .banner-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .footer-main {
+        flex-direction: column;
+        padding: 0 1.5rem;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo" class="logo-image">
+        </a>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href=""</li>
+                 <li><a href="farmer.html">Farmer</a></li>
+                <li><a href="buyer.html">Buyer</a></li>
+                <li><a href="carbon.html">Carbon Credit</a></li>
+                <li><a href="product.html">Products</a></li>
+             
+                
+                <li class="dropdown">
+                    <a href="#">Resources ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="blog.html">Blogs</a></li>
+                        <li><a href="career.html">Career</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section class="contact-section page-section">
+            <div class="contact-form-container">
+                <h2>Contact Us</h2>
+                <form action="#">
+                    <input type="text" placeholder="Name:" required>
+                    <input type="text" placeholder="Company Name:" required>
+                    
+                    <div class="form-row">
+                        <input type="text" placeholder="State:" required>
+                        <input type="text" placeholder="City:" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <input type="tel" placeholder="Contact No.:" required>
+                        <input type="email" placeholder="Email:" required>
+                    </div>
+                    
+                    <button type="submit" class="send-btn">Send</button>
+                </form>
+            </div>
+
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.831518531102!2d72.58330721496924!3d23.10309198491206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e83c921c3272d%3A0xe5a22830f6b7c533!2sRUPYA%20PANOVATIONS%20PRIVET%20LIMITED!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin"  
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+        <section class="app-banner page-section delay-1">
+            <div class="banner-image">
+                <img src="https://rupiya.app/wp-content/uploads/2025/03/28791df4e7a601a71a980a2686c54d3d-1.png" alt="Illustration of a farmer holding a phone">
+            </div>
+            
+            <div class="banner-content">
+                <h1>Only One App</h1>
+                <h2>That's All A Farmer Need</h2>
+                <a href="#" class="download-btn">Download Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-container page-section delay-2">
+        <div class="footer-main">
+            
+            <div class="footer-column about">
+                <p>
+                    rupiya.app offers farmers a complete set of tools for 
+                    success. With features like satellite monitoring, soil 
+                    testing, personalized advice, and more, we simplify 
+                    farming. Plus, our platform provides access to 
+                    agricultural loans, ensuring the support needed for 
+                    growth.
+                </p>
+                <div class="policy-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Refund Policy</a>
+                    <a href="#">Terms Of Use</a>
+                </div>
+                <div class="app-buttons">
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play"></a>
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1000px-Download_on_the_App_Store_Badge.svg.png" alt="Download on the App Store"></a>
+                </div>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Smart Farming</a></li>
+                    <li><a href="#">Carbon credit</a></li>
+                    <li><a href="#">Recharge</a></li>
+                    <li><a href="#">Bookings</a></li>
+                    <li><a href="#">Loan service</a></li>
+                    <li><a href="#">Gold solutions</a></li>
+                    <li><a href="#">Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Career</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column contact">
+                <a href="#" class="footer-logo">
+                    <img src="https://rupiya.app/wp-content/uploads/2025/02/Asset-1-1-1536x414.png.webp" alt="rupiya.app logo">
+                </a> 
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> info@rupiya.app</li>
+                    <li><i class="fas fa-phone"></i> +91 79 4100 6237</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Corporate Office: 1005 - 1006 Ganesh Glory, Jagatpur Road, Off SG Highway, Ahmedabad 382481.</li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">©Copyright 2025 rupiya.app | All rights reserved</p>
+            <p class="designer">Designed By Cravity Studio</p>
+        </div>
+    </footer>
+
+</body>
+</html>

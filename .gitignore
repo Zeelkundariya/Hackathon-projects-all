@@ -1,0 +1,16 @@
+node_modules/
+.venv/
+venv/
+.env
+.DS_Store
+dist/
+build/
+.next/
+.git/
+# But not the root .git
+!/.git/
+# Nested .git folders can be problematic, but we'll deal with them
+**/node_modules/
+**/.venv/
+**/.env
+**/.git/
