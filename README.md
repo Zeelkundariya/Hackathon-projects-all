@@ -44,4 +44,10 @@ This repository contains a collection of projects developed for various hackatho
 *   **Description**: A specialized digital ecosystem for farmers aimed at improving agricultural yields and financial inclusion. Includes modules for crop disease scanning, fertilizer advice, weather forecasting, and a marketplace for carbon credits.
 *   **Tech Stack**: HTML5, CSS3, JavaScript.
 
+---
+
+### 8. Google Meet - Smart Meeting Experience (`Google-Meet`)
+*   **Description**: A modern reimagination of Google Meet featuring a smart participant grid, real-time communication, and a comprehensive meeting analytics dashboard. It includes active speaker detection, screen sharing, and engagement metrics.
+*   **Tech Stack**: React (Vite), Node.js, Express, Socket.io, MongoDB, WebRTC, Tailwind CSS, Framer Motion, Recharts.
+
 
